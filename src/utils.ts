@@ -8,10 +8,10 @@ export interface BoardState {
 }
 
 /**
- * Creates a random number 
+ * Creates a random number
  * @param num the number, default 255
  */
-export const randomNumber = (num: number = 255): number => Math.floor(Math.random() * num)
+export const randomNumber = (num = 255): number => Math.floor(Math.random() * num)
 
 /**
  * Creates a random number in a range (inclusive)
@@ -42,23 +42,23 @@ export const appendMultiple: AppendMultiple = (parent) =>
  * @returns shuffled array
  */
 export const shuffleArray = (array: number[]): number[] => {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-  
+  let currentIndex = array.length, temporaryValue, randomIndex
+
     // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-  
+  while (0 !== currentIndex) {
+
       // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex -= 1
+
       // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-  
-    return array;
+    temporaryValue = array[currentIndex]
+    array[currentIndex] = array[randomIndex]
+    array[randomIndex] = temporaryValue
   }
+
+  return array
+}
 
 /**
  * Gets a random image from https://picsum.photos/
@@ -79,7 +79,7 @@ export const randomImage = (width?: number, height?: number) => {
     e.preventDefault()
     image.src = url
   })
-  
+
   return image
 }
 
@@ -88,12 +88,15 @@ export const randomImage = (width?: number, height?: number) => {
  * @param element the HTMLElement to be created
  * @param text text of the element
  */
-export const createElement = (element: string, text?: string ) => {
+export const createElement = (element: string, text?: string) => {
   let el
   if (element === 'a')
     el = document.createElement(element) as HTMLAnchorElement
   else
     el = document.createElement(element)
-  el.textContent = text
+
+  if(text)
+    el.textContent = text
+
   return el
 }
