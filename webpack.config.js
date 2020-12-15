@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 require('dotenv').config()
 
 const path = require('path')
@@ -47,7 +48,7 @@ const optimization = {
 
 module.exports = {
   plugins,
-  optimization, 
+  optimization,
   watch: true,
   devtool: 'source-map',
   mode: 'development', // process.env.NODE_ENV,

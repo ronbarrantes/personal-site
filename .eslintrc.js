@@ -31,12 +31,13 @@ module.exports = {
     camelcase: ['warn'],
     'no-whitespace-before-property': 2,
     'arrow-spacing': 'error',
-    'sort-imports': ['error', {
-      'ignoreCase': false,
-      'ignoreDeclarationSort': true,
-      'ignoreMemberSort': false,
-      'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single'],
-      'allowSeparatedGroups': false,
-    }],
+    'sort-imports': 'error',
+    // ['error', {
+    //   'ignoreCase': false,
+    //   'ignoreDeclarationSort': false,
+    //   'ignoreMemberSort': false,
+    //   'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single'],
+    //   'allowSeparatedGroups': false,
+    // }],
   },
 }

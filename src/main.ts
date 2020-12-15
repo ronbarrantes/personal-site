@@ -1,9 +1,10 @@
 import 'reset-css'
 import './styles/main.scss'
 import * as utils from './utils'
-import header from './components/header'
-import footer from './components/footer'
+
 import content from './components/content'
+import footer from './components/footer'
+import header from './components/header'
 
 const container = document.createElement('div')
 container.className = 'container'
