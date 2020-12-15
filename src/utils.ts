@@ -66,7 +66,7 @@ export const shuffleArray = (array: number[]): number[] => {
  * @param height height of the image, if height is not specify width will be used
  * @returns An HTMLElement with a random clickable image
  */
-export const randomImage = (width?: number, height?: number) => {
+export const randomImage = (width?: number, height?: number): HTMLImageElement => {
   width = width || 100
   height = height || width
 
@@ -88,7 +88,7 @@ export const randomImage = (width?: number, height?: number) => {
  * @param element the HTMLElement to be created
  * @param text text of the element
  */
-export const createElement = (element: string, text?: string) => {
+export const createElement = (element: string, text?: string): HTMLElement | HTMLAnchorElement => {
   let el
   if (element === 'a')
     el = document.createElement(element) as HTMLAnchorElement
