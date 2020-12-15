@@ -31,5 +31,12 @@ module.exports = {
     camelcase: ['warn'],
     'no-whitespace-before-property': 2,
     'arrow-spacing': 'error',
+    'sort-imports': ['error', {
+      'ignoreCase': false,
+      'ignoreDeclarationSort': true,
+      'ignoreMemberSort': false,
+      'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single'],
+      'allowSeparatedGroups': false,
+    }],
   },
 }
