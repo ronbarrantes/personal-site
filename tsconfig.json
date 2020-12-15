@@ -10,9 +10,10 @@
     "outDir": "./dist",
     "inlineSources": true,
     "declaration": true,
-    "noImplicitAny": true,
+    "noImplicitAny": true, // may change
+    "strictNullChecks": true,
     "noImplicitThis": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": true, // may change
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "experimentalDecorators": true,

@@ -13,6 +13,7 @@ module.exports = {
     quotes: ['warn', 'single', { allowTemplateLiterals: true }],
     // 'jsx-quotes': ['error', 'prefer-double'],
     'brace-style': ['error', '1tbs'],
+    '@typescript-eslint/no-explicit-any': 0,
     'no-multi-spaces': 'warn',
     'comma-spacing': ['warn', { before: false, after: true }],
     'require-atomic-updates': 'error',
