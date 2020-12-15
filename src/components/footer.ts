@@ -9,8 +9,7 @@ const tsBoilerplate = utils.createElement('a', 'ts-boilerplate')
 github.href = 'https://github.com/ronbarrantes'
 linkedIn.href = 'https://www.linkedin.com/in/ronbarrantes'
 email.href = 'mailto:me@ronbarrantes.com'
-tsBoilerplate.href = "https://github.com/ronbarrantes/ts-boilerplate"
 
-utils.appendMultiple(footer)(github, linkedIn, email, tsBoilerplate)
+utils.appendMultiple(footer)(github, linkedIn, email)
 
 export default footer
