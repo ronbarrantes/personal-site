@@ -1,10 +1,10 @@
 import * as React from 'react'
 
-type MyApp = {
+type AppType = {
   hello?: string;
 }
 
-const App: React.FC<MyApp> = (props) => (
+const App: React.FC<AppType> = (props) => (
   <React.Fragment>
     {`hello ${props.hello}`}
   </React.Fragment>
