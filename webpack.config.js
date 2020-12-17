@@ -52,7 +52,7 @@ module.exports = {
   watch: true,
   devtool: 'source-map',
   mode: 'development', // process.env.NODE_ENV,
-  entry: `./src/main.ts`,
+  entry: `./src/main.tsx`,
 
   output: {
     filename: '[name].[hash].js',
