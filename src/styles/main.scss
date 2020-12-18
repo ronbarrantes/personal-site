@@ -31,6 +31,10 @@ header {
   border: var(--grid-color);
 }
 
+.logo{
+  width: 100px;
+}
+
 a {
   color: black;
   &:hover {
