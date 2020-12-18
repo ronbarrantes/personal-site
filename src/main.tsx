@@ -11,4 +11,5 @@ const rootElement = document.createElement('div')
 rootElement.className = 'root'
 document.body.appendChild(rootElement)
 
+// ADD REACT ROUTER DOM STUFF HERE
 ReactDOM.render(<App/>, rootElement)
