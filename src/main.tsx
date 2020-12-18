@@ -11,5 +11,4 @@ const rootElement = document.createElement('div')
 rootElement.className = 'root'
 document.body.appendChild(rootElement)
 
-ReactDOM.render(<App hello={'Ron'}/>, rootElement)
-
+ReactDOM.render(<App/>, rootElement)

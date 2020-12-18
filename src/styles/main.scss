@@ -1,6 +1,5 @@
 :root {
-  --test-border: 1px dashed orange;
-  --test-border: none;
+  --grid-color: 1px dashed orange
 }
 
 * {
@@ -23,13 +22,13 @@ body {
 }
 
 header {
-  border: var(--test-border);
   display: grid;
   grid-auto-flow: column;
   // justify-items: center;
   justify-content: center;
   grid-gap: 1rem;
   align-content: center;
+  border: var(--grid-color);
 }
 
 a {
@@ -39,8 +38,8 @@ a {
   }
 }
 
-#content {
-  border: var(--test-border);
+.content {
+  border: var(--grid-color);
   display: grid;
   grid-gap: 1rem;
   justify-items: center;
@@ -60,7 +59,7 @@ a {
 }
 
 footer {
-  border: var(--test-border);
+  border: var(--grid-color);
   display: grid;
   grid-auto-flow: column;
   justify-content: center;

@@ -1,12 +1,13 @@
 import * as React from 'react'
+import Container from './container'
+import Footer from './footer'
+import Header from './header'
 
-type AppType = {
-  hello?: string;
-}
-
-const App: React.FC<AppType> = (props) => (
+const App: React.FC = () => (
   <React.Fragment>
-    {`hello ${props.hello}`}
+    <Header />
+    <Container />
+    <Footer />
   </React.Fragment>
 )
 
