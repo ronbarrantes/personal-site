@@ -6,6 +6,7 @@
     "module": "commonjs",
     "target": "es6",
     "lib": ["es6", "dom", "ESNext"],
+    // "typeRoots": ["./src/@types", "./node_modules/@types"],
     "rootDir": "./src",
     "outDir": "./dist",
     "inlineSources": true,
@@ -13,7 +14,7 @@
     "noImplicitAny": true, // may change
     "strictNullChecks": true,
     "noImplicitThis": true,
-    "noUnusedLocals": true, // may change
+    // "noUnusedLocals": true, // may change
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "experimentalDecorators": true,
