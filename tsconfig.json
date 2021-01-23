@@ -14,6 +14,7 @@
     "noImplicitAny": true, // may change
     "strictNullChecks": true,
     "noImplicitThis": true,
+    "esModuleInterop": true,
     // "noUnusedLocals": true, // may change
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -23,5 +24,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.tests.ts"]
+  "exclude": ["node_modules", "**/*.tests.ts", "**/temp/*"]
 }
