@@ -17,7 +17,7 @@ const PATHS = {
 const plugins = [
   new CleanWebpackPlugin(),
   new HtmlWebpackPlugin({
-    title: `Ron's site :)`,
+    title: `Ron's site 😊`,
     meta: {
       viewport: `width=device-width, initial-scale=1, shrink-to-fit=no`,
     },
