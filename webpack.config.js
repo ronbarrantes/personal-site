@@ -23,7 +23,7 @@ const plugins = [
     },
     favicon: './public/assets/favicon.png',
   }),
-  new CopyWebpackPlugin({ patterns:[{ from: 'public', to: 'public' }] }),
+  new CopyWebpackPlugin({ patterns: [{ from: 'public', to: 'public' }] }),
   new EnvironmentPlugin({
     // NODE_ENV: process.env.NODE_ENV,
     // ASSETS_PATH: process.env.ASSETS_PATH,
@@ -52,7 +52,7 @@ module.exports = {
   watch: true,
   devtool: 'source-map',
   mode: 'development', // process.env.NODE_ENV,
-  entry: `./src/main.tsx`,
+  entry: './src/main.tsx',
 
   output: {
     filename: '[name].[hash].js',
@@ -63,7 +63,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     host: '0.0.0.0',
-    contentBase: `./dist`,
+    contentBase: './dist',
     disableHostCheck: true,
   },
 
