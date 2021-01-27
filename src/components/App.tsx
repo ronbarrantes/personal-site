@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Container from './container'
-import Footer from './footer'
-import Header from './header'
+import Container from './Container'
+import Footer from './Footer'
+import Header from './Header'
 
 const App = (): JSX.Element => <div>
   <Header/>
