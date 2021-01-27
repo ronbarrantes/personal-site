@@ -1,4 +1,3 @@
-
 export const Constants = {
   Menu: {
     Gallery: {

@@ -1,14 +1,13 @@
-import * as React from 'react'
+import React from 'react'
+
 import Container from './container'
 import Footer from './footer'
 import Header from './header'
 
-const App: React.FC = () => (
-  <React.Fragment>
-    <Header />
-    <Container />
-    <Footer />
-  </React.Fragment>
-)
+const App = (): JSX.Element => <div>
+  <Header/>
+  <Container/>
+  <Footer/>
+</div>
 
 export default App
