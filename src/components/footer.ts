@@ -9,6 +9,6 @@ github.href = 'https://github.com/ronbarrantes'
 linkedIn.href = 'https://www.linkedin.com/in/ronbarrantes'
 email.href = 'mailto:me@ronbarrantes.com'
 
-utils.appendMultiple(footer)(linkedIn, github, email)
+utils.appendMultiple(footer)(github, linkedIn, email)
 
 export default footer
