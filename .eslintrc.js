@@ -7,7 +7,7 @@ module.exports = {
   extends: [
     'react-app',
     'plugin:react/recommended',
-    'airbnb',
+    // 'airbnb',
     'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
@@ -30,7 +30,6 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'no-use-before-define': 'off',
-
     // // '@typescript-eslint/rule-name': 'error',
     quotes: ['warn', 'single', { allowTemplateLiterals: true }],
     // // 'jsx-quotes': ['error', 'prefer-double'],
