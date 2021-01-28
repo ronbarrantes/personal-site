@@ -1,10 +1,10 @@
 import * as React from 'react'
-// import Logo from './logo'
+import Logo from './Logo'
 import Menu from './Menu'
 
 const Header = (): JSX.Element => (
   <header>
-    {/* <Logo /> */}
+    <Logo />
     <Menu />
   </header>
 )

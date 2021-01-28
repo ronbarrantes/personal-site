@@ -18,7 +18,7 @@ const appStyle = css`
   width: 100vw;
   display: grid;
   min-height: 100vh;
-  grid-template-rows: 3rem 1fr 3rem;
+  grid-template-rows: 4rem 1fr 3rem;
 `
 
 export default App
