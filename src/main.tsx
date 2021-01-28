@@ -14,5 +14,5 @@ document.body.appendChild(rootElement)
 ReactDOM.render(
   <Router>
     <App />
-  </Router>
-  , rootElement)
+  </Router>,
+  rootElement)
