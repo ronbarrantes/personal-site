@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { Constants } from '../content/constants'
+import { Menu as MenuItems } from '../content/constants'
 import { Link } from 'react-router-dom'
 
 const color = 'darkgreen'
@@ -12,13 +12,13 @@ export const StyledNavLink = styled(Link)`
   }
 `
 
-const { Gallery, Email } = Constants.Menu
+const { Portfolio, Email } = MenuItems
 
 const Menu = (): JSX.Element => (
   <ul>
     <li>
-      <StyledNavLink to={Gallery.link}>
-        {Gallery.name}
+      <StyledNavLink to={Portfolio.link}>
+        {Portfolio.name}
       </StyledNavLink>
     </li>
     <li>
