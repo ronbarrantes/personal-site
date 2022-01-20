@@ -1,18 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-require('dotenv').config()
-
+// const webpack = require('webpack')
 const path = require('path')
-const { EnvironmentPlugin } = require('webpack')
+const CopyPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-
-const PATHS = {
-  public: path.join(__dirname, 'public'),
-  dist: path.join(__dirname, 'dist'),
-}
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const plugins = [
   new CleanWebpackPlugin(),
@@ -21,102 +13,92 @@ const plugins = [
     meta: {
       viewport: `width=device-width, initial-scale=1, shrink-to-fit=no`,
     },
-    favicon: './public/assets/favicon.png',
-  }),
-  new CopyWebpackPlugin({ patterns:[{ from: 'public', to: 'public' }] }),
-  new EnvironmentPlugin({
-    // NODE_ENV: process.env.NODE_ENV,
-    // ASSETS_PATH: process.env.ASSETS_PATH,
-    // API_URL: process.env.API_URL,
+    // favicon: './public/assets/favicon.png',
   }),
 
-  new OptimizeCSSAssetsPlugin({}),
+  // new CopyPlugin({
+  //   patterns: [{ from: 'src/index.html' }],
+  // }),
+  // new HtmlWebpackPlugin({
+  //   templateContent: ({ htmlWebpackPlugin }) => '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>' + 
+  //     htmlWebpackPlugin.options.title +
+  //     '</title></head><body><div id=\"app\"></div></body></html>',
+  //   filename: 'index.html',
+  // }),
+  new MiniCssExtractPlugin(),
 ]
 
-const optimization = {
-  runtimeChunk: 'single',
-  splitChunks: {
-    cacheGroups: {
-      vendor: {
-        test: /[\\/]node_modules[\\/]/,
-        name: 'vendors',
-        chunks: 'all',
-      },
-    },
-  },
-}
-
-module.exports = {
+const config = {
   plugins,
-  optimization,
-  watch: true,
-  devtool: 'source-map',
-  mode: 'development', // process.env.NODE_ENV,
-  entry: `./src/main.ts`,
-
+  mode: 'development',
+  entry: [
+    'react-hot-loader/patch',
+    './src/main.tsx',
+  ],
   output: {
-    filename: '[name].[hash].js',
-    path: PATHS.dist,
-    publicPath: '/',
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
   },
-
-  devServer: {
-    historyApiFallback: true,
-    host: '0.0.0.0',
-    contentBase: `./dist`,
-    disableHostCheck: true,
-  },
-
   module: {
     rules: [
       {
-        test: /\.ts(x?)$/,
+        test: /\.(js|jsx)$/,
+        use: 'babel-loader',
         exclude: /node_modules/,
-        use: 'ts-loader',
       },
       {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.css$/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader',
         ],
       },
-
       {
-        test: /\.(woff|woff2|ttf|eot).*/,
+        test: /\.svg$/,
+        use: 'file-loader',
+      },
+      {
+        test: /\.png$/,
         use: [
           {
             loader: 'url-loader',
             options: {
-              limit: 10000,
-              name: 'font/[name].[hash].[ext]',
+              mimetype: 'image/png',
             },
           },
         ],
       },
-
       {
-        test: /\.(jpg|gif|png|svg)$/,
-        exclude: /\.icon\.svg$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 10000,
-              name: 'image/[name].[hash].[ext]',
-            },
-          },
-        ],
-      },
-
-      {
-        test: /\.icon\.svg$/,
-        loader: 'raw-loader',
+        test: /\.ts(x)?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
       },
     ],
   },
+
+  devServer: {
+    'static': {
+      directory: './dist',
+    },
+  },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.css', '.sass'],
+    extensions: [
+      '.tsx',
+      '.ts',
+      '.js',
+    ],
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
   },
 }
+
+module.exports = config
