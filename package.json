@@ -13,6 +13,12 @@
     "aws-deploy": "aws s3 cp dist/. s3://ronb.co --recursive",
     "start": "webpack serve --hot --mode development"
   },
+
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom"
+  },
+
   "description": "Ron's Site",
   "author": "ronbarrantes",
   "email": "ronbarrantes@gmail.com",
@@ -25,6 +31,9 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@hot-loader/react-dom": "^17.0.2",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@types/jest": "^27.4.0",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
@@ -33,13 +42,18 @@
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^10.2.1",
     "css-loader": "^6.5.1",
+    "eslint": "^8.7.0",
+    "eslint-plugin-jest": "^25.7.0",
+    "eslint-plugin-react": "^7.28.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.4.7",
+    "jest-dom": "^4.0.0",
     "mini-css-extract-plugin": "^2.5.2",
     "node-sass": "^7.0.1",
     "sass-loader": "^12.4.0",
     "style-loader": "^3.3.1",
+    "ts-jest": "^27.1.3",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.5",
     "url-loader": "^4.1.1",

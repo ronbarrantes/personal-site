@@ -4,11 +4,25 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features
     sourceType: 'module', // Allows for the use of imports
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
+  // env: {
+  //   'jest/globals': true,
+  // },
   extends: [
+
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
     'plugin:@typescript-eslint/recommended',
+    // 'plugin:jest',
   ],
   rules: {
+
+    'react/jsx-uses-react': 'error',
+    'react/jsx-uses-vars': 'error',
     // '@typescript-eslint/rule-name': 'error',
     quotes: ['warn', 'single', { allowTemplateLiterals: true }],
     // 'jsx-quotes': ['error', 'prefer-double'],
@@ -31,7 +45,7 @@ module.exports = {
     camelcase: ['warn'],
     'no-whitespace-before-property': 2,
     'arrow-spacing': 'error',
-    'sort-imports': 'error',
+    // 'sort-imports': 'error',
     // ['error', {
     //   'ignoreCase': false,
     //   'ignoreDeclarationSort': false,
@@ -40,4 +54,9 @@ module.exports = {
     //   'allowSeparatedGroups': false,
     // }],
   },
+
+  plugins: [
+    'react',
+  ],
+
 }

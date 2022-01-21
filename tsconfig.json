@@ -4,7 +4,7 @@
     // "module": "commonjs",
     // "target": "es6",
     "lib": ["es6", "dom", "ESNext"],
-    // "rootDir": "./src",
+    "rootDir": "./src",
     // "outDir": "./dist",
     // "inlineSources": true,
     // "declaration": true,
