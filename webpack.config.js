@@ -13,28 +13,24 @@ const plugins = [
     meta: {
       viewport: `width=device-width, initial-scale=1, shrink-to-fit=no`,
     },
-    // favicon: './public/assets/favicon.png',
+    favicon: './public/assets/favicon.png',
   }),
   new CopyPlugin({ patterns:[{ from: 'public', to: 'public' }] }),
-
-  // new CopyPlugin({
-  //   patterns: [{ from: 'src/index.html' }],
-  // }),
-  // new HtmlWebpackPlugin({
-  //   templateContent: ({ htmlWebpackPlugin }) => '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>' +
-  //     htmlWebpackPlugin.options.title +
-  //     '</title></head><body><div id=\"app\"></div></body></html>',
-  //   filename: 'index.html',
-  // }),
   new MiniCssExtractPlugin(),
 ]
 
 const config = {
+  devServer: {
+    historyApiFallback: true,
+    host: '0.0.0.0',
+    contentBase: `./dist`,
+    disableHostCheck: true,
+  },
   plugins,
   mode: 'development',
   entry: [
     'react-hot-loader/patch',
-    './src/main.tsx',
+    './src/index.tsx',
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),

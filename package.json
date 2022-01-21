@@ -6,12 +6,12 @@
     "build": "webpack --config webpack.prod.js",
     "build-dev": "webpack --config webpack.config.js",
     "build-start": "npm run build & npm start",
-    "watch": "webpack-dev-server --inline --hot",
+    "watch:old": "webpack-dev-server --inline --hot",
     "test": "jest",
     "heroku-postbuild": "webpack",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --fix",
     "aws-deploy": "aws s3 cp dist/. s3://ronb.co --recursive",
-    "start": "webpack serve --hot --mode development"
+    "watch": "webpack serve --hot --mode development"
   },
 
   "jest": {
