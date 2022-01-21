@@ -59,7 +59,8 @@ const config = {
         ],
       },
       {
-        test: /\.svg$/,
+        // test: /\.svg$/,
+        test: /\.(svg|jpe?g|gif)$/i, // may need to change
         use: 'file-loader',
       },
       {
