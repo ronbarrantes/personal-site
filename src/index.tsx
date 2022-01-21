@@ -12,7 +12,7 @@ document.body.appendChild(portalEl)
 document.body.appendChild(root)
 
 ReactDOM.render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>
-, root)
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+  , root)
