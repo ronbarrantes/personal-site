@@ -1,0 +1,26 @@
+/* THIS IS KIND OF A (SOFT) RESET FOR THE STYLES */
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+img{
+	display: block;
+	max-width: 100%;
+}
+
+h1, h2, h3, p, li {
+	margin: 0;
+	padding: 0;
+}
+
+ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
