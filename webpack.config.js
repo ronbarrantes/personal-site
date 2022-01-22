@@ -82,15 +82,21 @@ const config = {
     },
   },
   resolve: {
-    extensions: [
-      '.tsx',
-      '.ts',
-      '.js',
-    ],
+    extensions: ['.ts', '.tsx', '.js', '.css', '.sass'],
     alias: {
       'react-dom': '@hot-loader/react-dom',
     },
   },
+  // resolve: {
+  //   extensions: [
+  //     '.tsx',
+  //     '.ts',
+  //     '.js',
+  //   ],
+  //   alias: {
+  //     'react-dom': '@hot-loader/react-dom',
+  //   },
+  // },
 }
 
 module.exports = config

@@ -1,0 +1,24 @@
+.header-wrapper {
+	background: #fff; 
+	position: sticky;
+	position: -webkit-sticky;
+	top: 0;
+	left: 0;
+	padding: 5px 1em;
+	z-index: 2;
+}
+
+.header{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 auto;
+	max-width: var(--max-width);
+}
+
+@media (min-width: 550px)  {
+
+	.header{
+		justify-content: space-between;
+	}
+}
