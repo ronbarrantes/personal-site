@@ -10,18 +10,19 @@ const menuItems = [
     name: 'About',
     id: 'about',
   },
-  {
-    name: 'Portfolio',
-    id: 'portfolio',
-  },
+  // TODO: add back the menu stuff
+  // {
+  //   name: 'Portfolio',
+  //   id: 'portfolio',
+  // },
   {
     name: 'Experience',
     id: 'experience',
   },
-  {
-    name: 'Contact',
-    id: 'contact',
-  },
+  // {
+  //   name: 'Contact',
+  //   id: 'contact',
+  // },
 ]
 
 const Nav = () => {

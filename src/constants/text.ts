@@ -1,6 +1,13 @@
 import { randNumber } from '../utils/basic'
 import { fakeImage, fakeImages } from '../utils/fakeImageCreator'
 
+interface IBaseComponent {
+  uri?: string;
+}
+
+interface IAbout {
+description: string[]
+}
 export interface IPortfolioItem {
 	id: string;
 	name: string;
@@ -23,17 +30,13 @@ export interface ISkill {
 	position?: number;
 }
 
-interface IBaseComponent {
-    uri?: string;
+export interface IPortfolio extends IBaseComponent {
+	items: IPortfolioItem[];
 }
 
 export interface ISkills extends IBaseComponent {
 	items: ISkill[];
 }
-export interface IPortfolio extends IBaseComponent {
-	items: IPortfolioItem[];
-}
-
 export interface IWorkExperience {
     employer: string;
     jobTitle: string;
@@ -44,6 +47,7 @@ export interface IWorkExperience {
     tools: string[];
 }
 
+// TODO: THIS IS NOT DOING NOTHING, FIX IT
 export const menu = {
   portfolio: {
     name: 'Portfolio',
@@ -57,10 +61,6 @@ export const menu = {
     name: 'Contact',
     link: '/',
   },
-}
-
-interface IAbout {
-    description: string[]
 }
 
 export const about: IAbout = {

@@ -3,23 +3,23 @@ import { hot } from 'react-hot-loader/root'
 import './styles.css'
 
 import About from '../About'
-import Contact from '../Contact'
+// import Contact from '../Contact'
 import Footer from '../Footer'
 import Header from '../Header'
-import Portfolio from '../Portfolio'
+// import Portfolio from '../Portfolio'
 import Experience from '../Experience'
-import { PortfolioProvider } from '../../hooks/usePortfolio'
+// import { PortfolioProvider } from '../../hooks/usePortfolio'
 
 function App() {
   return (
     <div className="App">
       <Header />
       <About />
-      <PortfolioProvider>
+      {/* <PortfolioProvider>
         <Portfolio />
-      </PortfolioProvider>
+      </PortfolioProvider> */}
       <Experience />
-      <Contact />
+      {/* <Contact /> */}
       <Footer />
     </div>
   )
