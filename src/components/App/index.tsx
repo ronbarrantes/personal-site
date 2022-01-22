@@ -3,7 +3,7 @@ import { hot } from 'react-hot-loader/root'
 import './styles.css'
 
 import About from '../About'
-// import Contact from '../Contact';
+import Contact from '../Contact'
 import Footer from '../Footer'
 import Header from '../Header'
 import Portfolio from '../Portfolio'
@@ -19,7 +19,7 @@ function App() {
         <Portfolio />
       </PortfolioProvider>
       <Experience />
-      {/* <Contact /> */}
+      <Contact />
       <Footer />
     </div>
   )
