@@ -5,6 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
+const PATHS = {
+  public: path.join(__dirname, 'public'),
+  dist: path.join(__dirname, 'dist'),
+}
+
 const plugins = [
   new CleanWebpackPlugin(),
   new HtmlWebpackPlugin({
@@ -24,11 +29,11 @@ const config = {
   mode: 'development',
   entry: [
     'react-hot-loader/patch',
-    './src/index.tsx',
+    './src/main.tsx',
   ],
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: '[name].[fullhash].js',
+    path: PATHS.dist,
   },
   module: {
     rules: [
