@@ -11,6 +11,7 @@ module.exports = merge(common, {
   watch: false,
   output: {
     filename: '[name].js',
-    publicPath: '/',
+    // publicPath: '/public',
+    // path: '/',
   },
 })

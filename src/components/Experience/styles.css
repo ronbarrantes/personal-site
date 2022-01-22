@@ -1,0 +1,9 @@
+.experience-wrapper {
+	background: #eee;
+}
+
+.experience {
+	margin: 0 auto;
+	max-width: var(--max-width);
+	/* border: 1px dotted magenta; */
+}

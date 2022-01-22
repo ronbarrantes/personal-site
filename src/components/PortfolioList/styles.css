@@ -1,0 +1,19 @@
+.portfolio-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4%;
+}
+
+@media (min-width: 550px)  {
+
+	.portfolio-list {
+		gap: 3.5%;
+		
+	}
+}
+
+@media (min-width: 800px)  {
+	.portfolio-list {
+		gap: 1.3%;	
+	}
+}

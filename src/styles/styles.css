@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Nanum+Myeongjo&family=Playfair+Display:wght@500&display=swap');
+:root{
+	--max-width: 1000px;
+}
+
+body{
+	font-weight: 400;
+	font-family: 'Lato', sans-serif;
+	background: #fff
+}
+
+::placeholder{
+	font-family: 'Lato', sans-serif;
+}
+
+body{
+	line-height: 1.4em;
+}
+
+h1, h2, h3 {
+	padding-bottom: .5em;
+	/* padding: 5rem; */
+	/* color: red; */
+	font-weight: 500;
+	font-family: 'Playfair Display', serif;
+}
+
+p{
+	margin-bottom: .3em;
+}
+
+p:last-child{
+	margin-bottom: 0;
+}
+
+h2{
+	font-size: 2em;
+}
+
+img{
+	object-fit: cover;
+}
+
+.close-btn {
+	font-size: 2em;
+	margin: 0;
+	padding: .8rem;
+	border-radius: 50%;
+	cursor: pointer;
+	background-color: #000;
+	color: #fff;
+	transition: transform .2s, color .2s ;
+	z-index: 5;
+}
+
+.close-btn:hover {
+	color: red;
+	transform: scale(1.2);
+}
+
+.button-prev{
+	left: 0;
+	padding-right: 1em;
+}
+
+.button-next{
+	right: 0;
+	padding-left: 1em;
+}
+
+.modal-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, .8); 
+	z-index: 3;
+}
+
+p {
+	margin-bottom: .9rem;
+	/* line-height: 1.5rem; */
+}
+
+@media (min-width: 550px)  {
+	.grid-col-span-2 {
+		grid-column: span 2;
+	}
+
+	.modal-wrapper {
+		justify-content: center;
+		align-items: center;
+		margin: 0;
+		padding: 0;
+	}
+}

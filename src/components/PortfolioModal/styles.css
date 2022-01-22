@@ -1,0 +1,66 @@
+
+.portfolio-modal {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	width: 90%;
+	color: #fff;
+	background: rgba(0, 0, 0, .95);
+	padding: 2em;
+	margin-bottom: 1em;
+	border-radius: 20px;
+}
+
+.portfolio-modal-info {
+	width: 100%;
+	padding: 1.5em 0 0;
+}
+
+.portfolio-modal-title {
+	font-size: 2rem;
+	/* color: red; */
+}
+
+.portfolio-modal-link {
+	display: block;
+	color: white;
+	margin-bottom: .5em;
+}
+
+.portfolio-modal-link:hover, .portfolio-modal-link:active {
+	text-decoration: none;
+}
+
+
+.portfolio-modal-close-btn {
+	position: absolute;
+	top: -.75em;
+	right: -.50em;
+}
+
+/* .portfolio-modal:focus {
+	background: red;
+} */
+
+@media (min-width: 550px)  {
+
+	.portfolio-modal {
+		flex-direction: row;
+	}
+
+	.portfolio-modal-close-btn {
+		top: -.75em;
+		right: -.75em;
+	}
+
+	.portfolio-modal-info {
+		width: 70%;
+		/* border: 1px dotted goldenrod; */
+		padding: 0 1.5em;
+	}
+
+	.photo-carousel-modal{
+		width: 30%;
+		border: 1px dotted crimson;
+	}
+}

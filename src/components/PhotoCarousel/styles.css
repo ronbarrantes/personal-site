@@ -1,0 +1,38 @@
+.photo-carousel{
+	/* width: 100%; */
+	/* border: 1px dotted crimson; */
+	position: relative;
+}
+
+.photo-carousel-button {
+	font-family: 'Nanum Myeongjo', serif;
+	position: absolute;
+	top: 0;
+	background-color: transparent;
+	color: rgba(255, 255, 255, .1);
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40%;
+	font-size: 3rem;
+	cursor: pointer;
+	text-shadow: 0px 0px 0px rgba(0,0,0, .0);
+	transition: color .2s, text-shadow .2s;
+	/* border: 1px solid red; */
+}
+
+.photo-carousel-button:hover{
+	color: #fff;
+	text-shadow: 0px 2px 1px rgba(0,0,0, .2);
+}
+
+.photo-carousel-images{
+	width: 100%;
+}
+
+@media (min-width: 550px)  {
+	.photo-carousel{
+		/* border: 1px dotted crimson; */
+	}
+}
