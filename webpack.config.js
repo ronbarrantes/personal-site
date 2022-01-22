@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-// const webpack = require('webpack')
 const path = require('path')
 const CopyPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -82,14 +81,6 @@ const config = {
       directory: './dist',
     },
   },
-
-  // devServer: {
-  //   historyApiFallback: true,
-  //   host: '0.0.0.0',
-  //   contentBase: `./dist`,
-  //   disableHostCheck: true,
-  // },
-
   resolve: {
     extensions: [
       '.tsx',
