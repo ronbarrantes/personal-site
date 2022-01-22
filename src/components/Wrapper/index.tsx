@@ -6,10 +6,10 @@ interface WrapperProps {
 	cssClass?: string;
 }
 
-const Wrapper = ({ cssClass, children }: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> & WrapperProps ) => (
-	<div className={`wrapper ${cssClass}`}>
-		{ children }
-	</div>
+const Wrapper = ({ cssClass, children }: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> & WrapperProps) => (
+  <div className={`wrapper ${cssClass}`}>
+    { children }
+  </div>
 )
 
 export default Wrapper
