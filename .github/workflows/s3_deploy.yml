@@ -13,10 +13,10 @@ jobs:
       - name: Run a one-line script
         run: echo npm install and build
 
-      - name: Use Node.js 12.x
+      - name: Use Node.js 17.x
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 17.x
       - run: npm install
       - run: npm run build
       - run: echo About to deploy to S3
