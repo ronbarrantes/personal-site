@@ -6,7 +6,7 @@ import Img from '../Img'
 import { about } from '../../constants/text'
 
 const imgs = [
-  '/public/self.png',
+  './public/self.png',
 ]
 
 const About = () => (

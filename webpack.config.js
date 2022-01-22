@@ -92,16 +92,6 @@ const config = {
       'react-dom': '@hot-loader/react-dom',
     },
   },
-  // resolve: {
-  //   extensions: [
-  //     '.tsx',
-  //     '.ts',
-  //     '.js',
-  //   ],
-  //   alias: {
-  //     'react-dom': '@hot-loader/react-dom',
-  //   },
-  // },
 }
 
 module.exports = config

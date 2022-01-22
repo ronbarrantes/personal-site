@@ -19,7 +19,7 @@ HTMLImageElement> & IImg> = ({ src, alt = '', imgRef, className = '' }) => {
       {!isLoaded && (
         <img
           className={`spinner ${className}`}
-          src={'/public/assets/loading.gif'} alt="spinner" />
+          src={'./public/assets/loading.gif'} alt="spinner" />
       )}
       {React.createElement('img', {
         className: `${className}`,
