@@ -1,5 +1,5 @@
 export const scrollOptions = {
-	smooth: true,
-	offset: -66,
-	duration: 500,
+  smooth: true,
+  offset: -66,
+  duration: 500,
 }
