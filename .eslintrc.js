@@ -8,16 +8,23 @@ module.exports = {
       jsx: true,
     },
   },
-  // env: {
-  //   'jest/globals': true,
-  // },
+  settings: {
+    react: {
+      version: 'latest',
+    },
+  },
+  plugins: [
+    'react',
+  ],
+  env: {
+    node: true,
+    browser: true,
+  },
   extends: [
-
     'eslint:recommended',
     'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
+    // 'plugin:react/jsx-runtime',
     'plugin:@typescript-eslint/recommended',
-    // 'plugin:jest',
   ],
   rules: {
 
@@ -53,10 +60,8 @@ module.exports = {
     //   'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single'],
     //   'allowSeparatedGroups': false,
     // }],
+
+    'no-empty-function':  ['error', { 'allow': ['methods', 'generatorFunctions', 'arrowFunctions'] }],
+    '@typescript-eslint/no-empty-function': ['error', { 'allow': ['methods', 'generatorFunctions', 'arrowFunctions'] }],
   },
-
-  plugins: [
-    'react',
-  ],
-
 }

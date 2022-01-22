@@ -20,12 +20,7 @@ const plugins = [
 ]
 
 const config = {
-  devServer: {
-    historyApiFallback: true,
-    host: '0.0.0.0',
-    contentBase: `./dist`,
-    disableHostCheck: true,
-  },
+
   plugins,
   mode: 'development',
   entry: [
@@ -87,6 +82,14 @@ const config = {
       directory: './dist',
     },
   },
+
+  // devServer: {
+  //   historyApiFallback: true,
+  //   host: '0.0.0.0',
+  //   contentBase: `./dist`,
+  //   disableHostCheck: true,
+  // },
+
   resolve: {
     extensions: [
       '.tsx',
