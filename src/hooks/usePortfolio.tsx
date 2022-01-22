@@ -9,48 +9,50 @@ interface IPortfolio {
 }
 
 const PortfolioContext = createContext<IPortfolio>({
-	selectedIndex: 0,
-	isModalActive: false,
-	setSelectedIndex: () => {},
-	setIsModalActive: () => {},
+  selectedIndex: 0,
+  isModalActive: false,
+  setSelectedIndex: () => {},
+  setIsModalActive: () => {},
 })
 
 export const useSelectedIndex = () => {
-	const { selectedIndex } = useContext(PortfolioContext)
-	return selectedIndex
+  const { selectedIndex } = useContext(PortfolioContext)
+  return selectedIndex
 }
 
 export const useSetSelectedIndex = () => {
-	const { setSelectedIndex } = useContext(PortfolioContext) 
-	return setSelectedIndex
+  const { setSelectedIndex } = useContext(PortfolioContext)
+  return setSelectedIndex
 }
 
 export const useModalActive = () => {
-	const { isModalActive } = useContext(PortfolioContext)
-	return isModalActive
+  const { isModalActive } = useContext(PortfolioContext)
+  return isModalActive
 }
 
 export const useSetIsModalActive = () => {
-	const { setIsModalActive } = useContext(PortfolioContext) 
-	return setIsModalActive
+  const { setIsModalActive } = useContext(PortfolioContext)
+  return setIsModalActive
 }
 
 export const PortfolioProvider = ({ children }: { children: React.ReactNode}) => {
-	const [selectedIndex, setSelectedIndex] = useState<number>(0)
-	const [isModalActive, setIsModalActive] = useState<boolean>(false)
+  const [selectedIndex, setSelectedIndex] = useState<number>(0)
+  const [isModalActive, setIsModalActive] = useState<boolean>(false)
 
-	const cbSelectedIndex = useCallback((n: number) => { 
-		setSelectedIndex(n)}, [])
+  const cbSelectedIndex = useCallback((n: number) => {
+    setSelectedIndex(n)
+  }, [])
 
-	const cbIsModalActive = useCallback((b: boolean) => {
-		setIsModalActive(b)}, [])
+  const cbIsModalActive = useCallback((b: boolean) => {
+    setIsModalActive(b)
+  }, [])
 
-	return (
-		<PortfolioContext.Provider value={{ 
-			selectedIndex, setSelectedIndex: cbSelectedIndex,
-			isModalActive, setIsModalActive: cbIsModalActive,
-		}}>
-			{children}
-		</PortfolioContext.Provider>
-	)
+  return (
+    <PortfolioContext.Provider value={{
+      selectedIndex, setSelectedIndex: cbSelectedIndex,
+      isModalActive, setIsModalActive: cbIsModalActive,
+    }}>
+      {children}
+    </PortfolioContext.Provider>
+  )
 }

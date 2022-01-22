@@ -7,30 +7,30 @@ interface ISize {
 }
 
 export const useCurrImageSize = (ref: React.MutableRefObject<HTMLImageElement | undefined>) => {
-	const [size, getSize] = useState<ISize>({
-		width: ref.current?.width,
-		height: ref.current?.height,
-	})
+  const [size, getSize] = useState<ISize>({
+    width: ref.current?.width,
+    height: ref.current?.height,
+  })
 
-	useEffect(() => {
-		const handleResize = () => {
-			getSize({
-				width: ref.current?.width,
-				height: ref.current?.height,
-			})
-		}
+  useEffect(() => {
+    const handleResize = () => {
+      getSize({
+        width: ref.current?.width,
+        height: ref.current?.height,
+      })
+    }
 
-		window.addEventListener('resize', handleResize)
-		document.addEventListener('click', handleResize)
+    window.addEventListener('resize', handleResize)
+    document.addEventListener('click', handleResize)
 
-		return () => {
-			window.removeEventListener('resize', handleResize)
-			document.removeEventListener('click', handleResize)
-		}
-	})
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      document.removeEventListener('click', handleResize)
+    }
+  })
 
-	return { 
-		width: size.width, 
-		height: size.height 
-	}
+  return {
+    width: size.width,
+    height: size.height,
+  }
 }

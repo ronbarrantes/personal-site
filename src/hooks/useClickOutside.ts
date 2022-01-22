@@ -6,17 +6,17 @@ import { useRef, useEffect } from 'react'
  * @returns useRef
  */
 export const useClickOutside = (handler: () => void) => {
-	const domRef = useRef<HTMLDivElement | null>(null)
-	useEffect(() => {
-		const handleOutsideClick = (event: MouseEvent) => {
-			if(!domRef.current?.contains(event.target as HTMLDivElement))
-				handler()
-		}
-		document.addEventListener('mousedown', handleOutsideClick)
-		return () => {
-			document.removeEventListener('mousedown', handleOutsideClick)
-		}
-	})
+  const domRef = useRef<HTMLDivElement | null>(null)
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if(!domRef.current?.contains(event.target as HTMLDivElement))
+        handler()
+    }
+    document.addEventListener('mousedown', handleOutsideClick)
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
+  })
 
-	return domRef
+  return domRef
 }
