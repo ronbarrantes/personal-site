@@ -12,6 +12,7 @@
     "heroku-postbuild": "webpack",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --fix",
     "aws-deploy": "aws s3 cp dist/. s3://ronb.co --recursive",
+    "aws-cloudfront-invalidate": "aws cloudfront create-invalidation --distribution-id E1C11ZPO9J8GPQ --paths '/*'",
     "watch": "webpack serve --hot --mode development",
     "prepare": "husky install"
   },
