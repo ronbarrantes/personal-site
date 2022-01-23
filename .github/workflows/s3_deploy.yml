@@ -32,4 +32,7 @@ jobs:
           SOURCE_DIR: "dist"
 
       - name: Invalidate previous Cloudfront distribution
+        uses: actions/setup-node@v1
+        with:
+          node-version: 17.x
       - run: npm run aws-cloudfront-invalidate
