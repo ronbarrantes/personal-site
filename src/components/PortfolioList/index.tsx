@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { portfolio } from '../../constants/text'
 import PortfolioItem from '../PortfolioItem'
 import './styles.css'

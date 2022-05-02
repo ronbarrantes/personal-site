@@ -1,9 +1,9 @@
 import React from 'react'
 import './styles.css'
 
-import Wrapper from '../Wrapper'
-import Img from '../Img'
 import { about } from '../../constants/text'
+import Img from '../Img'
+import Wrapper from '../Wrapper'
 
 const imgs = [
   './public/self.png',

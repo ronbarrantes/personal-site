@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
+
 import './styles.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-scroll'
+
 import { scrollOptions } from '../../constants/scrollOptions'
 
 const menuItems = [

@@ -1,5 +1,7 @@
 import React from 'react'
+
 import ReactDOM from 'react-dom'
+
 import Wrapper from '../Wrapper'
 
 const ContactModal = ({ handleClick } : { handleClick: () => void }) => {

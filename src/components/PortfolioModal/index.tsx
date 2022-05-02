@@ -1,14 +1,15 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { faCodeBranch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ReactDOM from 'react-dom'
 
 import { portfolio } from '../../constants/text'
 import { useClickOutside } from '../../hooks/useClickOutside'
 import { useSelectedIndex, useSetIsModalActive } from '../../hooks/usePortfolio'
 // import { getUrlName } from '../../utils/basic'
-import Wrapper from '../Wrapper'
 import { PhotoCarousel } from '../PhotoCarousel'
+import Wrapper from '../Wrapper'
 // import TagList from '../TagList'
 import './styles.css'
 

@@ -1,6 +1,9 @@
 import React from 'react'
+
 import { render, cleanup } from '@testing-library/react'
+
 import { about } from '../../constants/text'
+
 import '@testing-library/jest-dom'
 import About from '.'
 

@@ -1,9 +1,11 @@
 import React from 'react'
+
 import { render, cleanup, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 
-import PortfolioItem from '.'
 import { portfolio } from '../../constants/text'
+
+import PortfolioItem from '.'
 
 describe('PortfolioItem component', () => {
   afterEach(cleanup)
