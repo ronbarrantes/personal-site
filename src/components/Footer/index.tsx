@@ -1,7 +1,8 @@
 import React from 'react'
+
 import './styles.css'
-import Wrapper from '../Wrapper'
 import { mediaLinks } from '../../constants/text'
+import Wrapper from '../Wrapper'
 
 // TODO Start adding styles
 

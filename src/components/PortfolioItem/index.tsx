@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { useSetSelectedIndex, useSetIsModalActive } from '../../hooks/usePortfolio'
 import Img from '../Img'
 import './styles.css'

@@ -1,5 +1,7 @@
 import React from 'react'
+
 import { render, cleanup, fireEvent } from '@testing-library/react'
+
 import '@testing-library/jest-dom'
 import Img from './index'
 const dogImg = 'doggie.png'

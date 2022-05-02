@@ -1,7 +1,10 @@
 import React from 'react'
+
 import { render, cleanup } from '@testing-library/react'
-import PortfolioList from '.'
+
 import { portfolio } from '../../constants/text'
+
+import PortfolioList from '.'
 
 describe('PortfolioList component', () => {
   afterEach(cleanup)

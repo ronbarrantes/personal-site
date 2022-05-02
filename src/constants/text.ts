@@ -199,20 +199,36 @@ export const experience: { items: IWorkExperience[] } = {
     {
       employer: 'Microsoft',
       url: 'https://azure.microsoft.com',
+      startDate: '3/2022',
+      endDate: '6/2022',
+      jobTitle: 'Software Developer Engineer - (Contractor)',
+      description: [
+        `Working on the migration of Azure's Search as a Service from KnockoutJS to modern ReactJS, utilizing FluentUI as the UX framework.`,
+        `Creating reusable components, classes, and utilities that will later be used throughout the SaaS blades.`,
+        `Writing unit testing for each blade and it's components.`,
+        'Ensuring that each component localized for all languages supported by Microsoft, as well as accessible compliant.',
+      ],
+      tools: ['React', 'FluentUI', 'TypesScript', 'Azure Stack', 'Jest', 'KnockoutJS'],
+    },
+
+    {
+      employer: 'Microsoft',
+      url: 'https://azure.microsoft.com',
       startDate: '4/2020',
       endDate: '1/2021',
       jobTitle: 'Software Developer Engineer - (Contractor)',
       description: [
-        'Worked in Azure’s initial migration from KnockoutJS framework to the more modern React Framework.',
+        `Worked in Azure's initial migration from KnockoutJS framework to the more modern React Framework.`,
         'Worked on the testing of multiple services the Azure Compute, Service Fabric, and Containers during Azure IaaS migration from their own internal tooling to MochaJS and PortalFx as Azure transitions from KnockoutJS to ReactJS.',
         'Contributed to Azure PortalFx, a library used for testing blades, controllers, and components at Azure',
       ],
       tools: ['React', 'MochaJS', 'TypesScript', 'Selenium Webdriver', 'Azure Stack', 'PortalFx'],
     },
+
     {
       employer: 'Protalabs',
-      url: 'https://protaventures.com ',
-      startDate: '9/2018 ',
+      url: 'https://protaventures.com',
+      startDate: '9/2018',
       endDate: '4/2019',
       jobTitle: 'Software Developer Internship',
       description: [
@@ -220,6 +236,7 @@ export const experience: { items: IWorkExperience[] } = {
         'The app was an MVP by the Chicago based consultant firm and it utilized React Native and Redux as a frontend technology and Ruby on Rails for its backend'],
       tools: ['React Native', 'Redux', 'JavaScript', 'Jest', 'Ruby on Rails', 'PostgreSQL', 'Redis'],
     },
+
     {
       employer: 'Freelancer',
       startDate: '1/2009',
