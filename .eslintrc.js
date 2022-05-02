@@ -15,6 +15,7 @@ module.exports = {
   },
   plugins: [
     'react',
+    'import',
   ],
   env: {
     node: true,
@@ -53,6 +54,25 @@ module.exports = {
     'no-whitespace-before-property': 2,
     'arrow-spacing': 'error',
     // 'sort-imports': 'error',
+    'import/order': [
+      'error',
+      {
+        groups: ['builtin', 'external', 'internal', ['parent', 'sibling']],
+        pathGroups: [
+          {
+            pattern: 'react',
+            group: 'external',
+            position: 'before',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['react'],
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
     // ['error', {
     //   'ignoreCase': false,
     //   'ignoreDeclarationSort': false,
