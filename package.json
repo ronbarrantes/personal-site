@@ -1,88 +1,22 @@
 {
   "name": "personal-site",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
-    "build-dev": "webpack --config webpack.config.js",
-    "build-start": "npm run build & npm start",
-    "watch:old": "webpack-dev-server --inline --hot",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "heroku-postbuild": "webpack",
-    "lint": "eslint '*/**/*.{js,ts,tsx}' --fix",
-    "aws-deploy": "aws s3 cp dist/. s3://ronb.co --recursive",
-    "aws-cloudfront-invalidate": "aws cloudfront create-invalidation --distribution-id E1C11ZPO9J8GPQ --paths '/*'",
-    "watch": "webpack serve --hot --mode development",
-    "prepare": "husky install"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "jsdom",
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
-    }
-  },
-  "description": "Ron's Site",
-  "author": "ronbarrantes",
-  "email": "ronbarrantes@gmail.com",
-  "license": "MIT",
-  "repository": {
-    "type": "git"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.16.10",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
-    "@babel/preset-typescript": "^7.16.7",
-    "@hot-loader/react-dom": "^17.0.2",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
-    "@types/jest": "^27.4.0",
-    "@types/react": "^17.0.38",
-    "@types/react-dom": "^17.0.11",
-    "@types/react-scroll": "^1.8.3",
-    "@typescript-eslint/eslint-plugin": "^5.10.0",
-    "babel-jest": "^27.4.6",
-    "babel-loader": "^8.2.3",
-    "clean-webpack-plugin": "^4.0.0",
-    "copy-webpack-plugin": "^10.2.1",
-    "css-loader": "^6.5.1",
-    "eslint": "^8.7.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jest": "^25.7.0",
-    "eslint-plugin-react": "^7.28.0",
-    "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.5.0",
-    "husky": "^7.0.4",
-    "jest": "^27.4.7",
-    "jest-dom": "^4.0.0",
-    "lint-staged": "^12.2.2",
-    "mini-css-extract-plugin": "^2.5.2",
-    "node-sass": "^7.0.1",
-    "sass-loader": "^12.4.0",
-    "style-loader": "^3.3.1",
-    "ts-jest": "^27.1.3",
-    "ts-loader": "^9.2.6",
-    "typescript": "^4.5.5",
-    "url-loader": "^4.1.1",
-    "webpack": "^5.66.0",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.7.3"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.36",
-    "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@fortawesome/react-fontawesome": "^0.1.16",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-hot-loader": "^4.13.0",
-    "react-scroll": "^1.8.4"
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "eslint --cache --fix"
-    ]
+    "@types/node": "18.15.0",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "eslint": "8.36.0",
+    "eslint-config-next": "13.2.4",
+    "next": "13.2.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "4.9.5"
   }
 }
