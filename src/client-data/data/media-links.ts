@@ -3,20 +3,20 @@ import { TLink } from '@/types/link'
 export const mediaLinks: Record<string, TLink[]> = {
   items: [
     {
-      name: 'LinkedIn',
-      url: 'https://www.linkedin.com/in/ronbarrantes/',
+      label: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/ronbarrantes/',
     },
     {
-      name: 'Github',
-      url: 'https://github.com/ronbarrantes',
+      label: 'Github',
+      href: 'https://github.com/ronbarrantes',
     },
     {
-      name: 'Facebook',
-      url: 'https://www.facebook.com/ronbarrantes',
+      label: 'Facebook',
+      href: 'https://www.facebook.com/ronbarrantes',
     },
     {
-      name: 'Twitter',
-      url: 'https://twitter.com/ron_barrantes',
+      label: 'Twitter',
+      href: 'https://twitter.com/ron_barrantes',
     },
   ],
 }
