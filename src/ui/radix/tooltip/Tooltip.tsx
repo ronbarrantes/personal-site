@@ -2,16 +2,16 @@ import { ReactNode } from 'react'
 
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
 
-import { Arrow } from './Arrow'
-import { Content } from './Content'
-import { Trigger } from './Trigger'
+import { TooltipArrow } from './TooltipArrow'
+import { TooltipContent } from './TooltipContent'
+import { TooltipTrigger } from './TooltipTrigger'
 
 interface TooltipProps {
   children: ReactNode
-  delay: 0
+  delay?: number
 }
 
-export const Tooltip = ({ children, delay }: TooltipProps) => {
+export const Tooltip = ({ children, delay = 0 }: TooltipProps) => {
   return (
     <TooltipPrimitive.Provider delayDuration={delay}>
       <TooltipPrimitive.Root>{children}</TooltipPrimitive.Root>
@@ -19,6 +19,6 @@ export const Tooltip = ({ children, delay }: TooltipProps) => {
   )
 }
 
-Tooltip.Arrow = Arrow
-Tooltip.Content = Content
-Tooltip.Trigger = Trigger
+Tooltip.Arrow = TooltipArrow
+Tooltip.Content = TooltipContent
+Tooltip.Trigger = TooltipTrigger

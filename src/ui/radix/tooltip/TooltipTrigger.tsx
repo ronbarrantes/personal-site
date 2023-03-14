@@ -6,7 +6,7 @@ interface TooltipTriggerProps {
   asChild?: boolean
 }
 
-export const Trigger = ({
+export const TooltipTrigger = ({
   children,
   className,
   asChild,
