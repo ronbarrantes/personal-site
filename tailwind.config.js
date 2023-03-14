@@ -10,6 +10,12 @@ module.exports = {
   ],
   // darkMode: false, // or 'media' or 'class'
   theme: {
+    // container: {
+    //   center: true,
+    //   padding: '1.25rem',
+    //   backgroundColor: '#fff',
+    // },
+
     extend: {
       colors: {
         // primary: '#1E90FF',
@@ -67,6 +73,17 @@ module.exports = {
           700: '#940000',
           800: '#5d0000',
           900: '#2f0002',
+        },
+        neutral: {
+          100: '#f2ecf1',
+          200: '#d5bed2',
+          300: '#a685a3',
+          400: '#7d5a7a',
+          500: '#523450',
+          600: '#41223f',
+          700: '#341631',
+          800: '#190618',
+          900: '#0d000c',
         },
       },
     },
