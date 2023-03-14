@@ -1,12 +1,14 @@
+import About from '@/components/about/About'
+import { Logo } from '@/components/branding/Logo'
+
+import Header from '@/components/header/Header'
+import WorkHistory from '@/components/work-history/WorkHistory'
+import { Inter } from 'next/font/google'
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import { Logo } from '@/components/branding/Logo'
-import classNames from 'classnames'
+// import classNames from 'classnames'
 import { useState } from 'react'
-import WorkHistory from '@/components/work-history/WorkHistory'
-import About from '@/components/about/About'
-import Header from '@/components/header/Header'
+
 import Footer from '@/components/footer/Footer'
 
 // const inter = Inter({ subsets: ['latin'] })

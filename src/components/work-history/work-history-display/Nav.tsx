@@ -1,6 +1,6 @@
 import useWorkHistoryContext from './WorkHistoryContext'
-import { Tooltip } from '@ui'
 import classNames from 'classnames'
+import { Tooltip } from '@ui'
 
 export const Nav = () => {
   const { workHistory, index, setIndex } = useWorkHistoryContext()
@@ -14,13 +14,13 @@ export const Nav = () => {
               <Tooltip.Trigger asChild>
                 <button
                   aria-label={item.employer}
-                  className={classNames('w-5 h-5 rounded-full bg-purple-500')}
+                  className={classNames('h-5 w-5 rounded-full bg-purple-500')}
                   onClick={() => setIndex(idx)}
                 />
               </Tooltip.Trigger>
               <Tooltip.Content
                 side="right"
-                className="bg-neutral-800 text-neutral-100 rounded-md p-4 py-1 flex"
+                className="flex rounded-md bg-neutral-800 p-4 py-1 text-neutral-100"
               >
                 <Tooltip.Arrow className="fill-neutral-800" />
                 <span>{item.employer}</span>
