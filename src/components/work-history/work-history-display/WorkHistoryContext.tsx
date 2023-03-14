@@ -1,9 +1,9 @@
 import React, {
-  useContext,
-  createContext,
-  useState,
-  useCallback,
   ReactNode,
+  createContext,
+  useCallback,
+  useContext,
+  useState,
 } from 'react'
 
 import { IWorkExperience } from '@/types'
@@ -16,14 +16,14 @@ interface IWorkHistoryContext {
 }
 
 export const WorkHistoryContext = createContext<IWorkHistoryContext | null>(
-  null,
+  null
 )
 
 const useWorkHistoryContext = () => {
   const context = useContext(WorkHistoryContext)
   if (!context) {
     throw new Error(
-      'WorkHistoryCarousel.* must be a child of WorkHistoryCarousel',
+      'WorkHistoryCarousel.* must be a child of WorkHistoryCarousel'
     )
   }
   return {
