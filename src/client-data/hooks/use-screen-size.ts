@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 /**
  * Hook that calculates the current size of the viewing window
  * @returns width and height of the screen
  */
-export const useScreenSize = () => {
+export const useScreenSize = (window: Window) => {
   const [width, setWidth] = useState(window.innerWidth)
   const [height, setHeight] = useState(window.innerHeight)
 
