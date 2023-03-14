@@ -1,10 +1,4 @@
-import React, {
-  ReactNode,
-  createContext,
-  useCallback,
-  useContext,
-  useState,
-} from 'react'
+import { createContext, useContext } from 'react'
 
 import { IWorkExperience } from '@/types'
 
@@ -34,23 +28,3 @@ const useWorkHistoryContext = () => {
 }
 
 export default useWorkHistoryContext
-
-// export const useWorkHistory = () => {
-//   const { workHistory } = useContext(WorkHistoryContext)
-//   return workHistory
-// }
-
-// export const useSetWorkHistory = () => {
-//   const { setWorkHistory } = useContext(WorkHistoryContext)
-//   return setWorkHistory
-// }
-
-// export const useIndex = () => {
-//   const { index } = useContext(WorkHistoryContext)
-//   return index
-// }
-
-// export const useSetIndex = () => {
-//   const { setIndex } = useContext(WorkHistoryContext)
-//   return setIndex
-// }
