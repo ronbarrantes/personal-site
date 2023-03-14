@@ -1,6 +1,8 @@
 import classNames from 'classnames'
-import { Display as WhDisplay } from './work-history-display/Display'
+
 import { experienceItems } from '@/client-data/data/text'
+
+import { Display as WhDisplay } from './work-history-display/Display'
 
 const WorkHistory = () => {
   return (
@@ -8,7 +10,7 @@ const WorkHistory = () => {
       id="Work History"
       className={classNames(
         'flex flex-col items-center justify-center',
-        'border border-purple-300',
+        'border border-purple-300'
         // ' h-screen',
       )}
     >
