@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 
 import { experienceItems } from '@/client-data/data/text'
-
 import { Display as WhDisplay } from './work-history-display/Display'
 
 const WorkHistory = () => {
@@ -15,7 +14,7 @@ const WorkHistory = () => {
       )}
     >
       <h2>Work History</h2>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center ">
         <div className="flex flex-col items-center justify-center"></div>
       </div>
 
