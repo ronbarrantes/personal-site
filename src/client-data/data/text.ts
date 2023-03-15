@@ -64,7 +64,7 @@ export const experienceItems: IWorkExperience[] = [
     tools: [
       'React',
       'FluentUI',
-      'TypesScript',
+      'TypeScript',
       'Azure Stack',
       'Jest',
       'KnockoutJS',
@@ -85,7 +85,7 @@ export const experienceItems: IWorkExperience[] = [
     tools: [
       'React',
       'MochaJS',
-      'TypesScript',
+      'TypeScript',
       'Selenium Webdriver',
       'Azure Stack',
       'PortalFx',
