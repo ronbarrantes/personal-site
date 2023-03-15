@@ -4,6 +4,9 @@ import { experienceItems } from '@/client-data/data/text'
 import { Display as WhDisplay } from './work-history-display/Display'
 
 const WorkHistory = () => {
+  // TODO: add a minimun height
+  // TODO: create svgs for the tools
+  // TODO: make thing look good
   return (
     <section
       id="Work History"
