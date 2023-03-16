@@ -1,8 +1,3 @@
-type IconPattern = {
-  name: string
-  file: string
-}
-
 type IconsArr =
   | { name: 'azure'; file: 'Azure' }
   | { name: 'css'; file: 'Css' }
