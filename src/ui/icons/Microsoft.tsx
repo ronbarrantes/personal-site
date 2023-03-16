@@ -1,0 +1,22 @@
+import React from 'react'
+
+interface MicrosoftProps extends React.SVGAttributes<SVGElement> {
+  children?: never
+  color?: string
+}
+
+export const Microsoft = (props: MicrosoftProps) => (
+  <svg
+    width="40"
+    height="40"
+    viewBox="0 0 40 40"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path d="M19.1842 19.1806H0V0H19.1842V19.1806Z" fill="#F1511B" />
+    <path d="M39.9999 19.1806H20.8159V0H39.9999V19.1806Z" fill="#80CC28" />
+    <path d="M19.1837 40H0V20.8194H19.1837V40Z" fill="#00ADEF" />
+    <path d="M39.9999 40H20.8159V20.8194H39.9999V40Z" fill="#FBBC09" />
+  </svg>
+)
