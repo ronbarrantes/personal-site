@@ -34,7 +34,7 @@ export default function Home() {
       {/* <Icon /> */}
 
       <main>
-        <Icon />
+        {/* <Icon /> */}
         <Header />
         <About />
         <WorkHistory />
