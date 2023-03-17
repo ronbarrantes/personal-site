@@ -1,3 +1,4 @@
+import { IconsLisType } from '@ui'
 import { TLink as Link } from './link'
 
 export interface IAbout {
@@ -38,5 +39,5 @@ export interface IWorkExperience {
   endDate?: string
   description: string[]
   url?: string
-  tools: string[]
+  tools: IconsLisType[]
 }

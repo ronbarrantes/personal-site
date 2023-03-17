@@ -1,10 +1,19 @@
-import { IconsLisType } from './icons'
+/* eslint-disable @next/next/no-img-element */
+import { iconsLisFiles, IconsLisType as ListTypes } from './icon-types'
+
+// export { type IconsLisType } from './icon-types'
 
 interface IconProps {
-  name: IconsLisType['name']
+  className?: string
+  name: ListTypes
 }
 
-export const Icon = ({ name }: IconProps) => {
-  console.log('NAME', name)
-  return <div>{name}</div>
+export const Icon = ({ name, className }: IconProps) => {
+  return (
+    <img
+      className={className}
+      src={`/assets/icons-svg/${name}.svg`}
+      alt={iconsLisFiles[name].name}
+    />
+  )
 }
