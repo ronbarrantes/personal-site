@@ -1,4 +1,4 @@
-type IconsArr =
+export type IconsLisType =
   | { name: 'azure'; file: 'Azure' }
   | { name: 'css'; file: 'Css' }
   | { name: 'fluent'; file: 'FluentUi' }

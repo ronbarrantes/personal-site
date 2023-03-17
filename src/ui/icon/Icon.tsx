@@ -1,5 +1,10 @@
-import { Icons as IconType } from './icons'
+import { IconsLisType } from './icons'
 
-export const Icon = (props: IconType) => {
-  return <Icon>Icon</Icon>
+interface IconProps {
+  name: IconsLisType['name']
+}
+
+export const Icon = ({ name }: IconProps) => {
+  console.log('NAME', name)
+  return <div>{name}</div>
 }

@@ -31,7 +31,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* <Icon /> */}
+      <Icon name="mysql" />
 
       <main>
         {/* <Icon /> */}
