@@ -1,7 +1,6 @@
 import React, { ReactNode, useState } from 'react'
 
 import { IWorkExperience } from '@/types'
-
 import { Item } from './Item'
 import { Nav } from './Nav'
 import { WorkHistoryContext } from './WorkHistoryContext'
@@ -27,7 +26,7 @@ export const Display = ({
         setIndex,
       }}
     >
-      <div className="flex gap-10 items-center m-10 my-0">{children}</div>
+      <div className="m-10 my-0 flex items-center gap-10">{children}</div>
     </WorkHistoryContext.Provider>
   )
 }

@@ -1,3 +1,4 @@
+import { Icon, Tooltip } from '@ui'
 import useWorkHistoryContext from './WorkHistoryContext'
 
 export const Item = () => {
@@ -13,9 +14,16 @@ export const Item = () => {
           return <p key={idx}>{p}</p>
         })}
       </div>
-      <div>
+      <div className="flex flex-wrap gap-5">
         {workHistory[index].tools.map((tool, idx) => (
-          <span key={idx}>{tool}</span>
+          <Tooltip key={`${tool}-${idx}`}>
+            <Tooltip.Trigger>
+              <Icon name={tool} />
+            </Tooltip.Trigger>
+            <Tooltip.Content side="bottom">
+              <span>{tool}</span>
+            </Tooltip.Content>
+          </Tooltip>
         ))}
       </div>
     </div>

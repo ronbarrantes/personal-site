@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import { iconsLisFiles, IconsLisType } from './icon-types'
 
-interface IconProps {
+interface IconListProps {
   className?: string
   name: IconsLisType
 }
 
-export const Icon = ({ name, className }: IconProps) => {
+export const IconList = ({ name, className }: IconListProps) => {
   return (
     <img
       className={className}
