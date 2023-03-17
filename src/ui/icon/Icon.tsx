@@ -1,11 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import { iconsLisFiles, IconsLisType as ListTypes } from './icon-types'
-
-// export { type IconsLisType } from './icon-types'
+import { iconsLisFiles, IconsLisType } from './icon-types'
 
 interface IconProps {
   className?: string
-  name: ListTypes
+  name: IconsLisType
 }
 
 export const Icon = ({ name, className }: IconProps) => {
