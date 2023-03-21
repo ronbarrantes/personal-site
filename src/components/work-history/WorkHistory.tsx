@@ -2,37 +2,26 @@ import classNames from 'classnames'
 
 import { experienceItems } from '@/client-data/data/text'
 import { workHistoryText } from '@/client-data/data/text'
+import { Container } from '@/ui'
 import { Display as WhDisplay } from './work-history-display/Display'
 
 const WorkHistory = () => {
-  // TODO: add a minimun height
-  // TODO: create svgs for the tools
-  // TODO: make thing look good
   return (
-    <section
-      id="Work History"
-      className={classNames(
-        'flex flex-col items-center justify-center',
-        'border border-purple-300',
-        'h-screen'
-      )}
-    >
-      <h2>{workHistoryText.title}</h2>
-      <div className="flex flex-col items-center justify-center">
-        {/* <div className="flex flex-col items-center justify-center"></div> */}
-        <p>{workHistoryText.description}</p>
-      </div>
-
-      <WhDisplay items={experienceItems}>
-        <WhDisplay.Nav />
-        <WhDisplay.Item />
-      </WhDisplay>
+    <section id="Work History">
+      <Container
+        title={workHistoryText.title}
+        description={workHistoryText.description}
+        className="flex flex-col justify-center gap-2 p-10"
+      >
+        <div className="flex items-center justify-center">
+          <WhDisplay items={experienceItems}>
+            <WhDisplay.Nav />
+            <WhDisplay.Item />
+          </WhDisplay>
+        </div>
+      </Container>
     </section>
   )
 }
 
 export default WorkHistory
-
-// gonna have a bunch of balls as a menu
-// there will be some cards
-// gotta have some state

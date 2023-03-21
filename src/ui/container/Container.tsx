@@ -24,7 +24,7 @@ export const Container = ({
         ) : (
           <p>{description}</p>
         ))}
-      <>{children}</>
+      {children}
     </div>
   )
 }
