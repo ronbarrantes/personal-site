@@ -5,12 +5,12 @@ export const menu: TLink[] = [
     label: 'Portfolio',
     href: '/',
   },
-  {
-    label: 'Email',
-    href: '/',
-  },
-  {
-    label: 'Contact',
-    href: '/',
-  },
+  // {
+  //   label: 'Email',
+  //   href: '/',
+  // },
+  // {
+  //   label: 'Contact',
+  //   href: '/',
+  // },
 ]

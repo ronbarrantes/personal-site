@@ -2,6 +2,7 @@ import { IAbout, ISkills, IWorkExperience } from '@/types/text'
 // import { fakeImage, fakeImages } from '@/ utils/fakeImageCreator'
 
 export const about: IAbout = {
+  title: 'About Me',
   description: [
     'Creative at heart, I am a Front-End Developer with an insatiable curiosity, and a passion for learning and personal growth.',
     'I have 2 year of development experience, 4 years working with JavaScript and Node, 1 year working with TypeScript, and over 10 years working in various aspects of tech.',

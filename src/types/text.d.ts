@@ -2,6 +2,7 @@ import { IconsLisType } from '@ui'
 import { TLink as Link } from './link'
 
 export interface IAbout {
+  title: string
   description: string[]
 }
 
