@@ -18,7 +18,7 @@ export const Item = () => {
         {workHistory[index].tools.map((tool, idx) => (
           <Tooltip key={`${tool}-${idx}`}>
             <Tooltip.Trigger>
-              <Icon name={tool} />
+              <Icon className="h-8 border border-red-500" name={tool} />
             </Tooltip.Trigger>
             <Tooltip.Content side="bottom">
               <span>{tool}</span>
