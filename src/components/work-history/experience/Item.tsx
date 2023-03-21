@@ -43,14 +43,18 @@ export const Item = ({ index, className }: ItemProps) => {
         </div>
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex flex-col gap-3">
+        <p className="font-semibold italic">Tools Used:</p>
         <div className="flex flex-wrap gap-5">
           {workHistory[index].tools.map((tool, idx) => (
             <Tooltip key={`${tool}-${idx}`}>
               <Tooltip.Trigger>
                 <Icon className="h-5 rounded-sm" name={tool} />
               </Tooltip.Trigger>
-              <Tooltip.Content side="bottom" className="bg-neutral-900">
+              <Tooltip.Content
+                side="bottom"
+                className="bg-neutral-900 shadow-sm"
+              >
                 <Tooltip.Arrow className="fill-neutral-900" />
                 <div>{iconsLisFiles[tool].name}</div>
               </Tooltip.Content>
