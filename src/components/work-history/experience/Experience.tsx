@@ -2,16 +2,17 @@ import React, { ReactNode, useState } from 'react'
 
 import { IWorkExperience } from '@/types'
 import { Item } from './Item'
+import { ItemDisplay } from './ItemDisplay'
 import { Nav } from './Nav'
 import { WorkHistoryContext } from './WorkHistoryContext'
 
-interface DisplayProps {
+interface ExperienceProps {
   items: IWorkExperience[]
   children: ReactNode
   className?: string
 }
 
-export const Display = ({ items, children, className }: DisplayProps) => {
+export const Experience = ({ items, children, className }: ExperienceProps) => {
   const [workHistory, setWorkHistory] = useState<IWorkExperience[]>(items)
   const [index, setIndex] = useState<number>(0)
 
@@ -31,5 +32,6 @@ export const Display = ({ items, children, className }: DisplayProps) => {
   )
 }
 
-Display.Nav = Nav
-Display.Item = Item
+Experience.Nav = Nav
+Experience.Item = Item
+Experience.ItemDisplay = ItemDisplay

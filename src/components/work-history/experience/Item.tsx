@@ -1,8 +1,8 @@
 import { Icon, Tooltip } from '@ui'
 import useWorkHistoryContext from './WorkHistoryContext'
 
-export const Item = () => {
-  const { index, workHistory } = useWorkHistoryContext()
+export const Item = ({ index }: { index: number }) => {
+  const { workHistory } = useWorkHistoryContext()
 
   return (
     <div className="flex flex-col gap-4 border border-red-600">

@@ -1,9 +1,9 @@
-import classNames from 'classnames'
+// import classNames from 'classnames'
 
+import { Experience } from '@components/work-history/experience/Experience'
 import { experienceItems } from '@/client-data/data/text'
 import { workHistoryText } from '@/client-data/data/text'
 import { Container } from '@/ui'
-import { Display as WhDisplay } from './work-history-display/Display'
 
 const WorkHistory = () => {
   return (
@@ -14,10 +14,10 @@ const WorkHistory = () => {
         className="flex flex-col justify-center gap-2 p-10"
       >
         <div className="flex items-center justify-center">
-          <WhDisplay items={experienceItems}>
-            <WhDisplay.Nav />
-            <WhDisplay.Item />
-          </WhDisplay>
+          <Experience items={experienceItems}>
+            <Experience.Nav />
+            <Experience.ItemDisplay />
+          </Experience>
         </div>
       </Container>
     </section>
