@@ -15,8 +15,7 @@ const WorkHistory = () => {
       >
         <div className="flex items-center justify-center">
           <Experience items={experienceItems}>
-            <Experience.Nav />
-            <Experience.ItemDisplay />
+            <Experience.ItemList />
           </Experience>
         </div>
       </Container>

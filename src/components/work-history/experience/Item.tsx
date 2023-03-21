@@ -1,32 +1,61 @@
+import classNames from 'classnames'
+
 import { Icon, Tooltip } from '@ui'
 import useWorkHistoryContext from './WorkHistoryContext'
 
-export const Item = ({ index }: { index: number }) => {
+interface ItemProps {
+  index: number
+  className?: string
+}
+
+export const Item = ({ index, className }: ItemProps) => {
   const { workHistory } = useWorkHistoryContext()
 
-  return (
-    <div className="flex flex-col gap-4 border border-red-600">
-      <h3 className="text-3xl text-purple-300">
-        {workHistory[index].employer}
-      </h3>
-      <p>{workHistory[index].jobTitle}</p>
+  const dateText = workHistory[index].endDate
+    ? `${workHistory[index].startDate} - ${workHistory[index].endDate}`
+    : `${workHistory[index].startDate} - Present`
 
-      <div className="flex flex-col gap-2">
-        {workHistory[index].description.map((p, idx) => {
-          return <p key={idx}>{p}</p>
-        })}
+  return (
+    <div
+      className={classNames(
+        'flex flex-col justify-between gap-4 rounded-lg bg-neutral-900 bg-gradient-to-br from-neutral-800 to-purple-900 p-10 shadow-sm',
+        className
+      )}
+    >
+      <div className="flex flex-col gap-4">
+        <h3
+          className={classNames(
+            'w-fit text-3xl',
+            'bg-gradient-to-br from-purple-300 to-purple-200 bg-clip-text font-extrabold text-transparent'
+          )}
+        >
+          {workHistory[index].employer}
+        </h3>
+        <div className="gap-3">
+          <p className="text-lg">{workHistory[index].jobTitle}</p>
+          <p className="font-light italic text-purple-200">{dateText}</p>
+        </div>
+
+        <div className="flex flex-col gap-2 font-light text-neutral-100">
+          {workHistory[index].description.map((p, idx) => {
+            return <p key={idx}>{p}</p>
+          })}
+        </div>
       </div>
-      <div className="flex flex-wrap gap-5">
-        {workHistory[index].tools.map((tool, idx) => (
-          <Tooltip key={`${tool}-${idx}`}>
-            <Tooltip.Trigger>
-              <Icon className="h-5 rounded-sm" name={tool} />
-            </Tooltip.Trigger>
-            <Tooltip.Content side="bottom">
-              <span>{tool}</span>
-            </Tooltip.Content>
-          </Tooltip>
-        ))}
+
+      <div className="flex justify-center">
+        <div className="flex flex-wrap gap-5">
+          {workHistory[index].tools.map((tool, idx) => (
+            <Tooltip key={`${tool}-${idx}`}>
+              <Tooltip.Trigger>
+                <Icon className="h-5 rounded-sm" name={tool} />
+              </Tooltip.Trigger>
+              <Tooltip.Content side="bottom">
+                <span>{tool}</span>
+              </Tooltip.Content>
+            </Tooltip>
+          ))}
+        </div>
       </div>
     </div>
   )
