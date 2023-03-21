@@ -1,4 +1,5 @@
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
+import classNames from 'classnames'
 
 interface TooltipContentProps {
   children: React.ReactNode
@@ -16,7 +17,7 @@ export const TooltipContent = ({
   return (
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Content
-        className={className}
+        className={classNames('rounded-lg p-3 py-1', className)}
         side={side}
         sideOffset={sideOffset}
       >

@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import { Icon, Tooltip } from '@ui'
+import { Icon, iconsLisFiles, Tooltip } from '@ui'
 import useWorkHistoryContext from './WorkHistoryContext'
 
 interface ItemProps {
@@ -50,8 +50,9 @@ export const Item = ({ index, className }: ItemProps) => {
               <Tooltip.Trigger>
                 <Icon className="h-5 rounded-sm" name={tool} />
               </Tooltip.Trigger>
-              <Tooltip.Content side="bottom">
-                <span>{tool}</span>
+              <Tooltip.Content side="bottom" className="bg-neutral-900">
+                <Tooltip.Arrow className="fill-neutral-900" />
+                <div>{iconsLisFiles[tool].name}</div>
               </Tooltip.Content>
             </Tooltip>
           ))}
