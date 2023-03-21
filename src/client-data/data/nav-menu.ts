@@ -1,16 +1,16 @@
 import { TLink } from '@/types/link'
 
-export const menu: Record<string, TLink> = {
-  portfolio: {
+export const menu: TLink[] = [
+  {
     label: 'Portfolio',
     href: '/',
   },
-  email: {
+  {
     label: 'Email',
     href: '/',
   },
-  contact: {
+  {
     label: 'Contact',
     href: '/',
   },
-}
+]
