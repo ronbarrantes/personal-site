@@ -1,7 +1,8 @@
 import Link from 'next/link'
 
-import { menu } from '@/client-data/data/nav-menu'
-export const Nav = () => {
+import { TLink } from '@/types'
+
+export const Nav = ({ menu }: { menu: TLink[] }) => {
   return (
     <nav>
       <ul className="flex gap-3">
