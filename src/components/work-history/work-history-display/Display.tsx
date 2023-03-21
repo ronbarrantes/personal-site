@@ -5,15 +5,13 @@ import { Item } from './Item'
 import { Nav } from './Nav'
 import { WorkHistoryContext } from './WorkHistoryContext'
 
-export const Display = ({
-  items,
-  children,
-  className,
-}: {
+interface DisplayProps {
   items: IWorkExperience[]
   children: ReactNode
   className?: string
-}) => {
+}
+
+export const Display = ({ items, children, className }: DisplayProps) => {
   const [workHistory, setWorkHistory] = useState<IWorkExperience[]>(items)
   const [index, setIndex] = useState<number>(0)
 
@@ -26,7 +24,9 @@ export const Display = ({
         setIndex,
       }}
     >
-      <div className="m-10 my-0 flex items-center gap-10">{children}</div>
+      <div className="m-10 my-0 flex w-1/2 items-center gap-10 border border-pink-300">
+        {children}
+      </div>
     </WorkHistoryContext.Provider>
   )
 }

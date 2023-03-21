@@ -1,9 +1,10 @@
-import useWorkHistoryContext from './WorkHistoryContext'
 import classNames from 'classnames'
+
 import { Tooltip } from '@ui'
+import useWorkHistoryContext from './WorkHistoryContext'
 
 export const Nav = () => {
-  const { workHistory, index, setIndex } = useWorkHistoryContext()
+  const { workHistory, setIndex } = useWorkHistoryContext()
 
   return (
     <nav className="border border-red-400">

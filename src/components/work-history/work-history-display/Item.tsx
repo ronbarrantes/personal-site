@@ -5,8 +5,10 @@ export const Item = () => {
   const { index, workHistory } = useWorkHistoryContext()
 
   return (
-    <div className="flex flex-col gap-4">
-      <h3>{workHistory[index].employer}</h3>
+    <div className="flex flex-col gap-4 border border-red-600">
+      <h3 className="text-3xl text-purple-300">
+        {workHistory[index].employer}
+      </h3>
       <p>{workHistory[index].jobTitle}</p>
 
       <div className="flex flex-col gap-2">
@@ -18,7 +20,7 @@ export const Item = () => {
         {workHistory[index].tools.map((tool, idx) => (
           <Tooltip key={`${tool}-${idx}`}>
             <Tooltip.Trigger>
-              <Icon className="h-8 border border-red-500" name={tool} />
+              <Icon className="h-5 rounded-sm" name={tool} />
             </Tooltip.Trigger>
             <Tooltip.Content side="bottom">
               <span>{tool}</span>

@@ -5,21 +5,20 @@ import { about } from '@/client-data/data/text'
 
 const About = () => {
   return (
-    <Wrapper>
-      <section
-        id="About"
+    <section id="About">
+      <Wrapper
         className={classNames(
-          'flex flex-col',
-          'border border-green-300',
-          'h-screen'
+          'flex flex-col justify-center gap-2 p-10'
+
+          // 'border border-purple-300',
         )}
       >
-        <h2>{about.title}</h2>
+        <h2 className="text-3xl font-semibold">{about.title}</h2>
         {about.description.map((item, idx) => {
           return <p key={`${item}-${idx}`}>{item}</p>
         })}
-      </section>
-    </Wrapper>
+      </Wrapper>
+    </section>
   )
 }
 
