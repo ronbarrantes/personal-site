@@ -26,6 +26,11 @@ export const skills: ISkills = {
   ],
 }
 
+export const workHistoryText = {
+  title: 'Work History',
+  description: `These are some of the places I've worked`,
+}
+
 export const experienceItems: IWorkExperience[] = [
   {
     employer: 'VeroSkills',
