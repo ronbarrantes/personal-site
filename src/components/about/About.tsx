@@ -6,11 +6,12 @@ const About = () => {
       id="About"
       className={classNames(
         'flex flex-col items-center justify-center',
-        'border border-green-300'
-        // ' h-screen',
+        'border border-green-300',
+        'h-screen'
       )}
     >
       <h2>About</h2>
+      <p></p>
     </section>
   )
 }

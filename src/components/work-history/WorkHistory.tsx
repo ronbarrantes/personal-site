@@ -12,8 +12,8 @@ const WorkHistory = () => {
       id="Work History"
       className={classNames(
         'flex flex-col items-center justify-center',
-        'border border-purple-300'
-        // ' h-screen',
+        'border border-purple-300',
+        ' h-screen'
       )}
     >
       <h2>Work History</h2>

@@ -1,10 +1,13 @@
 // import classNames from 'classnames'
 
 import { useScreenSize } from '@/client-data/hooks/use-screen-size'
-
 import { Logo } from '../branding/Logo'
 
-const Header = () => {
+interface HeaderProps {
+  children: React.ReactNode
+}
+
+const Header = ({ children }: HeaderProps) => {
   // const { width, height } = useScreenSize(window)
   // if (typeof window == 'undefined') return null
 
@@ -13,9 +16,8 @@ const Header = () => {
       <div className="text-small absolute top-0 left-0 text-green-400">
         {/* {`${width}px | ${height}px`} */}
       </div>
+      {children}
       <h1 className="text-5xl font-bold">{`Ron's site 😊`}</h1>
-
-      {/* <Logo /> */}
     </header>
   )
 }

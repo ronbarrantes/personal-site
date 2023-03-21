@@ -30,19 +30,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Icon name="mysql" />
-
       <main>
         {/* <Icon /> */}
-        <Header />
         <About />
         <WorkHistory />
-        <Footer />
-
-        {/* <div className="flex w-fit border border-red-500 bg-gradient-to-r from-purple-400 to-green-600 bg-clip-text text-8xl font-extrabold text-transparent">
-          Tailwind CSS
-        </div> */}
       </main>
     </>
   )
