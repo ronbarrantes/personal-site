@@ -1,7 +1,11 @@
 import { IconsLisType } from '@ui'
 import { TLink as Link } from './link'
 
-export interface IAbout {
+export interface SectionText {
+  title: string
+  description?: string[] | string
+}
+export interface IAbout extends SectionText {
   title: string
   description: string[]
 }
