@@ -5,16 +5,24 @@ interface ContainerProps {
   description?: string
   className?: string | string[]
   children: React.ReactNode
+  isHeader?: boolean
 }
 
 export const Container = ({
   title,
   description,
   children,
+  isHeader,
   className,
 }: ContainerProps) => {
   return (
-    <div className={classNames('mx-auto max-w-7xl', className)}>
+    <div
+      className={classNames(
+        'mx-auto max-w-7xl px-5',
+        !isHeader ? 'flex flex-col gap-2 py-10' : '',
+        className
+      )}
+    >
       {title && <h2 className="text-3xl font-semibold">{title}</h2>}
       {description &&
         (Array.isArray(description) ? (

@@ -1,5 +1,3 @@
-// import classNames from 'classnames'
-
 import { Experience } from '@components/work-history/experience/Experience'
 import { experienceItems } from '@/client-data/data/text'
 import { workHistoryText } from '@/client-data/data/text'
@@ -11,7 +9,6 @@ const WorkHistory = () => {
       <Container
         title={workHistoryText.title}
         description={workHistoryText.description}
-        className="flex flex-col justify-center gap-2 p-10"
       >
         <div className="flex items-center justify-center">
           <Experience items={experienceItems}>
