@@ -1,6 +1,12 @@
+import { IconsLisType } from '@ui'
 import { TLink as Link } from './link'
 
-export interface IAbout {
+export interface SectionText {
+  title: string
+  description?: string[] | string
+}
+export interface IAbout extends SectionText {
+  title: string
   description: string[]
 }
 
@@ -38,5 +44,5 @@ export interface IWorkExperience {
   endDate?: string
   description: string[]
   url?: string
-  tools: string[]
+  tools: IconsLisType[]
 }

@@ -1,10 +1,23 @@
+// import classNames from 'classnames'
+import { useState } from 'react'
+
+import { Inter } from 'next/font/google'
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+import About from '@/components/about/About'
+import WorkHistory from '@/components/work-history/WorkHistory'
+
+// const inter = Inter({ subsets: ['latin'] })
+
+// const arr = new Array(9).fill('').map((_, i) => `bg-purple-${i + 1}00`)
 
 export default function Home() {
+  // const [sat, setSat] = useState<number>(0)
+  // const [bal, setBal] = useState<number>(0)
+
+  // console.log(arr)
+
   return (
     <>
       <Head>
@@ -13,11 +26,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main>
-        <h1 className=" text-center text-4xl font-bold">
-          {`I'm redoing my site in next.js`}
-        </h1>
+        {/* <Icon /> */}
+        <About />
+        <WorkHistory />
       </main>
     </>
   )

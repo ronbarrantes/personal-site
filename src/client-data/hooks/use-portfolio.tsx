@@ -1,11 +1,11 @@
-import React, { useContext, createContext, useState, useCallback } from 'react'
+import React, { createContext, useCallback, useContext, useState } from 'react'
 
 interface IPortfolio {
-	selectedIndex: number;
-	setSelectedIndex: (i: number) => void;
+  selectedIndex: number
+  setSelectedIndex: (i: number) => void
 
-	isModalActive: boolean;
-	setIsModalActive: (i: boolean) => void;
+  isModalActive: boolean
+  setIsModalActive: (i: boolean) => void
 }
 
 const PortfolioContext = createContext<IPortfolio>({
@@ -35,7 +35,11 @@ export const useSetIsModalActive = () => {
   return setIsModalActive
 }
 
-export const PortfolioProvider = ({ children }: { children: React.ReactNode}) => {
+export const PortfolioProvider = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const [isModalActive, setIsModalActive] = useState<boolean>(false)
 
@@ -48,10 +52,14 @@ export const PortfolioProvider = ({ children }: { children: React.ReactNode}) =>
   }, [])
 
   return (
-    <PortfolioContext.Provider value={{
-      selectedIndex, setSelectedIndex: cbSelectedIndex,
-      isModalActive, setIsModalActive: cbIsModalActive,
-    }}>
+    <PortfolioContext.Provider
+      value={{
+        selectedIndex,
+        setSelectedIndex: cbSelectedIndex,
+        isModalActive,
+        setIsModalActive: cbIsModalActive,
+      }}
+    >
       {children}
     </PortfolioContext.Provider>
   )

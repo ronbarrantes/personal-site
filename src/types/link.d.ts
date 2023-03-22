@@ -1,4 +1,4 @@
 export type TLink = {
-  name: string
-  [key: string]: string
+  label: string
+  href: string
 }
