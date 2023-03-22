@@ -43,7 +43,7 @@ export const Item = ({ index, className }: ItemProps) => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 px-10">
         <p className="font-semibold italic">Tools Used:</p>
         <div className="flex flex-wrap gap-5">
           {workHistory[index].tools.map((tool, idx) => (
