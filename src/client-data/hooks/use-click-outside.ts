@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 /**
  * Detects when a click has occurred outside of the current element
@@ -9,8 +9,7 @@ export const useClickOutside = (handler: () => void) => {
   const domRef = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      if(!domRef.current?.contains(event.target as HTMLDivElement))
-        handler()
+      if (!domRef.current?.contains(event.target as HTMLDivElement)) handler()
     }
     document.addEventListener('mousedown', handleOutsideClick)
     return () => {
