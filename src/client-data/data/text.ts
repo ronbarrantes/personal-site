@@ -1,5 +1,4 @@
 import { IAbout, ISkills, IWorkExperience } from '@/types/text'
-// import { fakeImage, fakeImages } from '@/ utils/fakeImageCreator'
 
 export const about: IAbout = {
   title: 'About Me',
