@@ -9,6 +9,8 @@ const WorkHistory = () => {
       <Container
         title={workHistoryText.title}
         description={workHistoryText.description}
+        className="px-0"
+        headerClassName="px-5"
       >
         <div className="flex items-center justify-center ">
           <Experience items={experienceItems}>
