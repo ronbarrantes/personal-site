@@ -9,6 +9,41 @@ interface ContainerProps {
   headerClassName?: string
 }
 
+interface ContainerTitleProps {
+  text: string
+  className?: string
+}
+
+const ContainerTitle = ({ text, className }: ContainerTitleProps) => {
+  return (
+    <h2 className={classNames('text-3xl font-semibold', className)}>{text}</h2>
+  )
+}
+
+interface ContainerDescriptionProps {
+  text: string | string[]
+  className?: string
+}
+
+const ContainerDescription = ({
+  text,
+  className,
+}: ContainerDescriptionProps) => {
+  return Array.isArray(text) ? (
+    <>
+      {text.map((item, idx) => {
+        return (
+          <p className={classNames(className)} key={`${item}-${idx}`}>
+            {item}
+          </p>
+        )
+      })}
+    </>
+  ) : (
+    <p className={classNames(className)}>{text}</p>
+  )
+}
+
 export const Container = ({
   title,
   description,
@@ -42,3 +77,6 @@ export const Container = ({
     </div>
   )
 }
+
+Container.Title = ContainerTitle
+Container.Description = ContainerDescription
