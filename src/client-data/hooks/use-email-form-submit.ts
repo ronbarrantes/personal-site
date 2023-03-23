@@ -1,14 +1,15 @@
+// TODO: Remove if not useful
 import { useState } from 'react'
 
 interface IInfoResponse {
-	message: string;
-	success: string;
+  message: string
+  success: string
 }
 
 interface IFormMessage {
-	name: string;
-	email: string;
-	message: string;
+  name: string
+  email: string
+  message: string
 }
 
 /**
@@ -28,7 +29,9 @@ export const useEmailFormSubmit = (emailId: string) => {
     message: '',
   })
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (e) => {
+  const handleChange: React.ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = (e) => {
     console.log(e.target.value)
     setFormMessage({ ...formMessage, [e.target.id]: e.target.value })
   }
@@ -37,14 +40,14 @@ export const useEmailFormSubmit = (emailId: string) => {
     setInfoResponse({ message: '', success: '' })
   }
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement>	= async (e) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
     console.log(formMessage) // PLEASE DELETE
     const res = await fetch(`https://formsubmit.co/ajax/${emailId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify({
         name: formMessage.name,
@@ -57,8 +60,7 @@ export const useEmailFormSubmit = (emailId: string) => {
     setInfoResponse({ message: data.message, success: data.success })
 
     try {
-      if(data.success !== 'true')
-        throw new Error(data.message)
+      if (data.success !== 'true') throw new Error(data.message)
       console.log('SUCCESS!', data.message)
     } catch (err: Error | unknown) {
       console.error('ERROR!', (err as Error).message)

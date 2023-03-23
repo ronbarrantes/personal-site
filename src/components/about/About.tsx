@@ -1,7 +1,5 @@
 import Image from 'next/image'
 
-import classNames from 'classnames'
-
 import { Container } from '@ui'
 import { about } from '@/client-data/data/text'
 

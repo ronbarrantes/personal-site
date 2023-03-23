@@ -1,3 +1,5 @@
+// TODO: Remove if not useful
+
 import React, { createContext, useCallback, useContext, useState } from 'react'
 
 interface IPortfolio {

@@ -1,3 +1,4 @@
+// TODO: Remove this if not in use
 export const colorNames = {
   group1: {
     red: '#B80500',

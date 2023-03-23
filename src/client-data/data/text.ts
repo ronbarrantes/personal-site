@@ -9,6 +9,7 @@ export const about: IAbout = {
   ],
 }
 
+// TODO: Remove this if not in use
 export const skills: ISkills = {
   uri: '/',
   items: [

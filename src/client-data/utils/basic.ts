@@ -1,4 +1,6 @@
-export function isIndexInArrayRange <T>(idx: number, arr: T[]): boolean {
+// TODO: go over to see what's useful ull and whats not
+// MAYBE SEPARATE INTO DIFFERENT FILES
+export function isIndexInArrayRange<T>(idx: number, arr: T[]): boolean {
   return idx >= 0 && idx < arr.length
 }
 
@@ -9,7 +11,7 @@ export const getUrlName = (url: string) => url.split('//')[1]
 export const joinTagsArr = (itemArr: string[], separator = ', ') => {
   let itemString = ''
 
-  if(itemArr && typeof itemArr !== 'string')
+  if (itemArr && typeof itemArr !== 'string')
     itemString = itemArr.join(separator)
 
   return itemString

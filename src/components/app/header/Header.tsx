@@ -1,5 +1,3 @@
-// import classNames from 'classnames'
-
 import Link from 'next/link'
 
 import { Container, Logo } from '@ui'
@@ -13,8 +11,6 @@ const Header = () => {
         <Link href="/" aria-label="home page" className="w-fit p-2">
           <Logo className="h-10 w-fit fill-neutral-100" />
         </Link>
-
-        {/* <Nav menu={menu} /> */}
 
         {menu.length > 1 && <Nav menu={menu} />}
       </Container>
