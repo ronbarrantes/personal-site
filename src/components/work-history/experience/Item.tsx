@@ -23,12 +23,7 @@ export const Item = ({ index, className }: ItemProps) => {
       )}
     >
       <div className="flex flex-col gap-4">
-        <h3
-          className={classNames(
-            'w-fit text-3xl',
-            'bg-gradient-to-br from-purple-300 to-purple-200 bg-clip-text font-extrabold text-transparent'
-          )}
-        >
+        <h3 className="w-fit bg-gradient-to-br from-purple-300 to-purple-200 bg-clip-text text-3xl font-extrabold text-transparent">
           {workHistory[index].employer}
         </h3>
         <div className="gap-3">
@@ -43,7 +38,7 @@ export const Item = ({ index, className }: ItemProps) => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 px-10">
+      <div className="flex flex-col gap-3 md:px-10">
         <p className="font-semibold italic">Tools Used:</p>
         <div className="flex flex-wrap gap-5">
           {workHistory[index].tools.map((tool, idx) => (

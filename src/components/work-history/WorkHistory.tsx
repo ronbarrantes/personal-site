@@ -10,7 +10,7 @@ const WorkHistory = () => {
         title={workHistoryText.title}
         description={workHistoryText.description}
       >
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center ">
           <Experience items={experienceItems}>
             <Experience.ItemList />
           </Experience>
