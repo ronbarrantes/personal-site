@@ -6,10 +6,12 @@ import { Container } from '@/ui'
 const WorkHistory = () => {
   return (
     <section id="Work History">
-      <Container
-        title={workHistoryText.title}
-        description={workHistoryText.description}
-      >
+      <Container className="px-0">
+        <Container.Title text={workHistoryText.title} className="md:px-16" />
+        <Container.Description
+          text={workHistoryText.description}
+          className="md:px-16"
+        />
         <div className="flex items-center justify-center ">
           <Experience items={experienceItems}>
             <Experience.ItemList />

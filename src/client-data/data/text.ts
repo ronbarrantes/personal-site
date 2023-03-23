@@ -1,5 +1,4 @@
 import { IAbout, ISkills, IWorkExperience } from '@/types/text'
-// import { fakeImage, fakeImages } from '@/ utils/fakeImageCreator'
 
 export const about: IAbout = {
   title: 'About Me',
@@ -10,6 +9,7 @@ export const about: IAbout = {
   ],
 }
 
+// TODO: Remove this if not in use
 export const skills: ISkills = {
   uri: '/',
   items: [

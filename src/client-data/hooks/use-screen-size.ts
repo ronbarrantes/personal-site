@@ -1,3 +1,5 @@
+// TODO: Remove if not useful
+
 import { useEffect, useState } from 'react'
 
 /**

@@ -30,6 +30,7 @@ export const Experience = ({ items, children, className }: ExperienceProps) => {
   )
 }
 
-Experience.Nav = Nav
 Experience.ItemList = ItemList
+// IMMA GONNA DO SOMETHING WITH THIS LATER, JUST DONT HAVE TIME RN
+Experience.Nav = Nav
 Experience.ItemDisplay = ItemDisplay

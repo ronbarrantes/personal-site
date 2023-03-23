@@ -1,19 +1,21 @@
+// TODO: Remove if not useful
+
 import { useReducer } from 'react'
 
 import { isIndexInArrayRange } from '../utils/basic'
 
 type ActionType =
-	| { type: 'INCREMENT' }
-	| { type: 'DECREMENT' }
-	| { type: 'CHOOSE_INDEX', idx: number }
+  | { type: 'INCREMENT' }
+  | { type: 'DECREMENT' }
+  | { type: 'CHOOSE_INDEX'; idx: number }
 
 export const usePhotoCarousel = (images: string[]) => {
   const imageReducer = (state: number, action: ActionType) => {
     switch (action.type) {
       case 'INCREMENT':
-        return state = state + 1
+        return (state = state + 1)
       case 'DECREMENT':
-        return state = state - 1
+        return (state = state - 1)
       case 'CHOOSE_INDEX':
         return action.idx
       default:
@@ -26,16 +28,13 @@ export const usePhotoCarousel = (images: string[]) => {
   const choose = (idx: number) => dispatch({ type: 'CHOOSE_INDEX', idx })
 
   const next = () => {
-    if(isIndexInArrayRange(state + 1, images))
-      dispatch({ type: 'INCREMENT' })
-    else
-      choose(0)
+    if (isIndexInArrayRange(state + 1, images)) dispatch({ type: 'INCREMENT' })
+    else choose(0)
   }
 
   const prev = () => {
-    if(isIndexInArrayRange(state - 1, images))
-      dispatch({ type: 'DECREMENT' })
-    else{
+    if (isIndexInArrayRange(state - 1, images)) dispatch({ type: 'DECREMENT' })
+    else {
       choose(images.length - 1)
     }
   }

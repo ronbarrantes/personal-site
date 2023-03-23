@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 
 // TODO: use css image sizing thingy
+// TODO: Remove if not in use
 interface ISize {
-	width: number | undefined;
-	height: number | undefined;
+  width: number | undefined
+  height: number | undefined
 }
 
-export const useCurrImageSize = (ref: React.MutableRefObject<HTMLImageElement | undefined>) => {
+export const useCurrImageSize = (
+  ref: React.MutableRefObject<HTMLImageElement | undefined>
+) => {
   const [size, getSize] = useState<ISize>({
     width: ref.current?.width,
     height: ref.current?.height,

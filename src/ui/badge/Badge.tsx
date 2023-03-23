@@ -1,3 +1,4 @@
+// TODO: check if needed
 interface BadgeProps {
   className?: string
   children: React.ReactNode
