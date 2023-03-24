@@ -1,0 +1,13 @@
+
+// const closestColor = (color: string, colors: string[]): string => {
+//   const colorRGB = hexToRGB(color, true) as number[]
+
+//   const colorBrightness = brightnessFormula(colorRGB)
+//   const colorDistances = colors.map((color) => {
+//     const colorRGB = hexToRGB(color, true) as number[]
+//     const colorBrightness = brightnessFormula(colorRGB)
+//     return Math.abs(colorBrightness - colorBrightness)
+//   })
+//   const closestColorIndex = colorDistances.indexOf(Math.min(...colorDistances))
+//   return colors[closestColorIndex]
+// }
