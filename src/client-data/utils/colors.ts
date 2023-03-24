@@ -21,6 +21,7 @@ export const brightnessFormula = (color: number[]): number =>
 export const isColorTooDark = (colorString: string): boolean => {
   if (colorString.length !== 3 && colorString.length !== 6)
     throw new Error('Not the right size for a color')
+
   let hex = colorString.split('')
   if (hex.length === 3) hex = hex.map((val) => val + val)
   else {
@@ -63,12 +64,13 @@ const closestColors = [
 const closestColor = (color: string, colors: string[]) => {
   const colorRGB = hexToRGB(color, true) as number[]
 
-  const distanceList = colors.map((currColor) => {
-    const currColorRGB = hexToRGB(currColor, true) as number[]
+  const distanceList = colors.map((c) => {
+    const currColor = hexToRGB(c, true) as number[]
+
     return Math.sqrt(
-      Math.pow(currColorRGB[0] - colorRGB[0], 2) +
-        Math.pow(currColorRGB[1] - colorRGB[1], 2) +
-        Math.pow(currColorRGB[2] - colorRGB[2], 2)
+      Math.pow((currColor[0] - colorRGB[0]) * 0.3, 2) +
+        Math.pow((currColor[1] - colorRGB[1]) * 0.59, 2) +
+        Math.pow((currColor[2] - colorRGB[2]) * 0.11, 2)
     )
   })
 
@@ -84,5 +86,5 @@ closestColors.forEach((test, idx) => {
     console.log('Failed test', idx, test)
   }
 
-  console.log(idx, test.input, '|', result)
+  console.log('Passed test', idx, [test.input, result])
 })

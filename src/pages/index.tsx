@@ -14,6 +14,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <main>
+        <p className="bg-[#e60f0f]">Hello</p>
         <About />
         <WorkHistory />
       </main>
