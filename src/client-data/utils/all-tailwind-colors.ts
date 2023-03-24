@@ -1,3 +1,5 @@
+import { closestColor } from '@/client-data/utils/colors'
+
 interface IColors {
   [key: string]: {
     [key: string]: string
@@ -303,4 +305,23 @@ const myCurrentlyUsedColors: IColors = {
   },
 }
 
-allColorsAsArray(twColors)
+const closestColors = allColorsAsArray(myCurrentlyUsedColors).map((color) => {
+  return closestColor(color, allColorsAsArray(twColors))
+})
+
+// console.log(closestColors)
+
+const replacementColors = [
+  '#1e3a8a',
+  '#f9a8d4',
+  '#f472b6',
+  '#be185d',
+  '#be123c',
+  '#171717',
+  '#ede9fe',
+  '#d8b4fe',
+  '#44403c',
+  '#1c1917',
+  '#171717',
+  '#171717',
+]
