@@ -7,10 +7,13 @@ const WorkHistory = () => {
   return (
     <section id="Work History">
       <Container className="!md:px-5 !px-0">
-        <Container.Title text={workHistoryText.title} className="md:px-16" />
+        <Container.Title
+          text={workHistoryText.title}
+          className="px-5 md:px-16"
+        />
         <Container.Description
           text={workHistoryText.description}
-          className="md:px-16"
+          className="px-5 md:px-16"
         />
         <div className="flex items-center justify-center ">
           <Experience items={experienceItems}>

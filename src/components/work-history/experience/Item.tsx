@@ -23,11 +23,11 @@ export const Item = ({ index, className }: ItemProps) => {
       )}
     >
       <div className="flex flex-col gap-4">
-        <h3 className="w-fit bg-gradient-to-br from-purple-300 to-purple-200 bg-clip-text text-3xl font-extrabold text-transparent">
-          {workHistory[index].employer}
-        </h3>
         <div className="gap-3">
-          <p className="text-lg">{workHistory[index].jobTitle}</p>
+          <h3 className="w-fit bg-gradient-to-br from-purple-300 to-purple-200 bg-clip-text text-3xl font-extrabold text-transparent">
+            {workHistory[index].jobTitle}
+          </h3>
+          <p className="text-lg">{workHistory[index].employer}</p>
           <p className="font-light italic text-purple-200">{dateText}</p>
         </div>
 
