@@ -28,15 +28,14 @@ export const Item = ({ index, className }: ItemProps) => {
         <div className="gap-3">
           <h3
             className={classNames(
-              'w-fit bg-gradient-to-br from-purple-300 to-purple-200 bg-clip-text text-3xl font-extrabold text-transparent',
-              isBigJobTitle && 'text-2xl'
+              'mb-1 w-fit bg-gradient-to-br from-purple-300 to-purple-200 bg-clip-text font-extrabold text-transparent',
+              isBigJobTitle ? 'text-2xl md:text-3xl lg:text-2xl' : 'text-3xl'
             )}
           >
             {workHistory[index].jobTitle}
           </h3>
           <h4 className="text-lg">{workHistory[index].employer}</h4>
           <div className="font-light italic text-purple-200">{dateText}</div>
-          {/* <span>{workHistory[index].jobTitle.length}</span> */}
         </div>
 
         <div className="flex flex-col gap-2 font-light">
