@@ -44,7 +44,7 @@ export const Container = ({ children, className }: ContainerProps) => {
   return (
     <div
       className={classNames(
-        'mx-auto flex max-w-7xl flex-col gap-2 px-5 py-10',
+        'mx-auto flex max-w-7xl flex-col gap-2 px-6 py-10',
         className
       )}
     >
