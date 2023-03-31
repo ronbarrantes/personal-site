@@ -110,7 +110,8 @@ export const experienceItems: IWorkExperience[] = [
     employer: 'Freelancer',
     startDate: '1/2009',
     endDate: '6/2017',
-    jobTitle: 'Web and Graphics Designer/Social Media/Print/Video',
+    // jobTitle: 'Web and Graphics Designer/Social Media/Print/Video',
+    jobTitle: 'Web and Graphics Designer',
     description: [
       'Work in a myriad of areas regarding visual design. On the web, I worked creating HTML/CSS and JavaScript websites. Setting up, theming, and managing Wordpress sites.',
       'In print, I worked creating anything from business cards to event posters, as well as merchandise such as T-Shirts and Leggings',

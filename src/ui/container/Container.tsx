@@ -1,5 +1,7 @@
 import classNames from 'classnames'
 
+import { Heading } from '../heading/Heading'
+
 interface ContainerProps {
   className?: string
   children: React.ReactNode
@@ -8,11 +10,17 @@ interface ContainerProps {
 interface ContainerTitleProps {
   text: string
   className?: string
+  main?: boolean
 }
 
-const ContainerTitle = ({ text, className }: ContainerTitleProps) => {
+const ContainerTitle = ({ main, text, className }: ContainerTitleProps) => {
   return (
-    <h2 className={classNames('text-3xl font-semibold', className)}>{text}</h2>
+    <Heading
+      type={main ? 'h1' : 'h2'}
+      className={classNames('text-3xl font-semibold', className)}
+    >
+      {text}
+    </Heading>
   )
 }
 
@@ -44,7 +52,7 @@ export const Container = ({ children, className }: ContainerProps) => {
   return (
     <div
       className={classNames(
-        'mx-auto flex max-w-7xl flex-col gap-2 px-5 py-10',
+        'mx-auto flex max-w-7xl flex-col gap-2 px-6 py-10',
         className
       )}
     >
