@@ -7,7 +7,7 @@ const About = () => {
   return (
     <section
       id="About"
-      className="border border-transparent border-b-neutral-700 bg-neutral-900 bg-gradient-to-tr from-neutral-800 to-neutral-900"
+      className="border-b border-neutral-700 bg-neutral-900 bg-gradient-to-tr from-neutral-800 to-neutral-900"
     >
       <Container className="font-light">
         <div className="mx-auto flex flex-col items-center gap-10 md:w-11/12 md:flex-row  lg:w-9/12">
