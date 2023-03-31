@@ -18,7 +18,7 @@ export const Item = ({ index, className }: ItemProps) => {
   return (
     <div
       className={classNames(
-        'flex  flex-col justify-between gap-4 rounded-lg bg-neutral-900 bg-gradient-to-br from-neutral-800 to-purple-900 p-10 text-neutral-100 shadow-sm',
+        'flex flex-col justify-between gap-4 rounded-lg bg-neutral-900 bg-gradient-to-br from-neutral-800 to-purple-900 p-10 text-neutral-100 shadow-sm',
         className
       )}
     >
