@@ -1,18 +1,18 @@
 import React, { ReactNode, useState } from 'react'
 
-import { IWorkExperience } from '@/types'
+import { WorkExperience } from '@/types'
 import { ItemDisplay } from './ItemDisplay'
 import { ItemList } from './ItemList'
 import { WorkHistoryContext } from './WorkHistoryContext'
 
 interface PortfolioProps {
-  items: IWorkExperience[]
+  items: WorkExperience[]
   children: ReactNode
   className?: string
 }
 
 export const Portfolio = ({ items, children, className }: PortfolioProps) => {
-  const [workHistory, setWorkHistory] = useState<IWorkExperience[]>(items)
+  const [workHistory, setWorkHistory] = useState<WorkExperience[]>(items)
   const [index, setIndex] = useState<number>(0)
 
   return (

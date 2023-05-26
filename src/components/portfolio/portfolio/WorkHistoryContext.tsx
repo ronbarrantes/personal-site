@@ -1,10 +1,10 @@
 import { createContext, useContext } from 'react'
 
-import { IWorkExperience } from '@/types'
+import { WorkExperience } from '@/types'
 
 interface IWorkHistoryContext {
-  workHistory: IWorkExperience[]
-  setWorkHistory: (workHistory: IWorkExperience[]) => void
+  workHistory: WorkExperience[]
+  setWorkHistory: (workHistory: WorkExperience[]) => void
   index: number
   setIndex: (i: number) => void
 }

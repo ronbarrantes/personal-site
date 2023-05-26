@@ -1,4 +1,4 @@
-import { IAbout, ISkills, IWorkExperience } from '@/types/text'
+import { IAbout, ISkills, WorkExperience } from '@/types/text'
 
 export const about: IAbout = {
   title: 'About Me',
@@ -31,7 +31,7 @@ export const workHistoryText = {
   description: `These are some of the places I've worked`,
 }
 
-export const experienceItems: IWorkExperience[] = [
+export const experienceItems: WorkExperience[] = [
   {
     employer: 'VeroSkills',
     url: 'https://veroskills.com',

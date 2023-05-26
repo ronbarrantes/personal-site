@@ -37,7 +37,7 @@ export interface ISkill {
   position?: number
 }
 
-export interface IWorkExperience {
+export interface WorkExperience {
   employer: string
   jobTitle: string
   startDate: string
