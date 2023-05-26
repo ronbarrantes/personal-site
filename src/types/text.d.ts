@@ -12,13 +12,13 @@ export interface About extends SectionText {
 
 export interface PortfolioItem {
   name: string
-  description: string
+  description: string[]
   dateAdded?: string
   github?: string
   link?: Link
   images?: string | string[]
   tags?: string[]
-  tools?: IconsLisType[]
+  tools: IconsLisType[]
 }
 
 export interface Portfolio {
