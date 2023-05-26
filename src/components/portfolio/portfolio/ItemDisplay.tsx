@@ -1,7 +1,7 @@
 import { Item } from './Item'
-import useWorkHistoryContext from './WorkHistoryContext'
+import usePortfolioContext from './PortfolioContext'
 
 export const ItemDisplay = () => {
-  const { index } = useWorkHistoryContext()
+  const { index } = usePortfolioContext()
   return <Item index={index} />
 }

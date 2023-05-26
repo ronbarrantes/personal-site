@@ -1,14 +1,14 @@
 import { Item } from './Item'
-import useWorkHistoryContext from './WorkHistoryContext'
+import usePortfolioContext from './PortfolioContext'
 
 export const ItemList = () => {
-  const { workHistory } = useWorkHistoryContext()
+  const { portfolioItems } = usePortfolioContext()
 
   return (
     <ul className="flex flex-col lg:flex-row lg:flex-wrap">
-      {workHistory.map((item, idx) => (
-        <li className="flex lg:w-1/2" key={`${item.employer}-${idx}`}>
-          <Item index={idx} className="m-2 flex flex-col align-middle" />
+      {portfolioItems.map((item, idx) => (
+        <li className="flex lg:w-1/2" key={`${item.name}-${idx}`}>
+          <Item index={idx} className="flex flex-col m-2 align-middle" />
         </li>
       ))}
     </ul>

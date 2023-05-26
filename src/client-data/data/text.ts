@@ -136,16 +136,12 @@ export const portfolioText = {
 
 export const portfolioItems: PortfolioItem[] = [
   {
-    name: 'Portfolio',
-    github: 'https://github.com/ronbarrantes/personal-site',
-    description: [
-      'This is the github to my personal portfolio site. It is built with Next.js, TypeScript, and TailwindCSS. It is hosted on Vercel.',
-    ],
-    tools: ['nextjs', 'typescript', 'react', 'tailwind', 'vercel'],
-  },
-  {
     name: 'Shuttly',
     github: 'https://github.com/ronbarrantes/shuttly',
+    // link: {
+    //   href: 'https://shuttly.app',
+    //   label: 'Shuttly.app',
+    // },
     description: [
       `This is an ongoing project that I'm slowly building, it is a scheduling app for a shuttles. It is being built with Next.js, TypeScript, TailwindCSS, ReactNative, using TurboRepo as monorepo It is hosted on Vercel.`,
     ],
@@ -157,5 +153,13 @@ export const portfolioItems: PortfolioItem[] = [
       'turborepo',
       'vercel',
     ],
+  },
+  {
+    name: 'Portfolio',
+    github: 'https://github.com/ronbarrantes/personal-site',
+    description: [
+      'This is the github to my personal portfolio site. It is built with Next.js, TypeScript, and TailwindCSS. It is hosted on Vercel.',
+    ],
+    tools: ['nextjs', 'typescript', 'react', 'tailwind', 'vercel'],
   },
 ]
