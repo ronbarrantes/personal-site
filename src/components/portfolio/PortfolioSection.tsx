@@ -1,4 +1,4 @@
-import { Experience } from '@components/work-history/experience/Experience'
+import { Portfolio } from '@components/portfolio/portfolio/Portfolio'
 import { experienceItems, portfolioText } from '@/client-data/data/text'
 import { Container } from '@/ui'
 
@@ -12,9 +12,9 @@ const PortfolioSection = () => {
           className="px-6 md:px-16"
         />
         <div className="flex items-center justify-center ">
-          <Experience items={experienceItems}>
-            <Experience.ItemList />
-          </Experience>
+          <Portfolio items={experienceItems}>
+            <Portfolio.ItemList />
+          </Portfolio>
         </div>
       </Container>
     </section>

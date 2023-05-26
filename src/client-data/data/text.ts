@@ -133,3 +133,5 @@ export const portfolioText = {
   title: 'Portfolio',
   description: `These are some of the projects I've worked on`,
 }
+
+export const portfolioItems = []
