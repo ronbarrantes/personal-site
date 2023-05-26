@@ -5,7 +5,7 @@ export interface SectionText {
   title: string
   description?: string[] | string
 }
-export interface IAbout extends SectionText {
+export interface About extends SectionText {
   title: string
   description: string[]
 }

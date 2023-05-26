@@ -1,6 +1,6 @@
-import { IAbout, ISkills, WorkExperience } from '@/types/text'
+import { About, ISkills, WorkExperience } from '@/types/text'
 
-export const about: IAbout = {
+export const about: About = {
   title: 'About Me',
   description: [
     'Creative at heart, I am an Engineer with a strong eye for design, an insatiable curiosity, and a passion for learning and personal growth.',
