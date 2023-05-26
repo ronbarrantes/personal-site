@@ -1,7 +1,7 @@
-import { Inter } from 'next/font/google'
 import Head from 'next/head'
 
 import About from '@/components/about/About'
+import PortfolioSection from '@/components/portfolio/PortfolioSection'
 import WorkHistory from '@/components/work-history/WorkHistory'
 
 export default function Home() {
@@ -15,6 +15,7 @@ export default function Home() {
       </Head>
       <main>
         <About />
+        <PortfolioSection />
         <WorkHistory />
       </main>
     </>

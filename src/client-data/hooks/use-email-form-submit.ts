@@ -1,12 +1,12 @@
 // TODO: Remove if not useful
 import { useState } from 'react'
 
-interface IInfoResponse {
+interface InfoResponse {
   message: string
   success: string
 }
 
-interface IFormMessage {
+interface FormMessage {
   name: string
   email: string
   message: string
@@ -18,12 +18,12 @@ interface IFormMessage {
  * @returns handleChange, handleSubmit, formMessage, infoResponse, cleanInfoResponse,
  */
 export const useEmailFormSubmit = (emailId: string) => {
-  const [infoResponse, setInfoResponse] = useState<IInfoResponse>({
+  const [infoResponse, setInfoResponse] = useState<InfoResponse>({
     message: '',
     success: '',
   })
 
-  const [formMessage, setFormMessage] = useState<IFormMessage>({
+  const [formMessage, setFormMessage] = useState<FormMessage>({
     name: '',
     email: '',
     message: '',
@@ -56,7 +56,7 @@ export const useEmailFormSubmit = (emailId: string) => {
       }),
     })
 
-    const data: IInfoResponse = await res.json()
+    const data: InfoResponse = await res.json()
     setInfoResponse({ message: data.message, success: data.success })
 
     try {

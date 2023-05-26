@@ -1,6 +1,6 @@
-import { IAbout, ISkills, IWorkExperience } from '@/types/text'
+import { About, PortfolioItem, Skills, WorkExperience } from '@/types/text'
 
-export const about: IAbout = {
+export const about: About = {
   title: 'About Me',
   description: [
     'Creative at heart, I am an Engineer with a strong eye for design, an insatiable curiosity, and a passion for learning and personal growth.',
@@ -10,7 +10,7 @@ export const about: IAbout = {
 }
 
 // TODO: Remove this if not in use
-export const skills: ISkills = {
+export const skills: Skills = {
   uri: '/',
   items: [
     { name: 'React', percent: 0.9, image: 'react.svg' },
@@ -31,7 +31,7 @@ export const workHistoryText = {
   description: `These are some of the places I've worked`,
 }
 
-export const experienceItems: IWorkExperience[] = [
+export const experienceItems: WorkExperience[] = [
   {
     employer: 'VeroSkills',
     url: 'https://veroskills.com',
@@ -126,5 +126,46 @@ export const experienceItems: IWorkExperience[] = [
       'premierepro',
       'wordpress',
     ],
+  },
+]
+
+export const portfolioText = {
+  title: 'Portfolio',
+  description: `These are some of the projects I've worked on or am currently working on`,
+}
+
+export const portfolioItems: PortfolioItem[] = [
+  {
+    name: 'Shuttly',
+    github: 'https://github.com/ronbarrantes/shuttly',
+    // link: {
+    //   href: 'https://shuttly.app',
+    //   label: 'Shuttly.app',
+    // },
+    description: [
+      `This is a project I'm building on the side, it's a scheduling app for a shuttles.`,
+      `It is being built with Next.js, TypeScript, TailwindCSS, ReactNative, using TurboRepo as monorepo It is hosted on Vercel.`,
+    ],
+    tools: [
+      'nextjs',
+      'typescript',
+      'reactnative',
+      'tailwind',
+      'turborepo',
+      'vercel',
+    ],
+  },
+  {
+    name: 'Portfolio',
+    link: {
+      href: 'https://ronb.co',
+      label: 'ronb.co',
+    },
+    github: 'https://github.com/ronbarrantes/personal-site',
+    description: [
+      `This is the github to my personal portfolio site, the one you're currently on`,
+      'It is built with React.js, Next.js, TypeScript, and TailwindCSS. It is hosted on Vercel.',
+    ],
+    tools: ['nextjs', 'typescript', 'react', 'tailwind', 'vercel'],
   },
 ]

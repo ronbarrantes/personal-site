@@ -2,7 +2,7 @@
 
 import React, { createContext, useCallback, useContext, useState } from 'react'
 
-interface IPortfolio {
+interface Portfolio {
   selectedIndex: number
   setSelectedIndex: (i: number) => void
 
@@ -10,7 +10,7 @@ interface IPortfolio {
   setIsModalActive: (i: boolean) => void
 }
 
-const PortfolioContext = createContext<IPortfolio>({
+const PortfolioContext = createContext<Portfolio>({
   selectedIndex: 0,
   isModalActive: false,
   setSelectedIndex: () => {},

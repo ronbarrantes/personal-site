@@ -23,6 +23,7 @@ export const iconsLisFiles = {
   retool: { name: 'Retool', filename: 'retool' },
   selenium: { name: 'Selenium Webdriver', filename: 'selenium' },
   stripe: { name: 'Stripe', filename: 'stripe' },
+  tailwind: { name: 'Tailwind', filename: 'tailwind' },
   trpc: { name: 'tRPC', filename: 'trpc' },
   typescript: { name: 'TypeScript', filename: 'ts' },
   turborepo: { name: 'Turborepo', filename: 'turborepo' },

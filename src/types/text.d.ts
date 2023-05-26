@@ -5,39 +5,38 @@ export interface SectionText {
   title: string
   description?: string[] | string
 }
-export interface IAbout extends SectionText {
+export interface About extends SectionText {
   title: string
   description: string[]
 }
 
-export interface IPortfolioItem {
-  id: string
+export interface PortfolioItem {
   name: string
-  description: string
-  image: string
+  description: string[]
   dateAdded?: string
   github?: string
   link?: Link
-  images: string[]
+  images?: string | string[]
   tags?: string[]
+  tools: IconsLisType[]
 }
 
-export interface IPortfolio {
-  [key: string]: IPortfolioItem[] | string
+export interface Portfolio {
+  [key: string]: PortfolioItem[] | string
 }
 
-export interface ISkills {
-  [key: string]: ISkill[] | string
+export interface Skills {
+  [key: string]: Skill[] | string
 }
 
-export interface ISkill {
+export interface Skill {
   name: string
   percent: number
   image?: string
   position?: number
 }
 
-export interface IWorkExperience {
+export interface WorkExperience {
   employer: string
   jobTitle: string
   startDate: string
