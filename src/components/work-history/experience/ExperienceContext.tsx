@@ -2,21 +2,21 @@ import { createContext, useContext } from 'react'
 
 import { WorkExperience } from '@/types'
 
-interface WorkHistoryContext {
+interface ExperienceContextInfo {
   workHistory: WorkExperience[]
   setWorkHistory: (workHistory: WorkExperience[]) => void
   index: number
   setIndex: (i: number) => void
 }
 
-export const WorkHistoryContext = createContext<WorkHistoryContext | null>(null)
+export const ExperienceContext = createContext<ExperienceContextInfo | null>(
+  null
+)
 
-const useWorkHistoryContext = () => {
-  const context = useContext(WorkHistoryContext)
+const useExperience = () => {
+  const context = useContext(ExperienceContext)
   if (!context) {
-    throw new Error(
-      'WorkHistoryCarousel.* must be a child of WorkHistoryCarousel'
-    )
+    throw new Error('Experience.* must be a child of Experience')
   }
   return {
     workHistory: context.workHistory,
@@ -25,4 +25,4 @@ const useWorkHistoryContext = () => {
   }
 }
 
-export default useWorkHistoryContext
+export default useExperience

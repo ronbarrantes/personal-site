@@ -1,8 +1,8 @@
+import useExperience from './ExperienceContext'
 import { Item } from './Item'
-import useWorkHistoryContext from './WorkHistoryContext'
 
 export const ItemList = () => {
-  const { workHistory } = useWorkHistoryContext()
+  const { workHistory } = useExperience()
 
   return (
     <ul className="flex flex-col lg:flex-row lg:flex-wrap">

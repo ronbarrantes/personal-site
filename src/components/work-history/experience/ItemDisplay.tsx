@@ -1,7 +1,7 @@
+import useExperience from './ExperienceContext'
 import { Item } from './Item'
-import useWorkHistoryContext from './WorkHistoryContext'
 
 export const ItemDisplay = () => {
-  const { index } = useWorkHistoryContext()
+  const { index } = useExperience()
   return <Item index={index} />
 }
