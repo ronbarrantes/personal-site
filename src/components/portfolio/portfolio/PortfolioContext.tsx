@@ -16,9 +16,7 @@ export const PortfolioContext = createContext<PortfolioContextItems | null>(
 const usePortfolioContext = () => {
   const context = useContext(PortfolioContext)
   if (!context) {
-    throw new Error(
-      'WorkHistoryCarousel.* must be a child of WorkHistoryCarousel'
-    )
+    throw new Error('Portfolio.* must be a child of Portfolio')
   }
   return {
     portfolioItems: context.portfolioItems,

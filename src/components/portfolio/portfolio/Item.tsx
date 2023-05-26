@@ -1,11 +1,42 @@
+import { ExternalLinkIcon, GitHubLogoIcon } from '@radix-ui/react-icons'
 import classNames from 'classnames'
 
 import { Icon, iconsLisFiles, Tooltip } from '@ui'
+import { TLink as Link } from '@/types'
 import usePortfolioContext from './PortfolioContext'
 
 interface ItemProps {
   index: number
   className?: string
+}
+
+const PortfolioLink = ({
+  link,
+  icon,
+}: {
+  icon: React.ReactNode
+  link: string | Link
+}) => {
+  const linkInfo =
+    typeof link === 'string'
+      ? {
+          href: link,
+          label: link.split('//')[1],
+        }
+      : link
+
+  return (
+    <div className="flex items-center gap-4 mb-2">
+      <span>{icon}</span>
+      <a
+        href={`${linkInfo.href}`}
+        target="_blank"
+        className="text-purple-200 underline hover:no-underline"
+      >
+        {linkInfo.label}
+      </a>
+    </div>
+  )
 }
 
 export const Item = ({ index, className }: ItemProps) => {
@@ -16,8 +47,6 @@ export const Item = ({ index, className }: ItemProps) => {
   //   : `${portfolioItems[index].startDate} - Present`
 
   const { name, description, github, tools, link } = portfolioItems[index]
-
-  const githubName = github?.split('//').slice(-1)[0]
   const isBigName = name.length > 25
 
   return (
@@ -37,8 +66,6 @@ export const Item = ({ index, className }: ItemProps) => {
           >
             {name}
           </h3>
-          {/* <h4 className="text-lg">{portfolioItems[index].employer}</h4>
-          <div className="italic font-light text-purple-200">{dateText}</div> */}
         </div>
 
         <div className="flex flex-col gap-2 font-light">
@@ -48,28 +75,21 @@ export const Item = ({ index, className }: ItemProps) => {
         </div>
       </div>
 
-      <ul className="list-disc">
+      <ul>
         {link && (
           <li>
-            <a
-              href={`${link.href}`}
-              target="_blank"
-              className="text-purple-200 underline hover:no-underline"
-            >
-              {link.label}
-            </a>
+            <PortfolioLink
+              link={link}
+              icon={<ExternalLinkIcon className="w-6 h-6" />}
+            />
           </li>
         )}
-
         {github && (
           <li>
-            <a
-              href={`${github}`}
-              target="_blank"
-              className="text-purple-200 underline hover:no-underline"
-            >
-              Github Repo
-            </a>
+            <PortfolioLink
+              link={github}
+              icon={<GitHubLogoIcon className="w-6 h-6" />}
+            />
           </li>
         )}
       </ul>
