@@ -3,16 +3,15 @@ import React, { ReactNode, useState } from 'react'
 import { IWorkExperience } from '@/types'
 import { ItemDisplay } from './ItemDisplay'
 import { ItemList } from './ItemList'
-import { Nav } from './Nav'
 import { WorkHistoryContext } from './WorkHistoryContext'
 
-interface ExperienceProps {
+interface PortfolioProps {
   items: IWorkExperience[]
   children: ReactNode
   className?: string
 }
 
-export const Experience = ({ items, children, className }: ExperienceProps) => {
+export const Portfolio = ({ items, children, className }: PortfolioProps) => {
   const [workHistory, setWorkHistory] = useState<IWorkExperience[]>(items)
   const [index, setIndex] = useState<number>(0)
 
@@ -25,12 +24,10 @@ export const Experience = ({ items, children, className }: ExperienceProps) => {
         setIndex,
       }}
     >
-      <div className="my-0 flex items-center gap-10 md:m-10">{children}</div>
+      <div className="flex items-center gap-10 my-0 md:m-10">{children}</div>
     </WorkHistoryContext.Provider>
   )
 }
 
-Experience.ItemList = ItemList
-// IMMA GONNA DO SOMETHING WITH THIS LATER, JUST DONT HAVE TIME RN
-Experience.Nav = Nav
-Experience.ItemDisplay = ItemDisplay
+Portfolio.ItemList = ItemList
+Portfolio.ItemDisplay = ItemDisplay

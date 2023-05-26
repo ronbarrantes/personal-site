@@ -10,7 +10,7 @@ export interface IAbout extends SectionText {
   description: string[]
 }
 
-export interface IPortfolioItem {
+export interface PortfolioItem {
   id: string
   name: string
   description: string
@@ -23,7 +23,7 @@ export interface IPortfolioItem {
 }
 
 export interface IPortfolio {
-  [key: string]: IPortfolioItem[] | string
+  [key: string]: PortfolioItem[] | string
 }
 
 export interface ISkills {
