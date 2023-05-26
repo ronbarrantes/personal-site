@@ -67,14 +67,12 @@ export const Item = ({ index, className }: ItemProps) => {
             {name}
           </h3>
         </div>
-
         <div className="flex flex-col gap-2 font-light">
           {description.map((p, idx) => {
             return <p key={idx}>{p}</p>
           })}
         </div>
       </div>
-
       <ul>
         {link && (
           <li>
@@ -95,7 +93,7 @@ export const Item = ({ index, className }: ItemProps) => {
       </ul>
 
       <div className="flex flex-col gap-3 md:px-10">
-        <p className="italic font-semibold">Tools Used:</p>
+        <p className="italic font-semibold">Using:</p>
         <div className="flex flex-wrap gap-5">
           {tools.map((tool, idx) => (
             <Tooltip key={`${tool}-${idx}`}>
