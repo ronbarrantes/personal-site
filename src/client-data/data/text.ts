@@ -1,4 +1,4 @@
-import { About, ISkills, WorkExperience } from '@/types/text'
+import { About, Skills, WorkExperience } from '@/types/text'
 
 export const about: About = {
   title: 'About Me',
@@ -10,7 +10,7 @@ export const about: About = {
 }
 
 // TODO: Remove this if not in use
-export const skills: ISkills = {
+export const skills: Skills = {
   uri: '/',
   items: [
     { name: 'React', percent: 0.9, image: 'react.svg' },

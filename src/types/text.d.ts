@@ -26,11 +26,11 @@ export interface IPortfolio {
   [key: string]: PortfolioItem[] | string
 }
 
-export interface ISkills {
-  [key: string]: ISkill[] | string
+export interface Skills {
+  [key: string]: Skill[] | string
 }
 
-export interface ISkill {
+export interface Skill {
   name: string
   percent: number
   image?: string
