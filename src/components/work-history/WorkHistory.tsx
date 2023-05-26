@@ -1,6 +1,5 @@
 import { Experience } from '@components/work-history/experience/Experience'
-import { experienceItems } from '@/client-data/data/text'
-import { workHistoryText } from '@/client-data/data/text'
+import { experienceItems, workHistoryText } from '@/client-data/data/text'
 import { Container } from '@/ui'
 
 const WorkHistory = () => {
