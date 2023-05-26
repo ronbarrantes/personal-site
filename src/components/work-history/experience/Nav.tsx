@@ -1,10 +1,10 @@
 import classNames from 'classnames'
 
 import { Tooltip } from '@ui'
-import useWorkHistoryContext from './WorkHistoryContext'
+import useExperience from './ExperienceContext'
 
 export const Nav = () => {
-  const { workHistory, setIndex } = useWorkHistoryContext()
+  const { workHistory, setIndex } = useExperience()
 
   return (
     <nav className="border border-red-400">

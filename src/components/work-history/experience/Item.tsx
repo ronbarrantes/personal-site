@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 
 import { Icon, iconsLisFiles, Tooltip } from '@ui'
-import useWorkHistoryContext from './WorkHistoryContext'
+import useExperience from './ExperienceContext'
 
 interface ItemProps {
   index: number
@@ -9,7 +9,7 @@ interface ItemProps {
 }
 
 export const Item = ({ index, className }: ItemProps) => {
-  const { workHistory } = useWorkHistoryContext()
+  const { workHistory } = useExperience()
 
   const dateText = workHistory[index].endDate
     ? `${workHistory[index].startDate} - ${workHistory[index].endDate}`

@@ -1,23 +1,25 @@
 import React, { ReactNode, useState } from 'react'
 
-import { IWorkExperience } from '@/types'
+import classNames from 'classnames'
+
+import { WorkExperience } from '@/types'
+import { ExperienceContext } from './ExperienceContext'
 import { ItemDisplay } from './ItemDisplay'
 import { ItemList } from './ItemList'
 import { Nav } from './Nav'
-import { WorkHistoryContext } from './WorkHistoryContext'
 
 interface ExperienceProps {
-  items: IWorkExperience[]
+  items: WorkExperience[]
   children: ReactNode
   className?: string
 }
 
 export const Experience = ({ items, children, className }: ExperienceProps) => {
-  const [workHistory, setWorkHistory] = useState<IWorkExperience[]>(items)
+  const [workHistory, setWorkHistory] = useState<WorkExperience[]>(items)
   const [index, setIndex] = useState<number>(0)
 
   return (
-    <WorkHistoryContext.Provider
+    <ExperienceContext.Provider
       value={{
         workHistory,
         setWorkHistory,
@@ -25,8 +27,15 @@ export const Experience = ({ items, children, className }: ExperienceProps) => {
         setIndex,
       }}
     >
-      <div className="my-0 flex items-center gap-10 md:m-10">{children}</div>
-    </WorkHistoryContext.Provider>
+      <div
+        className={classNames(
+          'flex items-center gap-10 my-0 md:m-10',
+          className
+        )}
+      >
+        {children}
+      </div>
+    </ExperienceContext.Provider>
   )
 }
 
