@@ -156,15 +156,14 @@ export const portfolioItems: PortfolioItem[] = [
     ],
   },
   {
-    name: 'Portfolio',
+    name: 'Personal porfolio',
     link: {
       href: 'https://ronb.co',
       label: 'ronb.co',
     },
     github: 'https://github.com/ronbarrantes/personal-site',
     description: [
-      `This is the github to my personal portfolio site, the one you're currently on`,
-      'It is built with React.js, Next.js, TypeScript, and TailwindCSS. It is hosted on Vercel.',
+      `This is the github to my personal portfolio site, the one you're currently on. It is built with React.js, Next.js, TypeScript, and TailwindCSS. It is hosted on Vercel.`,
     ],
     tools: ['nextjs', 'typescript', 'react', 'tailwind', 'vercel'],
   },
