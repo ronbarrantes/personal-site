@@ -25,7 +25,7 @@ export const Experience = ({ items, children, className }: ExperienceProps) => {
         setIndex,
       }}
     >
-      <div className="my-0 flex items-center gap-10 md:m-10">{children}</div>
+      <div className="flex items-center gap-10 my-0 md:m-10">{children}</div>
     </WorkHistoryContext.Provider>
   )
 }

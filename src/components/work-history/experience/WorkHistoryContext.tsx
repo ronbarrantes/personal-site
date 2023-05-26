@@ -2,16 +2,14 @@ import { createContext, useContext } from 'react'
 
 import { WorkExperience } from '@/types'
 
-interface IWorkHistoryContext {
+interface WorkHistoryContext {
   workHistory: WorkExperience[]
   setWorkHistory: (workHistory: WorkExperience[]) => void
   index: number
   setIndex: (i: number) => void
 }
 
-export const WorkHistoryContext = createContext<IWorkHistoryContext | null>(
-  null
-)
+export const WorkHistoryContext = createContext<WorkHistoryContext | null>(null)
 
 const useWorkHistoryContext = () => {
   const context = useContext(WorkHistoryContext)

@@ -22,7 +22,7 @@ export interface PortfolioItem {
   tags?: string[]
 }
 
-export interface IPortfolio {
+export interface Portfolio {
   [key: string]: PortfolioItem[] | string
 }
 
