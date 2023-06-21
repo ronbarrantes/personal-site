@@ -140,7 +140,7 @@ export const portfolioItems: PortfolioItem[] = [
     github: 'https://github.com/ronbarrantes/guessing-game',
     link: {
       href: 'https://match.ronb.co/',
-      label: 'match.ronb.co',
+      label: 'Matching game',
     },
     description: [
       'This is a simple matching game that I made for my 4 year old son. He really enjoys playing it',
