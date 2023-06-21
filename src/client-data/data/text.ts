@@ -136,6 +136,26 @@ export const portfolioText = {
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    name: 'Matching game',
+    github: 'https://github.com/ronbarrantes/guessing-game',
+    link: {
+      href: 'https://match.ronb.co/',
+      label: 'match.ronb.co',
+    },
+    description: [
+      'This is a simple matching game that I made for my 4 year old son. He really enjoys playing it',
+      "It is built with Vite's React, TypeScript, and TailwindCSS. It is hosted on Vercel.",
+    ],
+    tools: [
+      'react',
+      'typescript',
+      'tailwind',
+      // 'vite', // TODO: ADD VITE
+      'vercel',
+    ],
+  },
+
+  {
     name: 'Shuttly',
     github: 'https://github.com/ronbarrantes/shuttly',
     // link: {
