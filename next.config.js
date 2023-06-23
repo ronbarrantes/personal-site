@@ -1,11 +1,19 @@
-// next.config.js
-const { withContentlayer } = require('next-contentlayer')
+// const { withContentlayer } = require('next-contentlayer')
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+// /** @type {import('next').NextConfig} */
+// const nextConfig = {
+//   reactStrictMode: true,
+//   swcMinify: true,
+//   experimental: { appDir: false, externalDir: true },
+// }
+
+// module.exports = withContentlayer(nextConfig)
+
+const { withContentlayer } = require('next-contentlayer')
+const nextconfig = {
   reactStrictMode: true,
   swcMinify: true,
-  experimental: { appDir: false, externalDir: true },
+  disableImportAliasWarning: true,
+  // ... rest configation
 }
-
-module.exports = withContentlayer(nextConfig)
+module.exports = withContentlayer(nextconfig)
