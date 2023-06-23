@@ -15,13 +15,25 @@ function PostCard(post: Post) {
           {post.title}
         </Link>
       </h2>
-      <time dateTime={post.date} className="mb-2 block text-xs text-gray-600">
+      <time dateTime={post.date} className="block mb-2 text-xs text-gray-600">
         {format(parseISO(post.date), 'LLLL d, yyyy')}
       </time>
-      <div
-        className="text-sm [&>*:last-child]:mb-0 [&>*]:mb-3"
+      {post.image && (
+        <img src={post.image} alt={post.title ?? ''} className="block mb-2" />
+      )}
+      {post.tags && !!post.tags.length && (
+        <ul className="flex flex-wrap mb-4">
+          {post.tags.map((tag, idx) => (
+            <li key={idx} className="mr-2 text-xs text-gray-600">
+              {tag}
+            </li>
+          ))}
+        </ul>
+      )}
+      {/* <div
+        className="post text-sm [&>*:last-child]:mb-0 [&>*]:mb-3"
         dangerouslySetInnerHTML={{ __html: post.body.html }}
-      />
+      /> */}
     </div>
   )
 }
@@ -32,8 +44,8 @@ export default function Home() {
   )
 
   return (
-    <div className="mx-auto max-w-xl py-8">
-      <h1 className="mb-8 text-center text-2xl font-black">
+    <div className="max-w-xl py-8 mx-auto">
+      <h1 className="mb-8 text-2xl font-black text-center">
         Next.js + Contentlayer Example
       </h1>
       {posts.map((post, idx) => (
