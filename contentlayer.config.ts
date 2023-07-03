@@ -27,7 +27,34 @@ export const Post = defineDocumentType(() => ({
   },
 }))
 
+export const Note = defineDocumentType(() => ({
+  name: 'Note',
+  filePathPattern: `**/*.md`,
+  fields: {
+    title: { type: 'string', required: true },
+    date: { type: 'date', required: true },
+    tags: {
+      type: 'list',
+      of: { type: 'string' },
+    },
+    image: {
+      type: 'string',
+    },
+  },
+  computedFields: {
+    slug: {
+      type: 'string',
+      resolve: (note) =>
+        note._raw.flattenedPath.replace(`${note._raw.sourceFileDir}/`, ''),
+    },
+    url: {
+      type: 'string',
+      resolve: (note) => `/${note._raw.flattenedPath}`,
+    },
+  },
+}))
+
 export default makeSource({
   contentDirPath: './src/content',
-  documentTypes: [Post],
+  documentTypes: [Post, Note],
 })
