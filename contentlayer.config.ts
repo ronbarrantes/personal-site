@@ -56,6 +56,6 @@ export const Note = defineDocumentType(() => ({
 }))
 
 export default makeSource({
-  contentDirPath: './src/content',
+  contentDirPath: './content',
   documentTypes: [Post, Note],
 })
