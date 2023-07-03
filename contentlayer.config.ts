@@ -15,11 +15,12 @@ export const Post = defineDocumentType(() => ({
     },
   },
   computedFields: {
-    url: {
+    slug: {
       type: 'string',
-      resolve: (post) => `/${post._raw.flattenedPath}`,
+      resolve: (post) =>
+        post._raw.flattenedPath.replace(`${post._raw.sourceFileDir}/`, ''),
     },
-    id: {
+    url: {
       type: 'string',
       resolve: (post) => `/${post._raw.flattenedPath}`,
     },
