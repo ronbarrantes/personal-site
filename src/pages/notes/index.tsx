@@ -1,4 +1,5 @@
 // app/page.tsx
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { allNotes, Note } from 'contentlayer/generated'
@@ -19,7 +20,7 @@ function NoteCard(note: Note) {
         {format(parseISO(note.date), 'LLLL d, yyyy')}
       </time>
       {note.image && (
-        <img src={note.image} alt={note.title ?? ''} className="mb-2 block" />
+        <Image src={note.image} alt={note.title ?? ''} className="mb-2 block" />
       )}
       {note.tags && !!note.tags.length && (
         <ul className="mb-4 flex flex-wrap">

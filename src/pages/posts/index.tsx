@@ -1,4 +1,5 @@
 // app/page.tsx
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { allPosts, Post } from 'contentlayer/generated'
@@ -19,7 +20,7 @@ function PostCard(post: Post) {
         {format(parseISO(post.date), 'LLLL d, yyyy')}
       </time>
       {post.image && (
-        <img src={post.image} alt={post.title ?? ''} className="mb-2 block" />
+        <Image src={post.image} alt={post.title ?? ''} className="mb-2 block" />
       )}
       {post.tags && !!post.tags.length && (
         <ul className="mb-4 flex flex-wrap">
