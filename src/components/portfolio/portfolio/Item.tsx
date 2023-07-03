@@ -31,7 +31,7 @@ const PortfolioLink = ({
       <a
         href={`${linkInfo.href}`}
         target="_blank"
-        className="text-purple-200 underline hover:no-underline"
+        className="text-purple-200 underline hover:no-underline" rel="noreferrer"
       >
         {linkInfo.label}
       </a>

@@ -1,32 +1,31 @@
-// app/posts/[slug]/page.tsx
 import { InferGetServerSidePropsType } from 'next'
 
-import { allPosts } from 'contentlayer/generated'
+import { allNotes } from 'contentlayer/generated'
 import { format, parseISO } from 'date-fns'
 
-type PostLayoutProps = InferGetServerSidePropsType<typeof getServerSideProps>
+type NoteLayoutProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const PostLayout = ({ post }: PostLayoutProps) => {
+const NoteLayout = ({ note }: NoteLayoutProps) => {
   return (
     <article className="mx-auto max-w-xl py-8">
       <div className="flex flex-col">
-        <h1 className="text-3xl font-bold">{post.title}</h1>
-        <time dateTime={post.date} className="mb-1 text-xs text-gray-600">
-          {format(parseISO(post.date), 'LLLL d, yyyy')}
+        <h1 className="text-3xl font-bold">{note.title}</h1>
+        <time dateTime={note.date} className="mb-1 text-xs text-gray-600">
+          {format(parseISO(note.date), 'LLLL d, yyyy')}
         </time>
       </div>
       <div
-        className="post [&>*:last-child]:mb-0 [&>*]:mb-3"
-        dangerouslySetInnerHTML={{ __html: post.body.html }}
+        className="note [&>*:last-child]:mb-0 [&>*]:mb-3"
+        dangerouslySetInnerHTML={{ __html: note.body.html }}
       />
     </article>
   )
 }
 
-export default PostLayout
+export default NoteLayout
 
 export const generateStaticParams = async () => {
-  return allPosts.map((post) => ({ slug: post._raw.flattenedPath }))
+  return allNotes.map((note) => ({ slug: note._raw.flattenedPath }))
 }
 
 export const getServerSideProps = ({
@@ -34,13 +33,13 @@ export const getServerSideProps = ({
 }: {
   params: { slug: string }
 }) => {
-  console.log({ ...allPosts })
-  const post = allPosts.find((post) => post.slug === params.slug)
+  console.log({ ...allNotes })
+  const note = allNotes.find((note) => note.slug === params.slug)
 
-  if (!post) throw new Error(`Post not found for slug: ${params.slug}`)
+  if (!note) throw new Error(`Note not found for slug: ${params.slug}`)
   return {
     props: {
-      post,
+      note,
     },
   }
 }
