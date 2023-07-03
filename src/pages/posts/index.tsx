@@ -18,10 +18,22 @@ function PostCard(post: Post) {
       <time dateTime={post.date} className="mb-2 block text-xs text-gray-600">
         {format(parseISO(post.date), 'LLLL d, yyyy')}
       </time>
-      <div
-        className="text-sm [&>*:last-child]:mb-0 [&>*]:mb-3"
+      {post.image && (
+        <img src={post.image} alt={post.title ?? ''} className="mb-2 block" />
+      )}
+      {post.tags && !!post.tags.length && (
+        <ul className="mb-4 flex flex-wrap">
+          {post.tags.map((tag, idx) => (
+            <li key={idx} className="mr-2 text-xs text-gray-600">
+              {tag}
+            </li>
+          ))}
+        </ul>
+      )}
+      {/* <div
+        className="post text-sm [&>*:last-child]:mb-0 [&>*]:mb-3"
         dangerouslySetInnerHTML={{ __html: post.body.html }}
-      />
+      /> */}
     </div>
   )
 }
