@@ -30,7 +30,10 @@ const TagPage = ({ tag, notesFilteredByTag }: TagPageProps) => {
 
       <div className="flex flex-col">
         {notesFilteredByTag.map((note) => (
-          <Link href={`/notes/${tag}/${note.slug}`} key={note.slug}>
+          <Link
+            href={`/notes/${tag.toLowerCase()}/${note.slug}`}
+            key={note.slug}
+          >
             {note.title}
           </Link>
         ))}
@@ -46,26 +49,13 @@ export const generateStaticParams = async () => {
 }
 
 export const getServerSideProps = ({ params }: { params: { tag: string } }) => {
-  // console.log({ ...allNotes })
-  // const note = [] ///allNotes.find((note) => note.slug === params.tag)
-
   const notesFilteredByTag = allNotes.filter((note) => {
-    // note._raw.flattenedPath.includes(tag)
-
-    // return note._raw.flattenedPath.includes(tag)
-    // return note.tags?.find((tag) => {
-    //   return reverseSanitizedTag(tag) === params.tag
-    // })
-    //   ? note
-    //   : null
-
     const filtered = note.tags?.find((tag) => {
-      console.log('TAG ===>>', `"${tag}"`)
-      // console.log('PARAMS ===>>')
-      return tag === reverseSanitizedTag(params.tag)
+      return (
+        tag.toLowerCase() ===
+        reverseSanitizedTag(params.tag)?.toLocaleLowerCase()
+      )
     })
-
-    console.log('FILTERED ===>>', filtered)
 
     return filtered ? note : null
   })

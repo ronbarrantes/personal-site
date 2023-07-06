@@ -49,7 +49,7 @@ const TagCard = ({ tag }: { tag?: string }) => {
     <div className="mb-8 border border-red-500">
       <h2 className="mb-1 text-xl">
         <Link
-          href={`/notes/${tag}`}
+          href={`/notes/${tag?.toLocaleLowerCase()}`}
           className="text-blue-700 hover:text-blue-900 dark:text-blue-400"
         >
           {reverseSanitizedTag(tag)}
