@@ -1,11 +1,11 @@
 ---
-title: JavaScript Note
+title: Note in C
 date: 2023-06-21T14:00:00.000Z
 image: https://upload.wikimedia.org/wikipedia/commons/a/af/Cara_de_quem_caiu_do_caminh%C3%A3o..._%28cropped%29.jpg
 type: Note
 tags:
-  - TypeScript
-  - JavaScript
+  - c
+  - c++
 ---
 
 ## Hello world
@@ -22,15 +22,16 @@ Therefore I will try to add some markup that I might use
 
 ### some code markup
 
-Here is the code to add two numbers together
+Here is the code that prints hello world in C
 
-```javascript
-const add = (a, b) => {
-  return a + b
+```c
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!");
+    return 0;
 }
 ```
-
-If I was to write the result of `add(1, 2)` it would be `3`
 
 ### Maybe a link
 
