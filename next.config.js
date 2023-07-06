@@ -9,6 +9,12 @@ const nextConfig = {
     appDir: false,
     // externalDir: true
   },
+
+  images: {
+    domains: [
+      "upload.wikimedia.org",
+    ],
+  },
 }
 
 module.exports = withContentlayer(nextConfig)

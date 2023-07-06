@@ -16,14 +16,18 @@ function NoteCard(note: Note) {
           {note.title}
         </Link>
       </h2>
-      <time dateTime={note.date} className="mb-2 block text-xs text-gray-600">
+      <time dateTime={note.date} className="block mb-2 text-xs text-gray-600">
         {format(parseISO(note.date), 'LLLL d, yyyy')}
       </time>
-      {note.image && (
-        <Image src={note.image} alt={note.title ?? ''} className="mb-2 block" />
-      )}
+      {/* {note.image && (
+        <img
+          src={note.image}
+          alt={note.title ?? ''}
+          className="block object-cover mb-2"
+        />
+      )} */}
       {note.tags && !!note.tags.length && (
-        <ul className="mb-4 flex flex-wrap">
+        <ul className="flex flex-wrap mb-4">
           {note.tags.map((tag, idx) => (
             <li key={idx} className="mr-2 text-xs text-gray-600">
               {tag}
@@ -46,10 +50,8 @@ export default function Home() {
   )
 
   return (
-    <div className="mx-auto max-w-xl py-8">
-      <h1 className="mb-8 text-center text-2xl font-black">
-        Next.js + Contentlayer Example
-      </h1>
+    <div className="max-w-xl py-8 mx-auto">
+      <h1 className="mb-8 text-2xl font-black text-center">Topics</h1>
       {notes.map((note, idx) => (
         <NoteCard key={idx} {...note} />
       ))}

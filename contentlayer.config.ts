@@ -48,6 +48,11 @@ export const Note = defineDocumentType(() => ({
       resolve: (note) =>
         note._raw.flattenedPath.replace(`${note._raw.sourceFileDir}/`, ''),
     },
+    // tag: {
+    //   type: 'string',
+    //   resolve: (note) =>
+    //     note._raw.flattenedPath.replace(`${note._raw.sourceFileDir}/`, ''),
+    // },
     url: {
       type: 'string',
       resolve: (note) => `/${note._raw.flattenedPath}`,
