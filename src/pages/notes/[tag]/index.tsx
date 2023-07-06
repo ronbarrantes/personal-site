@@ -9,22 +9,7 @@ import { reverseSanitizedTag } from '@/client-data/utils/tags'
 type TagPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const TagPage = ({ tag, notesFilteredByTag }: TagPageProps) => {
-  // console.log({ notesFilteredByTag })
-
   return (
-    // <article className="max-w-xl py-8 mx-auto">
-    //   <div className="flex flex-col">
-    //     <h1 className="text-3xl font-bold">{note.title}</h1>
-    //     <time dateTime={note.date} className="mb-1 text-xs text-gray-600">
-    //       {format(parseISO(note.date), 'LLLL d, yyyy')}
-    //     </time>
-    //   </div>
-    //   <div
-    //     className="note [&>*:last-child]:mb-0 [&>*]:mb-3"
-    //     dangerouslySetInnerHTML={{ __html: note.body.html }}
-    //   />
-    // </article>
-
     <>
       <div>{reverseSanitizedTag(tag)} Notes</div>
 

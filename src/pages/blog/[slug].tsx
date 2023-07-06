@@ -8,7 +8,7 @@ type PostLayoutProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const PostLayout = ({ post }: PostLayoutProps) => {
   return (
-    <article className="mx-auto max-w-xl py-8">
+    <article className="max-w-xl py-8 mx-auto">
       <div className="flex flex-col">
         <h1 className="text-3xl font-bold">{post.title}</h1>
         <time dateTime={post.date} className="mb-1 text-xs text-gray-600">
@@ -34,7 +34,6 @@ export const getServerSideProps = ({
 }: {
   params: { slug: string }
 }) => {
-  console.log({ ...allPosts })
   const post = allPosts.find((post) => post.slug === params.slug)
 
   if (!post) throw new Error(`Post not found for slug: ${params.slug}`)

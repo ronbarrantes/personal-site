@@ -68,8 +68,6 @@ export default function Home() {
       .flat()
   )
 
-  console.log('ALL NOTES ======>>', allNotes)
-
   if (!tags.size) {
     return (
       <div className="max-w-xl py-8 mx-auto">

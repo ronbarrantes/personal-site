@@ -33,13 +33,7 @@ export const getServerSideProps = ({
 }: {
   params: { slug: string }
 }) => {
-  console.log({ ...allNotes })
-
-  console.log({ params })
-
   const note = allNotes.find((note) => note.slug === params.slug)
-
-  console.log({ note })
 
   if (!note) throw new Error(`Note not found for slug: ${params.slug}`)
   return {
