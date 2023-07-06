@@ -28,13 +28,23 @@ export const generateStaticParams = async () => {
   return allNotes.map((note) => ({ tag: note._raw.flattenedPath }))
 }
 
-export const getServerSideProps = ({ params }: { params: { tag: string } }) => {
+export const getServerSideProps = ({
+  params,
+}: {
+  params: { slug: string }
+}) => {
   console.log({ ...allNotes })
-  const note = allNotes.find((note) => note.slug === params.tag)
 
-  if (!note) throw new Error(`Note not found for slug: ${params.tag}`)
+  console.log({ params })
+
+  const note = allNotes.find((note) => note.slug === params.slug)
+
+  console.log({ note })
+
+  if (!note) throw new Error(`Note not found for slug: ${params.slug}`)
   return {
     props: {
+      hello: 'world',
       note,
     },
   }
