@@ -1,41 +1,81 @@
 import { InferGetServerSidePropsType } from 'next'
+import Link from 'next/link'
 
 import { allNotes } from 'contentlayer/generated'
 import { format, parseISO } from 'date-fns'
 
-type NoteLayoutProps = InferGetServerSidePropsType<typeof getServerSideProps>
+import { reverseSanitizedTag } from '@/client-data/utils/tags'
 
-const NoteLayout = ({ note }: NoteLayoutProps) => {
+type TagPageProps = InferGetServerSidePropsType<typeof getServerSideProps>
+
+const TagPage = ({ tag, notesFilteredByTag }: TagPageProps) => {
+  // console.log({ notesFilteredByTag })
+
   return (
-    <article className="max-w-xl py-8 mx-auto">
+    // <article className="max-w-xl py-8 mx-auto">
+    //   <div className="flex flex-col">
+    //     <h1 className="text-3xl font-bold">{note.title}</h1>
+    //     <time dateTime={note.date} className="mb-1 text-xs text-gray-600">
+    //       {format(parseISO(note.date), 'LLLL d, yyyy')}
+    //     </time>
+    //   </div>
+    //   <div
+    //     className="note [&>*:last-child]:mb-0 [&>*]:mb-3"
+    //     dangerouslySetInnerHTML={{ __html: note.body.html }}
+    //   />
+    // </article>
+
+    <>
+      <div>{reverseSanitizedTag(tag)} Notes</div>
+
       <div className="flex flex-col">
-        <h1 className="text-3xl font-bold">{note.title}</h1>
-        <time dateTime={note.date} className="mb-1 text-xs text-gray-600">
-          {format(parseISO(note.date), 'LLLL d, yyyy')}
-        </time>
+        {notesFilteredByTag.map((note) => (
+          <Link href={`/notes/${tag}/${note.slug}`} key={note.slug}>
+            {note.title}
+          </Link>
+        ))}
       </div>
-      <div
-        className="note [&>*:last-child]:mb-0 [&>*]:mb-3"
-        dangerouslySetInnerHTML={{ __html: note.body.html }}
-      />
-    </article>
+    </>
   )
 }
 
-export default NoteLayout
+export default TagPage
 
 export const generateStaticParams = async () => {
   return allNotes.map((note) => ({ tag: note._raw.flattenedPath }))
 }
 
 export const getServerSideProps = ({ params }: { params: { tag: string } }) => {
-  console.log({ ...allNotes })
-  const note = allNotes.find((note) => note.slug === params.tag)
+  // console.log({ ...allNotes })
+  // const note = [] ///allNotes.find((note) => note.slug === params.tag)
 
-  if (!note) throw new Error(`Note not found for tag: ${params.tag}`)
+  const notesFilteredByTag = allNotes.filter((note) => {
+    // note._raw.flattenedPath.includes(tag)
+
+    // return note._raw.flattenedPath.includes(tag)
+    // return note.tags?.find((tag) => {
+    //   return reverseSanitizedTag(tag) === params.tag
+    // })
+    //   ? note
+    //   : null
+
+    const filtered = note.tags?.find((tag) => {
+      console.log('TAG ===>>', `"${tag}"`)
+      // console.log('PARAMS ===>>')
+      return tag === reverseSanitizedTag(params.tag)
+    })
+
+    console.log('FILTERED ===>>', filtered)
+
+    return filtered ? note : null
+  })
+
+  if (!notesFilteredByTag)
+    throw new Error(`Notes not found for tag: ${params.tag}`)
   return {
     props: {
-      note,
+      tag: params.tag,
+      notesFilteredByTag,
     },
   }
 }
