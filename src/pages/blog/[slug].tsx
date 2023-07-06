@@ -34,8 +34,12 @@ export const getServerSideProps = ({
 }: {
   params: { slug: string }
 }) => {
-  const post = allPosts.find((post) => post._raw.flattenedPath === params.slug)
+  const post = allPosts.find((post) => post.slug === params.slug)
 
   if (!post) throw new Error(`Post not found for slug: ${params.slug}`)
-  return { props: { post } }
+  return {
+    props: {
+      post,
+    },
+  }
 }

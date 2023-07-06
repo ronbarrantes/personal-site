@@ -1,4 +1,5 @@
 // app/page.tsx
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { allPosts, Post } from 'contentlayer/generated'
@@ -15,14 +16,18 @@ function PostCard(post: Post) {
           {post.title}
         </Link>
       </h2>
-      <time dateTime={post.date} className="mb-2 block text-xs text-gray-600">
+      <time dateTime={post.date} className="block mb-2 text-xs text-gray-600">
         {format(parseISO(post.date), 'LLLL d, yyyy')}
       </time>
       {post.image && (
-        <img src={post.image} alt={post.title ?? ''} className="mb-2 block" />
+        <img
+          src={post.image}
+          alt={post.title ?? ''}
+          className="block object-cover mb-2"
+        />
       )}
       {post.tags && !!post.tags.length && (
-        <ul className="mb-4 flex flex-wrap">
+        <ul className="flex flex-wrap mb-4">
           {post.tags.map((tag, idx) => (
             <li key={idx} className="mr-2 text-xs text-gray-600">
               {tag}
@@ -44,8 +49,8 @@ export default function Home() {
   )
 
   return (
-    <div className="mx-auto max-w-xl py-8">
-      <h1 className="mb-8 text-center text-2xl font-black">
+    <div className="max-w-xl py-8 mx-auto">
+      <h1 className="mb-8 text-2xl font-black text-center">
         Next.js + Contentlayer Example
       </h1>
       {posts.map((post, idx) => (
