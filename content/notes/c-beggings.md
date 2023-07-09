@@ -7,12 +7,20 @@ tags:
   - C
 ---
 
-## WTF is this??
+## Why am I writing this?
 
 Soooo... Here is the deal! I am an experienced programmer, but, as of July 2023, I very new to C. Hence the reason for me writing this note.
 This right here is a vague summary based on the article _[The C Beginner's Handbook: Learn C Programming Language basics in just a few hours](https://www.freecodecamp.org/news/the-c-beginners-handbook)_ by [Flavio Copes](https://flaviocopes.com/) as well as the auto suggestion from github copilot. lol!
 So if you want the real deal article with the actual knowledge, go read the article, but if you want some dirty cliff notes, you're welcome to chill here for a bit.
 I hope this help you as much as it is helping me.
+
+## Who is this for?
+
+I don't know my dude, I'm just writing this for myself, but if you're here, I guess it's for you too.
+
+## What is C?
+
+C is a general-purpose programming language that is extremely popular, simple and flexible. That's all I know. I haven't research the history, I'm sure it's important, and I'm sure I'll learn it eventually. All I know is that you can do litteraly anything with it.
 
 ## Why C?
 
@@ -20,7 +28,7 @@ I've been wanting to learn a low level language for years now but I just haven't
 
 This plan was going great until I ran across a video on youtube by [_Eskil Steenberg_](https://www.youtube.com/@eskilsteenberg) called [How I program C](https://www.youtube.com/watch?v=443UNeGrFoM) and the way he talked about _c_ very much resonated with me and with my belief about programming. So I became inspired to first learn _c_, and then go back and tackle _c++_, that or _rust_.
 
-**With that out of the way, here we go!**
+_With that out of the way, here we go!_
 
 ## Basic hello world
 
