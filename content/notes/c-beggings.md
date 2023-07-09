@@ -10,7 +10,7 @@ tags:
 ## Why am I writing this?
 
 Soooo... Here is the deal! I am an experienced programmer, but, as of July 2023, I very new to C. Hence the reason for me writing this note.
-This right here is a vague summary based on the article _[The C Beginner's Handbook: Learn C Programming Language basics in just a few hours](https://www.freecodecamp.org/news/the-c-beginners-handbook)_ by [Flavio Copes](https://flaviocopes.com/) as well as the auto suggestion from github copilot. lol!
+This right here is a vague summary based on the article [_The C Beginner's Handbook: Learn C Programming Language basics in just a few hours_](https://www.freecodecamp.org/news/the-c-beginners-handbook) by [Flavio Copes](https://flaviocopes.com/) as well as the auto suggestion from github copilot. lol!
 So if you want the real deal article with the actual knowledge, go read the article, but if you want some dirty cliff notes, you're welcome to chill here for a bit.
 I hope this help you as much as it is helping me.
 
