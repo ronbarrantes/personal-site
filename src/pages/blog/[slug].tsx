@@ -8,7 +8,7 @@ type PostLayoutProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const PostLayout = ({ post }: PostLayoutProps) => {
   return (
-    <article className="max-w-xl py-8 mx-auto">
+    <article className="mx-auto max-w-xl py-8">
       <div className="flex flex-col">
         <h1 className="text-3xl font-bold">{post.title}</h1>
         <time dateTime={post.date} className="mb-1 text-xs text-gray-600">
@@ -16,7 +16,7 @@ const PostLayout = ({ post }: PostLayoutProps) => {
         </time>
       </div>
       <div
-        className="post [&>*:last-child]:mb-0 [&>*]:mb-3"
+        className="content [&>*:last-child]:mb-0 [&>*]:mb-3"
         dangerouslySetInnerHTML={{ __html: post.body.html }}
       />
     </article>

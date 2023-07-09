@@ -7,7 +7,7 @@ type NoteLayoutProps = InferGetServerSidePropsType<typeof getServerSideProps>
 
 const NoteLayout = ({ note }: NoteLayoutProps) => {
   return (
-    <article className="max-w-xl py-8 mx-auto">
+    <article className="mx-auto max-w-xl py-8">
       <div className="flex flex-col">
         <h1 className="text-3xl font-bold">{note.title}</h1>
         <time dateTime={note.date} className="mb-1 text-xs text-gray-600">
@@ -15,7 +15,7 @@ const NoteLayout = ({ note }: NoteLayoutProps) => {
         </time>
       </div>
       <div
-        className="note [&>*:last-child]:mb-0 [&>*]:mb-3"
+        className="content [&>*:last-child]:mb-0 [&>*]:mb-3"
         dangerouslySetInnerHTML={{ __html: note.body.html }}
       />
     </article>

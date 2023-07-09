@@ -28,7 +28,7 @@ function NoteCard(note: Note) {
         />
       )} */}
       {note.tags && !!note.tags.length && (
-        <ul className="flex flex-wrap mb-4">
+        <ul className="mb-4 flex flex-wrap">
           {note.tags.map((tag, idx) => (
             <li key={idx} className="mr-2 text-xs text-gray-600">
               {tag}
@@ -37,7 +37,7 @@ function NoteCard(note: Note) {
         </ul>
       )}
       {/* <div
-        className="note text-sm [&>*:last-child]:mb-0 [&>*]:mb-3"
+        className="content text-sm [&>*:last-child]:mb-0 [&>*]:mb-3"
         dangerouslySetInnerHTML={{ __html: note.body.html }}
       /> */}
     </div>
@@ -70,16 +70,16 @@ export default function Home() {
 
   if (!tags.size) {
     return (
-      <div className="max-w-xl py-8 mx-auto">
-        <h1 className="mb-8 text-2xl font-black text-center">Topics</h1>
+      <div className="mx-auto max-w-xl py-8">
+        <h1 className="mb-8 text-center text-2xl font-black">Topics</h1>
         <p className="text-center">No topics found</p>
       </div>
     )
   }
 
   return (
-    <div className="max-w-xl py-8 mx-auto">
-      <h1 className="mb-8 text-2xl font-black text-center">Topics</h1>
+    <div className="mx-auto max-w-xl py-8">
+      <h1 className="mb-8 text-center text-2xl font-black">Topics</h1>
 
       {[...tags].map((tag, idx) => (
         <TagCard key={idx} tag={tag} />
