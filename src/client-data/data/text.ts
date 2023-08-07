@@ -136,6 +136,19 @@ export const portfolioText = {
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    name: 'Game of Life',
+    github: 'https://github.com/ronbarrantes/guessing-game',
+    link: {
+      href: 'https://game-of-life.ronb.co/',
+      label: 'Game of Life',
+    },
+    description: [
+      'An interpretation of the classic game of life, built with good old React, TypeScript, and TailwindCSS. It is hosted on Vercel.',
+    ],
+    tools: ['react', 'typescript', 'tailwind', 'vercel'],
+  },
+
+  {
     name: 'Matching game',
     github: 'https://github.com/ronbarrantes/guessing-game',
     link: {
@@ -158,10 +171,10 @@ export const portfolioItems: PortfolioItem[] = [
   {
     name: 'Shuttly',
     github: 'https://github.com/ronbarrantes/shuttly',
-    link: {
-      href: 'https://dashboard.shuttly.app',
-      label: `Shuttly App's dashboard`,
-    },
+    // link: {
+    //   href: 'https://dashboard.shuttly.app',
+    //   label: `Shuttly App's dashboard`,
+    // },
     description: [
       `This is a project I'm building on the side, it's a scheduling app for a shuttles.`,
       `It is being built with Next.js, TypeScript, TailwindCSS, ReactNative, using TurboRepo as monorepo It is hosted on Vercel.`,
