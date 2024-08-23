@@ -11,7 +11,7 @@ interface PortfolioProps {
   className?: string
 }
 
-export const Portfolio = ({ items, children, className }: PortfolioProps) => {
+export const Portfolio = ({ items, children }: PortfolioProps) => {
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>(items)
   const [index, setIndex] = useState<number>(0)
 
