@@ -15,6 +15,7 @@ export const iconsLisFiles = {
   planetscale: { name: 'PlanetScale', filename: 'planetscale' },
   postgresql: { name: 'PostgreSQL', filename: 'postgresql' },
   premierepro: { name: 'Premiere Pro', filename: 'premierepro' },
+  python: { name: 'Python', filename: 'python' },
   rails: { name: 'Ruby on Rails', filename: 'rails' },
   react: { name: 'React', filename: 'react' },
   reactnative: { name: 'React Native', filename: 'react' },
