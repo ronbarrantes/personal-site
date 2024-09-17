@@ -33,9 +33,23 @@ export const workHistoryText = {
 
 export const experienceItems: WorkExperience[] = [
   {
+    employer: 'Virewirx',
+    url: 'https://virewirx.com',
+    startDate: '7/2023',
+    jobTitle: 'UI Engineer',
+    description: [
+      `Designed and created a Dashboard that manages Virewirx’s internal tool. This tool is in charge of coordinating VR headsets, computer servers, and VR applications in order to provide a high quality VR experience for multiple users, while at the same time giving real time status on each individual device`,
+      `Created a configuration server that will create specific configurations depending on what kind of VR headset or computer server may be using`,
+      `Create a logging server that takes info and error logs from the Virewirx’s managing dashboard and writes them to local memory`,
+      `Helped find, identify, and fix bugs with the current internal tooling`,
+    ],
+    tools: ['react', 'typescript', 'tailwind', 'python'],
+  },
+  {
     employer: 'VeroSkills',
     url: 'https://veroskills.com',
     startDate: '6/2022',
+    endDate: '3/2023',
     jobTitle: 'Staff Software Engineer',
     description: [
       'Worked in the creation and initial launch of the VeroSkills platform, a new learning, tutoring, and recruiting tool where a student can be taken from a beginner to getting hired.',
