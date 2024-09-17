@@ -4,7 +4,7 @@ export const about: About = {
   title: 'About Me',
   description: [
     'Creative at heart, I am an Engineer with a strong eye for design, an insatiable curiosity, and a passion for learning and personal growth.',
-    'I have 4 years of development experience, 6 years working with JavaScript and Node, 2 year working with TypeScript, and over 10 years working in various aspects of tech.',
+    'I have 6 years of development experience, 8 years working with JavaScript and Node, 5 year working with TypeScript, and over 10 years working in various aspects of tech.',
     'I love how the industry is constantly evolving. In the nonstop pace of innovation, I want to build products that have an impact for good, that will advance the industry forward, and that bring people together.',
   ],
 }
