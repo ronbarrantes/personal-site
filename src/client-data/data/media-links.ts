@@ -9,10 +9,10 @@ export const mediaLinks: TLink[] = [
     label: 'Github',
     href: 'https://github.com/ronbarrantes',
   },
-  {
-    label: 'Facebook',
-    href: 'https://www.facebook.com/ronbarrantes',
-  },
+  // {
+  //   label: 'Facebook',
+  //   href: 'https://www.facebook.com/ronbarrantes',
+  // },
   {
     label: 'Twitter',
     href: 'https://twitter.com/ron_barrantes',
