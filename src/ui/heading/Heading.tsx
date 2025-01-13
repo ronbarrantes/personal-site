@@ -1,8 +1,8 @@
 import React from 'react'
-const headingType = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] as const
+type HeadingType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
 type HeadingProps = {
-  type: (typeof headingType)[number]
+  type: HeadingType
   className?: string
   children: React.ReactNode
 }
