@@ -13,8 +13,4 @@ export const mediaLinks: TLink[] = [
     label: 'Facebook',
     href: 'https://www.facebook.com/ronbarrantes',
   },
-  {
-    label: 'Twitter',
-    href: 'https://twitter.com/ron_barrantes',
-  },
 ]
