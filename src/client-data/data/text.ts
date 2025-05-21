@@ -150,6 +150,19 @@ export const portfolioText = {
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    name: 'Easy Civics',
+    github: 'https://github.com/ronbarrantes/easy-civics',
+    link: {
+      href: 'https://civics.ronb.co/',
+      label: 'Easy Civics',
+    },
+    description: [
+      'This is a project I’m creating for my family to help them review the questions commonly found on the U.S. citizenship exam.',
+      'It gives the user 10 of the 100 questions in a multiple choice format',
+    ],
+    tools: ['nextjs', 'typescript', 'tailwind', 'vercel', 'postgresql'],
+  },
+  {
     name: 'Game of Life',
     github: 'https://github.com/ronbarrantes/guessing-game',
     link: {
