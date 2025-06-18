@@ -150,7 +150,7 @@ func main() {
 	}
 
 	origins := strings.Split(os.Getenv("ALLOWED_ORIGINS"), ",")
-	origin_suffix := os.Getenv("ALLOWED_ORIGINS_PREFIX")
+	origin_suffix := os.Getenv("ALLOWED_ORIGINS_SUFFIX")
 
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     origins,
@@ -235,7 +235,7 @@ func main() {
 
 	api.GET("/now", func(c *gin.Context) {
 		var nows []Now
-		if err := db.Find(&nows).Error; err != nil {
+		if err := db.Order("created_at DESC").Find(&nows).Error; err != nil {
 			log.Printf("Database error: %v", err)
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": "Failed to fetch Nows",
