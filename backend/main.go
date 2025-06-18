@@ -149,13 +149,18 @@ func main() {
 		log.Fatalf("failed to set trusted proxies: %v", err)
 	}
 
-	//	CORS setup
+	origins := strings.Split(os.Getenv("ALLOWED_ORIGINS"), ",")
+	origin_suffix := os.Getenv("ALLOWED_ORIGINS_PREFIX")
+
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:3000", "http://localhost:3003"},
+		AllowOrigins:     origins,
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
+		AllowOriginFunc: func(origin string) bool {
+			return strings.HasSuffix(origin, origin_suffix)
+		},
 	}))
 
 	api := r.Group("/api")
