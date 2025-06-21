@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import clx from "classnames";
 import { useForm } from "react-hook-form";
@@ -32,9 +34,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Textarea } from "@/components/ui/textarea";
 import { useRoutes } from "@/hooks/use-api";
 import { useAuthStore } from "@/store/use-auth";
 import { formatDate } from "@/utils/time";
+import { tryCatch } from "@/utils/try-catch";
 
 const nowSchema = z.object({
   title: z.string().min(2, {
@@ -66,8 +70,11 @@ const NowItem = ({
 
 export function EditDialog(item: { title: string; desc: string; id: number }) {
   const { api } = useRoutes();
+
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Dialog>
+    <Dialog onOpenChange={setIsOpen} open={isOpen}>
       <DialogTrigger asChild>
         <Button>Delete</Button>
       </DialogTrigger>
@@ -82,17 +89,23 @@ export function EditDialog(item: { title: string; desc: string; id: number }) {
             {item.title}
           </DialogDescription>
         </DialogHeader>
-        <DialogClose asChild>
-          <Button
-            type="button"
-            variant="destructive"
-            onClick={() => {
-              api.now.delete.mutate(item.id);
-            }}
-          >
-            Delete
-          </Button>
-        </DialogClose>
+        <Button
+          type="button"
+          variant="destructive"
+          onClick={async () => {
+            const { error } = await tryCatch(
+              api.now.delete.mutateAsync(item.id)
+            );
+
+            if (error) {
+              setIsOpen(true);
+              return;
+            }
+            setIsOpen(false);
+          }}
+        >
+          Delete
+        </Button>
         <DialogClose asChild>
           <Button type="button">Close</Button>
         </DialogClose>
@@ -178,7 +191,7 @@ export function AddOrUpdateItem({
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input placeholder="description..." {...field} />
+                      <Textarea placeholder="description..." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
