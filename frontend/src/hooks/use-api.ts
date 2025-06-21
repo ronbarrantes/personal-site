@@ -30,9 +30,8 @@ export const loginApi = {
     return await axios({
       method: "post",
       url: `${BACKEND_URL}/login`,
-      data: JSON.stringify(body),
+      data: body,
       withCredentials: true,
-      headers: { "Content-Type": "application/json" },
     });
   },
 
@@ -66,8 +65,7 @@ const nowApi = {
     return await axios({
       method: "post",
       url: `${BACKEND_URL}/now`,
-      data: JSON.stringify(body),
-      headers: { "Content-Type": "application/json" },
+      data: body,
       withCredentials: true,
     });
   },
@@ -82,8 +80,7 @@ const nowApi = {
     return await axios({
       method: "put",
       url: `${BACKEND_URL}/now/${id}`,
-      data: JSON.stringify(body),
-      headers: { "Content-Type": "application/json" },
+      data: body,
       withCredentials: true,
     });
   },
