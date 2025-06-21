@@ -2,7 +2,6 @@
 import { AiOutlineClose, AiOutlineWarning } from "react-icons/ai";
 import { BsChevronLeft, BsLightningCharge } from "react-icons/bs";
 import {
-  FaFacebook,
   FaGithub,
   FaLinkedin,
   FaReact,
@@ -73,7 +72,6 @@ export const iconFileNames = {
   contact: { icon: LuContact },
   cpu: { icon: FiCpu },
   duck: { icon: GiPlasticDuck },
-  faceboon: { icon: FaFacebook },
   github: { icon: FaGithub },
   hamburger: { icon: GiHamburgerMenu },
   home: { icon: FiHome },
