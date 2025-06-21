@@ -231,10 +231,6 @@ export const portfolioItems: PortfolioItem[] = [
   {
     name: "Shuttly",
     github: "https://github.com/ronbarrantes/shuttly",
-    // link: {
-    //   href: 'https://dashboard.shuttly.app',
-    //   label: `Shuttly App's dashboard`,
-    // },
     description: [
       `This is a project I'm building on the side, it's a scheduling app for a shuttles.`,
       `It is being built with Next.js, TypeScript, TailwindCSS, ReactNative, using TurboRepo as monorepo It is hosted on Vercel.`,
