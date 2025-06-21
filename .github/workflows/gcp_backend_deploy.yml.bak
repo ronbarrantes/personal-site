@@ -1,0 +1,97 @@
+name: Deploy Backend to Cloud Run
+
+# This workflow runs on:
+# - any push to the main branch, *but only if* backend/** or the deploy.yml file changed
+# - any pull request to main that touches backend/** (for PR build checks)
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "backend/**"
+      - ".github/workflows/deploy.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "backend/**"
+
+# Environment variables used throughout the workflow
+env:
+  PROJECT_ID: your-gcp-project-id # Replace with your actual project ID
+  REGION: us-central1 # GCP region for Cloud Run and Artifact Registry
+  SERVICE: go-bk-api # The name of your Cloud Run service
+  ARTIFACT_REPO: your-repo-name # Name of your Artifact Registry repo
+  WORKLOAD_IDENTITY_PROVIDER: projects/XXX/... # From GCP when setting up Workload Identity Federation
+  SERVICE_ACCOUNT: your-service-account@your-project.iam.gserviceaccount.com
+
+jobs:
+  build:
+    name: Build Backend Docker Image
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read # Needed to read repo contents
+      id-token: write # Needed to authenticate with Workload Identity Federation
+
+    steps:
+      # 1. Clone your GitHub repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. Authenticate to Google Cloud using Workload Identity Federation
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+
+      # 3. Set up Docker buildx (for better/faster builds)
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+
+      # 4. Configure Docker to push to GCP's Artifact Registry
+      - name: Configure Docker to use Artifact Registry
+        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+
+      # 5. Build your backend Docker image (from ./backend/Dockerfile)
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPO }}/${{ env.SERVICE }}:latest ./backend
+
+      # 6. Push the image to Artifact Registry
+      - name: Push Docker image
+        run: |
+          docker push ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPO }}/${{ env.SERVICE }}:latest
+
+  deploy:
+    name: Deploy to Cloud Run
+    needs: build # Only run this after the build job finishes
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write # Needed again to authenticate
+
+    steps:
+      # 1. Authenticate again (needed per job)
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ env.SERVICE_ACCOUNT }}
+
+      # 2. Deploy the Docker image to Cloud Run
+      - name: Deploy to Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ env.SERVICE }}
+          region: ${{ env.REGION }}
+          image: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.ARTIFACT_REPO }}/${{ env.SERVICE }}:latest
+          env_vars: |
+            GIN_MODE=release
+            DB_PREFIX=personalsite_prod_
+            API_TOKEN=${{ secrets.API_TOKEN }}
+            ADMIN_USERNAME_HASH=${{ secrets.ADMIN_USERNAME_HASH }}
+            ADMIN_PASSWORD_HASH=${{ secrets.ADMIN_PASSWORD_HASH }}
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
