@@ -1,0 +1,8 @@
+- name: Deploy to Cloud Run
+  run: |
+    gcloud run deploy my-backend \
+      --image=gcr.io/$PROJECT_ID/my-backend \
+      --region=us-central1 \
+      --platform=managed \
+      --set-env-vars GIN_MODE=release \
+      --env-vars-file .env.yaml
