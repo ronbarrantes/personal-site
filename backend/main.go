@@ -229,7 +229,12 @@ func main() {
 			return
 		}
 
-		c.SetCookie(TOKEN_NAME, apiToken, 3600, "/", "", secure, true)
+		var cookieDomain string
+		if secure {
+			cookieDomain = ".ronb.co"
+		}
+
+		c.SetCookie(TOKEN_NAME, apiToken, 3600, "/", cookieDomain, secure, true)
 		c.JSON(http.StatusOK, gin.H{"message": "logged in"})
 	})
 
