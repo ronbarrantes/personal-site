@@ -229,7 +229,17 @@ func main() {
 			return
 		}
 
-		c.SetCookie(TOKEN_NAME, apiToken, 3600, "/", "", secure, true)
+		http.SetCookie(c.Writer, &http.Cookie{
+			Name:     TOKEN_NAME,
+			Value:    apiToken,
+			MaxAge:   3600,
+			Path:     "/",
+			Domain:   "",
+			Secure:   secure,
+			HttpOnly: true,
+			SameSite: http.SameSiteNoneMode,
+		})
+
 		c.JSON(http.StatusOK, gin.H{"message": "logged in"})
 	})
 
