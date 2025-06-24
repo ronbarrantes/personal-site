@@ -229,12 +229,22 @@ func main() {
 			return
 		}
 
+		var cookieDomain string
+
+		if secure {
+			cookieDomain = os.Getenv("COOKIE_DOMAIN")
+			if cookieDomain == "" {
+				log.Printf("Warning: COOKIE_DOMAIN not set in production mode")
+			}
+
+		}
+
 		http.SetCookie(c.Writer, &http.Cookie{
 			Name:     TOKEN_NAME,
 			Value:    apiToken,
 			MaxAge:   3600,
 			Path:     "/",
-			Domain:   "",
+			Domain:   cookieDomain,
 			Secure:   secure,
 			HttpOnly: true,
 			SameSite: http.SameSiteNoneMode,
@@ -262,7 +272,12 @@ func main() {
 	})
 
 	auth.POST("/logout", func(c *gin.Context) {
-		c.SetCookie(TOKEN_NAME, "", 1, "/", "", secure, true)
+		var cookieDomain string
+		if secure {
+			cookieDomain = os.Getenv("COOKIE_DOMAIN")
+		}
+
+		c.SetCookie(TOKEN_NAME, "", 1, "/", cookieDomain, secure, true)
 		c.JSON(http.StatusOK, gin.H{"message": "logged out"})
 	})
 
