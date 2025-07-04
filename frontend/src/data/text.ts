@@ -170,6 +170,27 @@ export const portfolioText = {
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    name: "Personal porfolio",
+    github: "https://github.com/ronbarrantes/personal-site",
+    description: [
+      `This is the github to my personal portfolio site, the one you're currently on. My site was built using React.js in the frontend and a Golang for backend. I am using Postgres for my database`,
+      `For services, I am using vercel for my frontend, GCP Cloudrun for my backend, and Supabase for my database`,
+      `If you're curious about my previous (Nextjs version), please browse through my branches`,
+    ],
+    tools: [
+      "typescript",
+      "react",
+      "tailwind",
+      "golang",
+      "postgresql",
+      "vercel",
+      "gcp",
+      "supabase",
+      "git",
+      "github",
+    ],
+  },
+  {
     name: "Easy Civics",
     github: "https://github.com/ronbarrantes/easy-civics",
     link: {
@@ -241,22 +262,6 @@ export const portfolioItems: PortfolioItem[] = [
       "reactnative",
       "tailwind",
       "turborepo",
-      "vercel",
-      "github",
-      "git",
-    ],
-  },
-  {
-    name: "Personal porfolio",
-    github: "https://github.com/ronbarrantes/personal-site",
-    description: [
-      `This is the github to my personal portfolio site, the one you're currently on. It is built with React.js, Next.js, TypeScript, and TailwindCSS. It is hosted on Vercel.`,
-    ],
-    tools: [
-      "nextjs",
-      "typescript",
-      "react",
-      "tailwind",
       "vercel",
       "github",
       "git",
