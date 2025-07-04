@@ -22,7 +22,7 @@ import {
   MdRefresh,
   MdRemove,
 } from "react-icons/md";
-import { RiCopilotFill, RiNextjsFill } from "react-icons/ri";
+import { RiCopilotFill, RiNextjsFill, RiSupabaseLine } from "react-icons/ri";
 import {
   SiAdobeillustrator,
   SiAdobeindesign,
@@ -33,6 +33,7 @@ import {
   SiFacebook,
   SiGit,
   SiGoland,
+  SiGooglecloud,
   SiHtml5,
   SiJavascript,
   SiJest,
@@ -91,6 +92,7 @@ export const iconFileNames = {
   azure: { icon: TbBrandAzure },
   css: { icon: SiCss3 },
   facebook: { icon: SiFacebook },
+  gcp: { icon: SiGooglecloud },
   html: { icon: SiHtml5 },
   illustrator: { icon: SiAdobeillustrator },
   indesign: { icon: SiAdobeindesign },
@@ -112,6 +114,7 @@ export const iconFileNames = {
   retool: { icon: SiRetool },
   selenium: { icon: SiSelenium },
   stripe: { icon: SiStripe },
+  supabase: { icon: RiSupabaseLine },
   tailwind: { icon: SiTailwindcss },
   turborepo: { icon: SiTurborepo },
   trpc: { icon: SiTrpc },
