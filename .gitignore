@@ -1,5 +1,10 @@
-/other_stuff
+# Python
+__pycache__/
+*.pyc
+.venv/
 
-# ALL ENVS EXCEPT .env.sample
-**/.env*
-!**/.env.sample
+# Go
+poster
+
+# Env
+.env

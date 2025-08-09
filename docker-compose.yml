@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  poster:
+    build:
+      context: ./services/go-poster
+    environment:
+      - POSTER_PORT=${POSTER_PORT:-8081}
+      - BACKEND_BASE_URL=${BACKEND_BASE_URL}
+      - BACKEND_POSTS_ENDPOINT=${BACKEND_POSTS_ENDPOINT:-/posts}
+      - BACKEND_API_KEY=${BACKEND_API_KEY}
+      - BACKEND_TIMEOUT_SECONDS=${BACKEND_TIMEOUT_SECONDS:-15}
+    ports:
+      - "${POSTER_PORT:-8081}:${POSTER_PORT:-8081}"
+
+  agent:
+    build:
+      context: ./services/python-agent
+    environment:
+      - AGENT_PORT=${AGENT_PORT:-5001}
+      - POSTER_SERVICE_URL=${POSTER_SERVICE_URL:-http://poster:8081}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - USER_VOICE_HINT=${USER_VOICE_HINT}
+      - DEFAULT_DRAFT=${DEFAULT_DRAFT:-false}
+    ports:
+      - "${AGENT_PORT:-5001}:${AGENT_PORT:-5001}"
+    depends_on:
+      - poster
