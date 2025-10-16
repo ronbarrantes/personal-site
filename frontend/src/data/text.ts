@@ -25,6 +25,7 @@ export const experienceItems: WorkExperience[] = [
     employer: "Virewirx",
     url: "https://virewirx.com",
     startDate: "7/2023",
+    endDate: "10/2024",
     jobTitle: "UI Engineer",
     description: [
       `Designed and created a Dashboard that manages Virewirx’s internal tool. This tool is in charge of coordinating VR headsets, computer servers, and VR applications in order to provide a high quality VR experience for multiple users, while at the same time giving real time status on each individual device`,
