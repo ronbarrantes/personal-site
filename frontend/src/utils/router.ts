@@ -3,11 +3,9 @@ import { createBrowserRouter } from "react-router";
 import { About } from "@/pages/About";
 import { Contact } from "@/pages/Contact";
 import { DesignBrutalist } from "@/pages/DesignBrutalist";
-import { DesignDeco } from "@/pages/DesignDeco";
-import { DesignIndustrial } from "@/pages/DesignIndustrial";
+import { DesignBrutalistMoss } from "@/pages/DesignBrutalistMoss";
+import { DesignBrutalistSlate } from "@/pages/DesignBrutalistSlate";
 import { DesignRoot } from "@/pages/DesignRoot";
-import { DesignSoft } from "@/pages/DesignSoft";
-import { DesignTwo } from "@/pages/DesignTwo";
 import { Home } from "@/pages/Home";
 import { Login } from "@/pages/Login";
 import { Portfolio } from "@/pages/Portfolio";
@@ -31,12 +29,10 @@ export const router = createBrowserRouter([
     path: "/designs",
     Component: DesignRoot,
     children: [
-      { index: true, Component: DesignTwo },
-      { path: "b", Component: DesignTwo },
+      { index: true, Component: DesignBrutalist },
       { path: "brutalist", Component: DesignBrutalist },
-      { path: "deco", Component: DesignDeco },
-      { path: "soft", Component: DesignSoft },
-      { path: "industrial", Component: DesignIndustrial },
+      { path: "brutalist/slate", Component: DesignBrutalistSlate },
+      { path: "brutalist/moss", Component: DesignBrutalistMoss },
     ],
   },
 ]);

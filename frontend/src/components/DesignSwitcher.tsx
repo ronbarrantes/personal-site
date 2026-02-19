@@ -18,11 +18,9 @@ export const DesignSwitcher = () => {
         </summary>
         <div className="mt-3 flex flex-col gap-2 rounded-2xl border border-slate-900/15 bg-white/90 p-3 shadow-lg dark:border-white/15 dark:bg-slate-950/80">
           <LinkItem to="/" label="Main" />
-          <LinkItem to="/designs/b" label="System" />
-          <LinkItem to="/designs/brutalist" label="Brutalist" />
-          <LinkItem to="/designs/deco" label="Deco" />
-          <LinkItem to="/designs/soft" label="Soft" />
-          <LinkItem to="/designs/industrial" label="Industrial" />
+          <LinkItem to="/designs/brutalist" label="Amber" />
+          <LinkItem to="/designs/brutalist/slate" label="Slate" />
+          <LinkItem to="/designs/brutalist/moss" label="Moss" />
         </div>
       </details>
     </div>
