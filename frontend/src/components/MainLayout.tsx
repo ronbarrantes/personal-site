@@ -32,7 +32,6 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <ModeToggle />
             <span className="flex items-center gap-4 text-sm opacity-60">
               <span className="flex items-center gap-1.5">
                 <Icon name="calendar" className="size-4" />
@@ -43,6 +42,11 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                 {time}
               </span>
             </span>
+            <ModeToggle
+              buttonClassName={`border bg-transparent ${l.linkMain} ${d.linkMain}`}
+              menuClassName={`${l.root} ${d.root} ${l.borderMuted} ${d.borderMuted}`}
+              itemClassName={`${l.textAccent} ${d.textAccent} hover:bg-emerald-700/10 focus:bg-emerald-700/10 dark:hover:bg-white/5 dark:focus:bg-white/5`}
+            />
           </div>
         </header>
 
