@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import clx from "classnames";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { MainContent } from "@/components/MainContent";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -36,8 +36,6 @@ import {
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { useRoutes } from "@/hooks/use-api";
-import { useAuthStore } from "@/store/use-auth";
-import { formatDate } from "@/utils/time";
 import { tryCatch } from "@/utils/try-catch";
 
 const nowSchema = z.object({
@@ -48,25 +46,6 @@ const nowSchema = z.object({
     message: "Description must be at least 2 characters.",
   }),
 });
-
-const NowItem = ({
-  className,
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <div
-      className={clx(
-        "glass flex flex-col gap-5 rounded-3xl border border-slate-950/5 px-5 py-3 dark:border-white/10",
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
-};
 
 export function EditDialog(item: { title: string; desc: string; id: number }) {
   const { api } = useRoutes();
@@ -214,56 +193,4 @@ export function AddOrUpdateItem({
   );
 }
 
-export const Home = () => {
-  const { api } = useRoutes();
-  const nowData = api.now.get.data || [];
-  const isLoading = api.now.get.isLoading;
-  const { isAuth } = useAuthStore();
-  return (
-    <div className="mx-auto block h-screen max-w-screen-lg items-center justify-between gap-5 overflow-y-scroll pt-16 md:flex md:overflow-hidden">
-      <div className="mb-8 h-fit w-full md:mb-10 md:w-1/3">
-        <h1 className="mb-4">Welcome to my site</h1>
-        <span className="text-2xl">I'm glad you found it</span>
-      </div>
-      <div className="h-screen md:w-2/3 md:overflow-hidden md:overflow-y-scroll md:pt-10 lg:w-7/12">
-        <h2 className="mb-8 text-2xl md:mb-0">What I've been up to:</h2>
-        {isAuth && <AddOrUpdateItem>Add Item</AddOrUpdateItem>}
-        {isLoading ? (
-          <span>LOADING...</span>
-        ) : (
-          <ul className="flex flex-col gap-5 pb-8 md:pt-8 md:pb-16">
-            {nowData.map((item) => (
-              // Need to add something for when there are no items loaded
-              <li key={item.id}>
-                <NowItem>
-                  <h3 className="text-3xl font-semibold text-pink-500 dark:text-pink-400">
-                    {item.title}
-                  </h3>
-                  <div>
-                    <p>{item.desc}</p>
-                    <span className="text-xs">
-                      {formatDate(item.created_at)}
-                    </span>
-                  </div>
-                  {isAuth && (
-                    <div className="flex gap-2">
-                      <AddOrUpdateItem
-                        id={item.id}
-                        title={item.title}
-                        desc={item.desc}
-                      >
-                        Edit
-                      </AddOrUpdateItem>
-
-                      <EditDialog {...item} />
-                    </div>
-                  )}
-                </NowItem>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </div>
-  );
-};
+export const Home = () => <MainContent />;
