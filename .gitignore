@@ -3,3 +3,4 @@
 # ALL ENVS EXCEPT .env.sample
 **/.env*
 !**/.env.sample
+frontend-design
