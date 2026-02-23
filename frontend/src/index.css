@@ -210,6 +210,25 @@ h2 {
   }
 }
 
+@keyframes geocities-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes geocities-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 .geocities body {
   margin: 0;
   padding-top: 38px;
@@ -379,11 +398,255 @@ h2 {
   animation: geocities-rainbow 12s linear infinite;
 }
 
+.geocities .container {
+  max-width: 980px;
+}
+
+.geocities main,
+.geocities aside,
+.geocities footer {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 10px,
+      rgba(255, 255, 255, 0.12) 10px 11px
+    );
+}
+
+.geocities img,
+.geocities video,
+.geocities canvas {
+  border: 3px ridge #00d5ff;
+  background: #fff;
+}
+
+.geocities ::selection {
+  background: #ff0;
+  color: #f0f;
+}
+
+.geocities-chrome {
+  pointer-events: none;
+}
+
+.geocities-marquee-shell {
+  position: fixed;
+  top: 38px;
+  left: 8px;
+  right: 8px;
+  z-index: 9990;
+  overflow: hidden;
+  border: 3px ridge #00d5ff;
+  background: linear-gradient(90deg, #fff29d, #ffcdf5, #b5ffff, #fff29d);
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.geocities-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 1.5rem;
+  padding: 4px 12px;
+  color: #001f7a;
+  font-family: "Arial Black", Impact, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  animation: geocities-scroll 22s linear infinite;
+}
+
+.geocities-marquee-track span::before {
+  content: "[ ";
+  color: #ff1493;
+}
+
+.geocities-marquee-track span::after {
+  content: " ]";
+  color: #00a3ff;
+}
+
+.geocities-corner {
+  position: fixed;
+  top: 72px;
+  z-index: 9991;
+  padding: 4px 8px;
+  border: 3px ridge #fff;
+  background: linear-gradient(#ff0, #ff9e00);
+  color: #b1006a;
+  font-family: "Arial Black", Impact, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+  animation: geocities-bob 1s ease-in-out infinite;
+}
+
+.geocities-corner-left {
+  left: 10px;
+  transform: rotate(-8deg);
+}
+
+.geocities-corner-right {
+  right: 10px;
+  transform: rotate(8deg);
+}
+
+.geocities-side-rail {
+  position: fixed;
+  top: 126px;
+  bottom: 56px;
+  z-index: 9989;
+  width: 170px;
+  overflow: auto;
+  padding: 6px;
+  border: 3px ridge #ff54d6;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.96),
+    rgba(222, 250, 255, 0.92)
+  );
+  box-shadow: 0 0 0 2px #fff, 0 0 12px rgba(255, 0, 255, 0.25);
+}
+
+.geocities-side-rail-left {
+  left: 10px;
+}
+
+.geocities-side-rail-right {
+  right: 10px;
+}
+
+.geocities-rail-title {
+  margin-bottom: 6px;
+  border: 2px outset #fff;
+  background: linear-gradient(90deg, #00e5ff, #ff76dd);
+  color: #00146b;
+  font-family: "Arial Black", Impact, sans-serif;
+  font-size: 11px;
+  text-align: center;
+  letter-spacing: 0.08em;
+  padding: 4px;
+}
+
+.geocities-widget {
+  margin-bottom: 8px;
+  padding: 6px;
+  border: 2px dashed #00b7ff;
+  background: rgba(255, 255, 255, 0.82);
+  color: #2d0b75;
+}
+
+.geocities-widget-title {
+  margin-bottom: 4px;
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ff1493;
+}
+
+.geocities-webring-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.geocities-dot-list {
+  margin: 0;
+  padding-left: 14px;
+  font-size: 12px;
+}
+
+.geocities-stamp-grid {
+  display: grid;
+  gap: 6px;
+}
+
+.geocities-stamp {
+  padding: 6px 4px;
+  border: 2px outset #fff;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #fff4b3 0 6px,
+      #d8ffff 6px 12px,
+      #ffd1f1 12px 18px
+    );
+  color: #0d1a78;
+  text-align: center;
+  font-family: "Arial Black", Impact, sans-serif;
+  font-size: 10px;
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.geocities-bottom-dock {
+  position: fixed;
+  left: 10px;
+  bottom: 10px;
+  z-index: 9991;
+  display: flex;
+  gap: 8px;
+  max-width: calc(100vw - 120px);
+  flex-wrap: wrap;
+}
+
+.geocities-pill {
+  padding: 4px 8px;
+  border: 2px ridge #fff;
+  background: linear-gradient(#d7ffff, #9fffff);
+  color: #001f7a;
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 1px 1px 0 rgba(255, 0, 255, 0.25);
+}
+
+.geocities-pill-blink {
+  animation: geocities-blink 0.9s steps(2, end) infinite;
+}
+
+@media (max-width: 1200px) {
+  .geocities-side-rail {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .geocities-marquee-shell {
+    left: 4px;
+    right: 4px;
+    top: 42px;
+  }
+
+  .geocities-corner {
+    top: 78px;
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  .geocities-bottom-dock {
+    left: 6px;
+    right: 70px;
+    bottom: 6px;
+    max-width: none;
+    gap: 6px;
+  }
+
+  .geocities-pill {
+    font-size: 10px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .geocities h1,
   .geocities .fadein-card,
   .geocities .glass,
-  .geocities header.glass {
+  .geocities header.glass,
+  .geocities-marquee-track,
+  .geocities-pill-blink,
+  .geocities-corner {
     animation: none;
   }
 }
