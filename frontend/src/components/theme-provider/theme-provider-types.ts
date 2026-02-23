@@ -1,4 +1,4 @@
-export type Theme = "dark" | "light" | "system";
+export type Theme = "dark" | "light" | "system" | "geocities";
 
 export type ThemeProviderProps = {
   children: React.ReactNode;

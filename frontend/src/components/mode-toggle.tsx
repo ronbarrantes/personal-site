@@ -61,6 +61,12 @@ export function ModeToggle({
         >
           System
         </DropdownMenuItem>
+        <DropdownMenuItem
+          className={cn(itemClassName)}
+          onClick={() => setTheme("geocities")}
+        >
+          GeoCities
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

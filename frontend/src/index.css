@@ -4,6 +4,7 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant geocities (&:is(.geocities *));
 
 .container {
   @apply max-w-screen-xl;
@@ -158,6 +159,233 @@ h2 {
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+.geocities {
+  --background: oklch(0.98 0.02 220);
+  --foreground: oklch(0.2 0.09 280);
+  --card: oklch(0.99 0.01 180);
+  --card-foreground: oklch(0.18 0.08 285);
+  --popover: oklch(0.99 0.02 180);
+  --popover-foreground: oklch(0.18 0.08 285);
+  --primary: oklch(0.62 0.23 250);
+  --primary-foreground: oklch(0.99 0.01 260);
+  --secondary: oklch(0.92 0.07 100);
+  --secondary-foreground: oklch(0.2 0.08 120);
+  --muted: oklch(0.95 0.03 320);
+  --muted-foreground: oklch(0.35 0.08 300);
+  --accent: oklch(0.89 0.13 40);
+  --accent-foreground: oklch(0.25 0.08 20);
+  --destructive: oklch(0.66 0.22 25);
+  --border: oklch(0.65 0.2 300 / 55%);
+  --input: oklch(0.99 0.02 180);
+  --ring: oklch(0.75 0.2 210);
+  --sidebar: oklch(0.99 0.02 180);
+  --sidebar-foreground: oklch(0.18 0.08 285);
+  --sidebar-primary: oklch(0.62 0.23 250);
+  --sidebar-primary-foreground: oklch(0.99 0.01 260);
+  --sidebar-accent: oklch(0.89 0.13 40);
+  --sidebar-accent-foreground: oklch(0.25 0.08 20);
+  --sidebar-border: oklch(0.65 0.2 300 / 55%);
+  --sidebar-ring: oklch(0.75 0.2 210);
+}
+
+@keyframes geocities-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes geocities-rainbow {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.geocities body {
+  margin: 0;
+  padding-top: 38px;
+  font-family: "Comic Sans MS", "Comic Sans", "Trebuchet MS", cursive;
+  background-color: #d6eeff;
+  background-image:
+    radial-gradient(circle at 12px 12px, rgba(255, 255, 255, 0.9) 0 3px, transparent 4px),
+    radial-gradient(circle at 40px 28px, rgba(255, 255, 0, 0.55) 0 2px, transparent 3px),
+    linear-gradient(45deg, rgba(255, 0, 255, 0.14) 25%, transparent 25% 50%, rgba(0, 255, 255, 0.14) 50% 75%, transparent 75%),
+    linear-gradient(#8cc8ff, #d6eeff 45%, #ffd1ff);
+  background-size:
+    48px 48px,
+    64px 64px,
+    24px 24px,
+    100% 100%;
+  background-attachment: fixed;
+  color: #200a63;
+}
+
+.geocities body::before {
+  content: "WELCOME TO MY WEBSITE • BEST VIEWED ON A CRT MONITOR • UNDER CONSTRUCTION";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  padding: 6px 10px;
+  border-bottom: 3px ridge #ff00cc;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #00ffff 0 12px,
+      #ffff00 12px 24px,
+      #ff66cc 24px 36px,
+      #66ff66 36px 48px
+    );
+  color: #001f6b;
+  font-family: "Arial Black", Impact, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+.geocities body::after {
+  content: "VISITOR #0001337";
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  z-index: 9998;
+  padding: 4px 8px;
+  border: 3px ridge #b400ff;
+  background: #000;
+  color: #00ff7f;
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  box-shadow: 0 0 0 2px #fff, 0 0 10px rgba(255, 0, 255, 0.7);
+}
+
+.geocities h1,
+.geocities h2,
+.geocities h3 {
+  font-family: "Bebas Neue", Impact, "Arial Black", sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ff00aa;
+  text-shadow:
+    2px 2px 0 #ffff00,
+    4px 4px 0 #00e5ff;
+}
+
+.geocities h1 {
+  animation: geocities-blink 1.15s steps(2, end) infinite;
+}
+
+.geocities p,
+.geocities li,
+.geocities span,
+.geocities label {
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.geocities a {
+  color: #0000ee;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  font-weight: 700;
+}
+
+.geocities a:visited {
+  color: #551a8b;
+}
+
+.geocities a:hover {
+  color: #ff1493;
+  background: rgba(255, 255, 0, 0.35);
+}
+
+.geocities .glass {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.92), rgba(224, 255, 255, 0.88)) !important;
+  border: 3px ridge #ff4fd8 !important;
+  border-radius: 0 !important;
+  box-shadow:
+    0 0 0 2px #ffff66 inset,
+    0 0 14px rgba(0, 183, 255, 0.35),
+    6px 6px 0 rgba(73, 0, 160, 0.2) !important;
+  backdrop-filter: none;
+}
+
+.geocities header.glass,
+.geocities .glass header,
+.geocities main,
+.geocities aside section,
+.geocities article,
+.geocities [role="dialog"] {
+  position: relative;
+}
+
+.geocities header.glass::after,
+.geocities aside section::after,
+.geocities main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 2px dashed rgba(0, 255, 255, 0.65);
+  mix-blend-mode: multiply;
+}
+
+.geocities button,
+.geocities [role="button"],
+.geocities .inline-flex {
+  border-radius: 0 !important;
+}
+
+.geocities button,
+.geocities [role="button"] {
+  border: 2px outset #fff;
+  background:
+    linear-gradient(#fff7b8, #ffd26a) !important;
+  color: #001f7a !important;
+  box-shadow: 2px 2px 0 rgba(255, 0, 255, 0.25);
+  text-shadow: 1px 1px 0 #fff;
+}
+
+.geocities button:hover,
+.geocities [role="button"]:hover {
+  background:
+    linear-gradient(#fff, #9fffff) !important;
+  color: #c5007b !important;
+}
+
+.geocities button:active,
+.geocities [role="button"]:active {
+  border-style: inset;
+}
+
+.geocities svg {
+  filter: drop-shadow(0 0 4px rgba(255, 0, 255, 0.4));
+}
+
+.geocities .fadein-card,
+.geocities .glass,
+.geocities header.glass {
+  animation: geocities-rainbow 12s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .geocities h1,
+  .geocities .fadein-card,
+  .geocities .glass,
+  .geocities header.glass {
+    animation: none;
+  }
 }
 
 @layer base {
