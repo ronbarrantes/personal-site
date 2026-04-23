@@ -161,16 +161,20 @@ export const DesignBrutalist = () => {
 
           {/* hero */}
           <section className="mx-auto max-w-7xl px-4 py-10 md:px-8">
-            <div className="grid gap-6 md:grid-cols-12">
-              <div className="md:col-span-8">
-                <div className="tag mb-4">FILE_01 // HELLO</div>
-                <h1 className="smash text-[18vw] md:text-[11vw]">
-                  RON<br />
-                  BARR<br />
-                  ANTES.
+            <div className="grid items-stretch gap-6 md:grid-cols-12">
+              <div className="flex flex-col md:col-span-8">
+                <div className="tag self-start">FILE_01 // HELLO</div>
+                <h1 className="smash my-4 flex flex-1 items-center text-[18vw] md:my-6 md:text-[50vw]">
+                  <span>
+                    RON
+                    <br />
+                    BARR
+                    <br />
+                    ANTES.
+                  </span>
                 </h1>
                 <div
-                  className="mt-4 inline-block border-3 px-3 py-1 text-sm"
+                  className="inline-block self-start border-3 px-3 py-1 text-sm"
                   style={{
                     borderColor: "var(--ink)",
                     background: "var(--accent)",
@@ -318,7 +322,7 @@ export const DesignBrutalist = () => {
 
           {/* portfolio */}
           <section
-            className="border-t-4 stripe"
+            className="stripe border-t-4"
             style={{ borderColor: "var(--ink)" }}
           >
             <div
@@ -368,7 +372,10 @@ export const DesignBrutalist = () => {
                     <p className="mb-4 text-sm leading-relaxed">
                       {p.description[0]}
                     </p>
-                    <div className="flex flex-wrap gap-2 border-t-2 pt-3" style={{ borderColor: "var(--ink)" }}>
+                    <div
+                      className="flex flex-wrap gap-2 border-t-2 pt-3"
+                      style={{ borderColor: "var(--ink)" }}
+                    >
                       {p.tools.map((t) => (
                         <Icon key={t} tooltip name={t} className="size-5" />
                       ))}
@@ -390,7 +397,9 @@ export const DesignBrutalist = () => {
           >
             <div className="mx-auto max-w-7xl px-4 text-center md:px-8">
               <h2 className="mb-4 text-6xl md:text-[12vw]">
-                SAY<br />HELLO.
+                SAY
+                <br />
+                HELLO.
               </h2>
               <p className="mx-auto mb-8 max-w-xl text-sm">
                 {contactText.description}
@@ -412,8 +421,12 @@ export const DesignBrutalist = () => {
           </section>
 
           <footer
-            className="border-t-4 p-4 text-center text-xs uppercase tracking-[0.2em]"
-            style={{ borderColor: "var(--ink)", background: "var(--ink)", color: "var(--bg)" }}
+            className="border-t-4 p-4 text-center text-xs tracking-[0.2em] uppercase"
+            style={{
+              borderColor: "var(--ink)",
+              background: "var(--ink)",
+              color: "var(--bg)",
+            }}
           >
             © {new Date().getFullYear()} RON BARRANTES — BUILT WITH ANGER &amp;
             LOVE
