@@ -101,7 +101,7 @@ const styles = `
   box-shadow: 6px 6px 0 var(--ink);
 }
 .bru .brut-name-col { container-type: size; }
-.bru .brut-name { font-size: clamp(56px, 30cqh, 260px); }
+.bru .brut-name { font-size: clamp(48px, 26cqh, 220px); }
 @media (min-width: 768px) {
   .bru .brut-name-col { container-type: normal; }
   .bru .brut-name { font-size: 11vw; }
@@ -172,17 +172,17 @@ export const DesignBrutalist = () => {
               <div className="flex flex-col md:order-2 md:col-span-7">
                 {/* on mobile: name + photo sit side-by-side; on md+: this is just the text column */}
                 <div className="flex items-stretch gap-3 md:block">
-                  <div
-                    className="brut-name-col flex min-w-0 flex-1 flex-col md:block"
-                  >
+                  <div className="brut-name-col flex min-w-0 flex-1 flex-col md:block">
                     <div className="tag self-start">FILE_01 // HELLO</div>
                     <h1 className="brut-name smash mt-3 flex flex-1 items-center leading-[0.82] md:my-6 md:block md:text-[11vw]">
-                      RON
-                      <br />
-                      BARR-
-                      <br />
-                      ANTES
-                      <span style={{ color: "var(--accent)" }}>.</span>
+                      <span>
+                        RON
+                        <br />
+                        BARR-
+                        <br />
+                        ANTES
+                        <span style={{ color: "var(--accent)" }}>.</span>
+                      </span>
                     </h1>
                   </div>
                   {/* mobile-only inline photo, stretches top of FILE_01 to bottom of ANTES. */}
@@ -249,9 +249,7 @@ export const DesignBrutalist = () => {
                   <p className="mb-3 text-sm leading-snug">
                     {about.description[0]}
                   </p>
-                  <p className="text-sm leading-snug">
-                    {about.description[3]}
-                  </p>
+                  <p className="text-sm leading-snug">{about.description[3]}</p>
                   <div className="stripe mt-4 h-3" />
                   <div className="mt-4 flex flex-wrap gap-2">
                     {mediaLinks.map((l) => (
