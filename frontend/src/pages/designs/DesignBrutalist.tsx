@@ -162,19 +162,19 @@ export const DesignBrutalist = () => {
           {/* hero */}
           <section className="mx-auto max-w-7xl px-4 py-10 md:px-8">
             <div className="grid items-stretch gap-6 md:grid-cols-12">
-              <div className="flex flex-col md:col-span-8">
+              {/* text block */}
+              <div className="flex flex-col md:order-2 md:col-span-7">
                 <div className="tag self-start">FILE_01 // HELLO</div>
-                <h1 className="smash my-4 flex flex-1 items-center text-[18vw] md:my-6 md:text-[50vw]">
-                  <span>
-                    RON
-                    <br />
-                    BARR
-                    <br />
-                    ANTES.
-                  </span>
+                <h1 className="smash my-4 text-[16vw] leading-[0.82] md:my-6 md:text-[9vw]">
+                  RON
+                  <br />
+                  BARR-
+                  <br />
+                  ANTES
+                  <span style={{ color: "var(--accent)" }}>.</span>
                 </h1>
                 <div
-                  className="inline-block self-start border-3 px-3 py-1 text-sm"
+                  className="mb-5 border-3 px-4 py-3 text-sm font-bold tracking-[0.1em] md:text-base"
                   style={{
                     borderColor: "var(--ink)",
                     background: "var(--accent)",
@@ -183,26 +183,136 @@ export const DesignBrutalist = () => {
                 >
                   UI ENGINEER / EX-SALSA-INSTRUCTOR / COFFEE-POWERED
                 </div>
+                <div className="box p-5">
+                  <div className="tag mb-3">ABOUT.TXT</div>
+                  <p className="mb-3 text-sm leading-snug">
+                    {about.description[0]}
+                  </p>
+                  <p className="text-sm leading-snug">
+                    {about.description[3]}
+                  </p>
+                  <div className="stripe mt-4 h-3" />
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {mediaLinks.map((l) => (
+                      <a
+                        key={l.label}
+                        href={l.href}
+                        target="_blank"
+                        className="btn text-xs"
+                      >
+                        <Icon name={l.label as "github"} />
+                        {l.label.toUpperCase()}
+                      </a>
+                    ))}
+                  </div>
+                </div>
               </div>
-              <div className="box p-5 md:col-span-4">
-                <div className="tag mb-3">ABOUT.TXT</div>
-                <p className="mb-3 text-sm leading-snug">
-                  {about.description[0]}
-                </p>
-                <p className="text-sm leading-snug">{about.description[3]}</p>
-                <div className="stripe mt-4 h-3" />
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {mediaLinks.map((l) => (
-                    <a
-                      key={l.label}
-                      href={l.href}
-                      target="_blank"
-                      className="btn text-xs"
+
+              {/* portrait block */}
+              <div className="md:order-1 md:col-span-5">
+                <div className="relative mx-auto w-full max-w-xs md:max-w-none">
+                  <div
+                    className="relative border-4"
+                    style={{
+                      borderColor: "var(--ink)",
+                      boxShadow: "10px 10px 0 var(--accent)",
+                    }}
+                  >
+                    <div className="relative overflow-hidden">
+                      <img
+                        src="/img/ron.webp"
+                        alt="Ron Barrantes"
+                        className="block aspect-[4/5] w-full object-cover"
+                        style={{
+                          filter:
+                            "grayscale(100%) contrast(1.15) brightness(1.05)",
+                        }}
+                      />
+                      <div
+                        className="pointer-events-none absolute inset-0 mix-blend-multiply"
+                        style={{
+                          background: "var(--accent)",
+                          opacity: 0.35,
+                        }}
+                      />
+                      <div
+                        className="pointer-events-none absolute inset-0 opacity-20"
+                        style={{
+                          backgroundImage:
+                            "radial-gradient(var(--ink) 1px, transparent 1.5px)",
+                          backgroundSize: "5px 5px",
+                        }}
+                      />
+                    </div>
+                    {/* corner tag */}
+                    <div
+                      className="absolute top-3 left-3 border-2 px-2 py-0.5 text-[10px] font-bold tracking-[0.2em]"
+                      style={{
+                        borderColor: "var(--ink)",
+                        background: "var(--bg)",
+                        color: "var(--ink)",
+                      }}
                     >
-                      <Icon name={l.label as "github"} />
-                      {l.label.toUpperCase()}
-                    </a>
-                  ))}
+                      SUBJECT 01 · RON
+                    </div>
+                    {/* registration crosshairs, pinned to frame */}
+                    <svg
+                      className="absolute -top-[9px] -left-[9px] h-4 w-4"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      style={{ color: "var(--ink)" }}
+                    >
+                      <path d="M0 8 H16 M8 0 V16" />
+                    </svg>
+                    <svg
+                      className="absolute -top-[9px] -right-[9px] h-4 w-4"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      style={{ color: "var(--ink)" }}
+                    >
+                      <path d="M0 8 H16 M8 0 V16" />
+                    </svg>
+                    <svg
+                      className="absolute -bottom-[9px] -left-[9px] h-4 w-4"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      style={{ color: "var(--ink)" }}
+                    >
+                      <path d="M0 8 H16 M8 0 V16" />
+                    </svg>
+                    <svg
+                      className="absolute -right-[9px] -bottom-[9px] h-4 w-4"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      style={{ color: "var(--ink)" }}
+                    >
+                      <path d="M0 8 H16 M8 0 V16" />
+                    </svg>
+                  </div>
+                  {/* caption slip */}
+                  <div
+                    className="mt-3 flex items-center justify-between border-3 px-3 py-2"
+                    style={{
+                      borderColor: "var(--ink)",
+                      background: "var(--ink)",
+                      color: "var(--bg)",
+                    }}
+                  >
+                    <span className="syne text-sm font-extrabold tracking-wide">
+                      ★ EST. 2009
+                    </span>
+                    <span className="text-[10px] tracking-[0.2em]">
+                      PLATE — I
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
