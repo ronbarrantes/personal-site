@@ -100,6 +100,12 @@ const styles = `
   color: var(--ink);
   box-shadow: 6px 6px 0 var(--ink);
 }
+.bru .brut-name-col { container-type: size; }
+.bru .brut-name { font-size: clamp(56px, 30cqh, 260px); }
+@media (min-width: 768px) {
+  .bru .brut-name-col { container-type: normal; }
+  .bru .brut-name { font-size: 11vw; }
+}
 `;
 
 export const DesignBrutalist = () => {
@@ -166,9 +172,11 @@ export const DesignBrutalist = () => {
               <div className="flex flex-col md:order-2 md:col-span-7">
                 {/* on mobile: name + photo sit side-by-side; on md+: this is just the text column */}
                 <div className="flex items-stretch gap-3 md:block">
-                  <div className="flex min-w-0 flex-1 flex-col">
+                  <div
+                    className="brut-name-col flex min-w-0 flex-1 flex-col md:block"
+                  >
                     <div className="tag self-start">FILE_01 // HELLO</div>
-                    <h1 className="smash mt-3 flex-1 text-[19vw] leading-[0.82] md:my-6 md:text-[11vw]">
+                    <h1 className="brut-name smash mt-3 flex flex-1 items-center leading-[0.82] md:my-6 md:block md:text-[11vw]">
                       RON
                       <br />
                       BARR-
