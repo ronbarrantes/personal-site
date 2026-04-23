@@ -164,17 +164,70 @@ export const DesignBrutalist = () => {
             <div className="grid items-stretch gap-6 md:grid-cols-12">
               {/* text block */}
               <div className="flex flex-col md:order-2 md:col-span-7">
-                <div className="tag self-start">FILE_01 // HELLO</div>
-                <h1 className="smash my-4 text-[16vw] leading-[0.82] md:my-6 md:text-[9vw]">
-                  RON
-                  <br />
-                  BARR-
-                  <br />
-                  ANTES
-                  <span style={{ color: "var(--accent)" }}>.</span>
-                </h1>
+                {/* on mobile: name + photo sit side-by-side; on md+: this is just the text column */}
+                <div className="flex items-stretch gap-3 md:block">
+                  <div className="flex min-w-0 flex-1 flex-col">
+                    <div className="tag self-start">FILE_01 // HELLO</div>
+                    <h1 className="smash mt-3 flex-1 text-[19vw] leading-[0.82] md:my-6 md:text-[11vw]">
+                      RON
+                      <br />
+                      BARR-
+                      <br />
+                      ANTES
+                      <span style={{ color: "var(--accent)" }}>.</span>
+                    </h1>
+                  </div>
+                  {/* mobile-only inline photo, stretches top of FILE_01 to bottom of ANTES. */}
+                  <div className="w-[40%] shrink-0 md:hidden">
+                    <div
+                      className="relative h-full border-4"
+                      style={{
+                        borderColor: "var(--ink)",
+                        boxShadow: "6px 6px 0 var(--accent)",
+                      }}
+                    >
+                      <img
+                        src="/img/ron.webp"
+                        alt="Ron Barrantes"
+                        className="block h-full w-full object-cover"
+                        style={{
+                          filter:
+                            "grayscale(100%) contrast(1.15) brightness(1.05)",
+                        }}
+                      />
+                      <div
+                        className="pointer-events-none absolute inset-0 mix-blend-multiply"
+                        style={{ background: "var(--accent)", opacity: 0.35 }}
+                      />
+                      <div
+                        className="pointer-events-none absolute inset-0 opacity-20"
+                        style={{
+                          backgroundImage:
+                            "radial-gradient(var(--ink) 1px, transparent 1.5px)",
+                          backgroundSize: "5px 5px",
+                        }}
+                      />
+                      <div
+                        className="absolute top-2 left-2 border-2 px-1.5 py-0.5 text-[9px] font-bold tracking-[0.15em]"
+                        style={{
+                          borderColor: "var(--ink)",
+                          background: "var(--bg)",
+                          color: "var(--ink)",
+                        }}
+                      >
+                        RON · 01
+                      </div>
+                      <div
+                        className="syne absolute right-2 bottom-2 text-[10px] font-extrabold"
+                        style={{ color: "var(--bg)" }}
+                      >
+                        ★'09
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div
-                  className="mb-5 border-3 px-4 py-3 text-sm font-bold tracking-[0.1em] md:text-base"
+                  className="mt-5 mb-5 border-3 px-4 py-3 text-sm font-bold tracking-[0.1em] md:mt-0 md:text-base"
                   style={{
                     borderColor: "var(--ink)",
                     background: "var(--accent)",
@@ -208,8 +261,8 @@ export const DesignBrutalist = () => {
                 </div>
               </div>
 
-              {/* portrait block */}
-              <div className="md:order-1 md:col-span-5">
+              {/* portrait block (md+ only) */}
+              <div className="hidden md:order-1 md:col-span-5 md:block">
                 <div className="relative mx-auto w-full max-w-xs md:max-w-none">
                   <div
                     className="relative border-4"
