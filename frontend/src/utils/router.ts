@@ -8,23 +8,21 @@ import { DesignEditorial } from "@/pages/designs/DesignEditorial";
 import { DesignOrganic } from "@/pages/designs/DesignOrganic";
 import { DesignsIndex } from "@/pages/designs/DesignsIndex";
 import { DesignTerminal } from "@/pages/designs/DesignTerminal";
-import { Home } from "@/pages/Home";
-import { Login } from "@/pages/Login";
+import { MainLogin } from "@/pages/MainLogin";
 import { Portfolio } from "@/pages/Portfolio";
 import { Resume } from "@/pages/Resume";
 import { Root } from "@/pages/Root";
 
 export const router = createBrowserRouter([
+  { path: "/", Component: DesignBrutalist },
+  { path: "/login", Component: MainLogin },
   {
-    path: "/",
     Component: Root,
     children: [
-      { index: true, Component: Home },
-      { path: "about", Component: About },
-      { path: "resume", Component: Resume },
-      { path: "portfolio", Component: Portfolio },
-      { path: "contact", Component: Contact },
-      { path: "login", Component: Login },
+      { path: "/about", Component: About },
+      { path: "/resume", Component: Resume },
+      { path: "/portfolio", Component: Portfolio },
+      { path: "/contact", Component: Contact },
     ],
   },
   { path: "/designs", Component: DesignsIndex },
