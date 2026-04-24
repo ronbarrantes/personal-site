@@ -9,12 +9,13 @@ import { DesignOrganic } from "@/pages/designs/DesignOrganic";
 import { DesignsIndex } from "@/pages/designs/DesignsIndex";
 import { DesignTerminal } from "@/pages/designs/DesignTerminal";
 import { MainLogin } from "@/pages/MainLogin";
+import { MainPage } from "@/pages/MainPage";
 import { Portfolio } from "@/pages/Portfolio";
 import { Resume } from "@/pages/Resume";
 import { Root } from "@/pages/Root";
 
 export const router = createBrowserRouter([
-  { path: "/", Component: DesignBrutalist },
+  { path: "/", Component: MainPage },
   { path: "/login", Component: MainLogin },
   {
     Component: Root,
