@@ -10,7 +10,7 @@ import { loginApi, useAuthStatus } from "@/hooks/use-api";
 import { useClock } from "@/hooks/use-clock";
 import { useAuthStore } from "@/store/use-auth";
 import { tryCatch } from "@/utils/try-catch";
-import { bruStyles } from "./designs/bru-styles";
+import { bruStyles } from "@/styles/bru-styles";
 
 export const MainLogin = () => {
   const { theme, setTheme } = useTheme();

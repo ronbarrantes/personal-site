@@ -15,7 +15,7 @@ import { useAuthStatus, useRoutes } from "@/hooks/use-api";
 import { useClock } from "@/hooks/use-clock";
 import { useAuthStore } from "@/store/use-auth";
 import { formatDate } from "@/utils/time";
-import { bruStyles } from "./bru-styles";
+import { bruStyles } from "@/styles/bru-styles";
 
 export const DesignBrutalist = () => {
   const { theme, setTheme } = useTheme();
