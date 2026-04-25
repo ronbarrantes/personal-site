@@ -70,8 +70,6 @@ export const MainPage = () => {
           time={time}
           isDark={isDark}
           onToggleTheme={() => setTheme(isDark ? "light" : "dark")}
-          navHref="/login"
-          navLabel="LOGIN"
           sticky
         />
         <MainPageMarquee />
