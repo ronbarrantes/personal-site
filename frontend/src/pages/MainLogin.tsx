@@ -79,6 +79,8 @@ export const MainLogin = () => {
           time={time}
           isDark={isDark}
           onToggleTheme={() => setTheme(isDark ? "light" : "dark")}
+          navHref="/"
+          navLabel="HOME"
         />
         <div className="flex flex-1 items-center justify-center px-4 py-16">
           {!isAuthResolved ? null : isAuth ? (

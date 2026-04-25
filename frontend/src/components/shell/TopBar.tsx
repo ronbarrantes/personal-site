@@ -1,4 +1,5 @@
 import { Icon } from "@/components/icon";
+import { Link } from "react-router";
 
 type TopBarProps = {
   date: string;
@@ -6,6 +7,8 @@ type TopBarProps = {
   isDark: boolean;
   onToggleTheme: () => void;
   sticky?: boolean;
+  navHref?: string;
+  navLabel?: string;
 };
 
 export const TopBar = ({
@@ -14,6 +17,8 @@ export const TopBar = ({
   isDark,
   onToggleTheme,
   sticky = false,
+  navHref,
+  navLabel,
 }: TopBarProps) => {
   return (
     <nav
@@ -30,6 +35,11 @@ export const TopBar = ({
           <Icon name="calendar" className="mr-1 inline size-3" />
           {date}
         </span>
+        {navHref && navLabel ? (
+          <Link to={navHref} className="btn text-xs">
+            {navLabel}
+          </Link>
+        ) : null}
         <button
           type="button"
           className="btn text-xs"
