@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 
 import { BACKEND_URL } from "@/utils/constants";
 
-const queryKeys = {
+export const queryKeys = {
   NOW: "now",
   ME: "me",
 };
@@ -95,7 +95,7 @@ const nowApi = {
 };
 
 export const useAuthStatus = () => {
-  const { data, isLoading, error, isPending } = useQuery({
+  const { data, isLoading, error, isPending, isFetching } = useQuery({
     queryKey: [queryKeys.ME],
     retry: false,
     queryFn: async () => {
@@ -111,6 +111,7 @@ export const useAuthStatus = () => {
         isLoading: isLoading,
         error: error,
         isPending: isPending,
+        isFetching: isFetching,
       },
     },
   };

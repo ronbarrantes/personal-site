@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 
 import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
 import { useNavigate } from "react-router";
+import { toast } from "sonner";
 
 import { Icon } from "@/components/icon";
 import { useTheme } from "@/components/theme-provider/theme-provider-state";
-import { loginApi, useAuthStatus } from "@/hooks/use-api";
+import { loginApi, queryKeys, useAuthStatus } from "@/hooks/use-api";
 import { useClock } from "@/hooks/use-clock";
 import { useAuthStore } from "@/store/use-auth";
-import { tryCatch } from "@/utils/try-catch";
 import { bruStyles } from "@/styles/bru-styles";
+import { tryCatch } from "@/utils/try-catch";
 
 export const MainLogin = () => {
   const { theme, setTheme } = useTheme();
@@ -26,11 +26,11 @@ export const MainLogin = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!me.get.isPending) {
+    if (!me.get.isPending && !me.get.isFetching) {
       if (me.get.data) setIsAuth(true);
       else setIsAuth(false);
     }
-  }, [me.get.data, me.get.isPending, me.get.error, setIsAuth]);
+  }, [me.get.data, me.get.isFetching, me.get.isPending, setIsAuth]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,18 +44,25 @@ export const MainLogin = () => {
       setPassword("");
       return;
     }
+    queryClient.setQueryData([queryKeys.ME], { authenticated: true });
+    queryClient.invalidateQueries({ queryKey: [queryKeys.ME] });
     setIsAuth(true);
     navigate("/");
   };
 
   const handleLogout = async () => {
+    if (loading) return;
+    setLoading(true);
     const { error } = await tryCatch(loginApi.logout());
+    setLoading(false);
     if (error) {
       toast.error("SIGN OUT FAILED");
       return;
     }
-    queryClient.removeQueries({ queryKey: ["me"] });
+    queryClient.setQueryData([queryKeys.ME], null);
     setIsAuth(false);
+    setUsername("");
+    setPassword("");
   };
 
   return (
@@ -100,10 +107,16 @@ export const MainLogin = () => {
                   YOU HAVE ACCESS. ALL SYSTEMS GO.
                 </p>
                 <div className="flex gap-3">
-                  <button className="btn" onClick={handleLogout}>
-                    SIGN OUT
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={handleLogout}
+                    disabled={loading}
+                  >
+                    {loading ? "SIGNING OUT..." : "SIGN OUT"}
                   </button>
                   <button
+                    type="button"
                     className="btn btn-alt"
                     onClick={() => navigate("/")}
                   >

@@ -5,6 +5,13 @@ import { toast } from "sonner";
 import { Icon } from "@/components/icon";
 import { useTheme } from "@/components/theme-provider/theme-provider-state";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
   about,
   contactText,
   experienceItems,
@@ -14,8 +21,8 @@ import {
 import { useAuthStatus, useRoutes } from "@/hooks/use-api";
 import { useClock } from "@/hooks/use-clock";
 import { useAuthStore } from "@/store/use-auth";
-import { formatDate } from "@/utils/time";
 import { bruStyles } from "@/styles/bru-styles";
+import { formatDate } from "@/utils/time";
 
 export const MainPage = () => {
   const { theme, setTheme } = useTheme();
@@ -31,16 +38,23 @@ export const MainPage = () => {
   const [newDesc, setNewDesc] = useState("");
 
   useEffect(() => {
-    if (!me.get.isPending) {
+    if (!me.get.isPending && !me.get.isFetching) {
       if (me.get.data) setIsAuth(true);
       else setIsAuth(false);
     }
-  }, [me.get.data, me.get.isPending, me.get.error, setIsAuth]);
+  }, [me.get.data, me.get.isFetching, me.get.isPending, setIsAuth]);
 
   const handleAddNow = (e: React.FormEvent) => {
     e.preventDefault();
+    if (api.now.post.isPending) return;
+    const title = newTitle.trim();
+    const desc = newDesc.trim();
+    if (!title || !desc) {
+      toast.error("TITLE AND DESCRIPTION ARE REQUIRED");
+      return;
+    }
     api.now.post.mutate(
-      { body: { title: newTitle, desc: newDesc } },
+      { body: { title, desc } },
       {
         onSuccess: () => {
           setShowModal(false);
@@ -187,6 +201,7 @@ export const MainPage = () => {
                         key={l.label}
                         href={l.href}
                         target="_blank"
+                        rel="noopener noreferrer"
                         className="btn text-xs"
                       >
                         <Icon name={l.label as "github"} />
@@ -322,13 +337,72 @@ export const MainPage = () => {
                     {nowData.length} ITEMS
                   </div>
                   {isAuth && (
-                    <button
-                      className="tag cursor-pointer"
-                      style={{ background: "var(--accent)", color: "var(--alt)" }}
-                      onClick={() => setShowModal(true)}
-                    >
-                      + ADD NOW
-                    </button>
+                    <Dialog open={showModal} onOpenChange={setShowModal}>
+                      <DialogTrigger asChild>
+                        <button
+                          type="button"
+                          className="tag cursor-pointer"
+                          style={{
+                            background: "var(--accent)",
+                            color: "var(--alt)",
+                          }}
+                        >
+                          + ADD NOW
+                        </button>
+                      </DialogTrigger>
+                      <DialogContent
+                        showCloseButton={false}
+                        className={`bru ${isDark ? "dark" : ""} box max-w-md border-0 p-6 shadow-none`}
+                      >
+                        <div className="tag mb-4">NEW // NOW</div>
+                        <DialogTitle asChild>
+                          <h3 className="mb-5 text-3xl">
+                            ADD ITEM
+                            <span style={{ color: "var(--accent)" }}>.</span>
+                          </h3>
+                        </DialogTitle>
+                        <DialogDescription className="sr-only">
+                          Add a new NOW item with a title and description.
+                        </DialogDescription>
+                        <form onSubmit={handleAddNow}>
+                          <div className="mb-4">
+                            <label className="tag mb-2 block">TITLE</label>
+                            <input
+                              value={newTitle}
+                              onChange={(e) => setNewTitle(e.target.value)}
+                              placeholder="WHAT ARE YOU ON..."
+                              required
+                            />
+                          </div>
+                          <div className="mb-5">
+                            <label className="tag mb-2 block">DESCRIPTION</label>
+                            <textarea
+                              value={newDesc}
+                              onChange={(e) => setNewDesc(e.target.value)}
+                              placeholder="TELL ME MORE..."
+                              rows={3}
+                              required
+                            />
+                          </div>
+                          <div className="flex gap-3">
+                            <button
+                              type="submit"
+                              className="btn flex-1 justify-center"
+                              disabled={api.now.post.isPending}
+                            >
+                              {api.now.post.isPending ? "POSTING..." : "POST IT →"}
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-alt"
+                              onClick={() => setShowModal(false)}
+                            >
+                              CANCEL
+                            </button>
+                          </div>
+                        </form>
+                      </DialogContent>
+                    </Dialog>
                   )}
                 </div>
               </div>
@@ -343,13 +417,16 @@ export const MainPage = () => {
                     </div>
                     {isAuth && (
                       <button
+                        type="button"
+                        aria-label={`Delete ${n.title}`}
                         className="tag absolute top-2 right-2 cursor-pointer"
                         style={{ background: "var(--ink)", color: "var(--bg)" }}
-                        onClick={() =>
+                        onClick={() => {
+                          if (!window.confirm(`Delete "${n.title}"?`)) return;
                           api.now.delete.mutate(n.id, {
                             onError: () => toast.error("FAILED TO DELETE"),
-                          })
-                        }
+                          });
+                        }}
                       >
                         ×
                       </button>
@@ -404,6 +481,7 @@ export const MainPage = () => {
                         <a
                           href={w.url}
                           target="_blank"
+                          rel="noopener noreferrer"
                           className="underline decoration-[var(--accent)] decoration-4 underline-offset-2"
                         >
                           {w.employer}
@@ -443,7 +521,7 @@ export const MainPage = () => {
               </h2>
               <div className="grid gap-6 md:grid-cols-2">
                 {portfolioItems.map((p, i) => (
-                  <article key={i} className="box p-5">
+                  <article key={p.name} className="box p-5">
                     <div className="mb-3 flex items-center justify-between">
                       <span
                         className="text-5xl"
@@ -453,7 +531,12 @@ export const MainPage = () => {
                       </span>
                       <div className="flex gap-2">
                         {p.github && (
-                          <a href={p.github} target="_blank" className="btn text-xs">
+                          <a
+                            href={p.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn text-xs"
+                          >
                             <Icon name="github" />
                             SRC
                           </a>
@@ -462,6 +545,7 @@ export const MainPage = () => {
                           <a
                             href={p.link.href}
                             target="_blank"
+                            rel="noopener noreferrer"
                             className="btn btn-alt text-xs"
                           >
                             <Icon name="link" />
@@ -510,6 +594,7 @@ export const MainPage = () => {
                     key={l.label}
                     href={l.href}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="btn btn-alt"
                   >
                     <Icon name={l.label as "github"} className="size-5" />
@@ -534,61 +619,6 @@ export const MainPage = () => {
         </div>
       </div>
 
-      {/* add now modal */}
-      {showModal && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ background: "rgba(0,0,0,0.8)" }}
-          onClick={() => setShowModal(false)}
-        >
-          <div
-            className={`bru ${isDark ? "dark" : ""} box w-full max-w-md p-6`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="tag mb-4">NEW // NOW</div>
-            <h3 className="mb-5 text-3xl">
-              ADD ITEM<span style={{ color: "var(--accent)" }}>.</span>
-            </h3>
-            <form onSubmit={handleAddNow}>
-              <div className="mb-4">
-                <label className="tag mb-2 block">TITLE</label>
-                <input
-                  value={newTitle}
-                  onChange={(e) => setNewTitle(e.target.value)}
-                  placeholder="WHAT ARE YOU ON..."
-                  required
-                />
-              </div>
-              <div className="mb-5">
-                <label className="tag mb-2 block">DESCRIPTION</label>
-                <textarea
-                  value={newDesc}
-                  onChange={(e) => setNewDesc(e.target.value)}
-                  placeholder="TELL ME MORE..."
-                  rows={3}
-                  required
-                />
-              </div>
-              <div className="flex gap-3">
-                <button
-                  type="submit"
-                  className="btn flex-1 justify-center"
-                  disabled={api.now.post.isPending}
-                >
-                  {api.now.post.isPending ? "POSTING..." : "POST IT →"}
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-alt"
-                  onClick={() => setShowModal(false)}
-                >
-                  CANCEL
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </>
   );
 };
