@@ -1,6 +1,6 @@
-import type { FormEvent } from "react";
 import { useState } from "react";
 
+import type { FormEvent } from "react";
 import { toast } from "sonner";
 
 import { MainPageContactSection } from "@/components/main-page/MainPageContactSection";
@@ -21,7 +21,7 @@ export const MainPage = () => {
   const { theme, setTheme } = useTheme();
   const { date, time } = useClock();
   const { api } = useRoutes();
-  const { isAuth } = useIsAuthenticated();
+  const { isAuth, isAuthResolved } = useIsAuthenticated();
   const nowData = api.now.get.data || [];
   const isDark = theme === "dark";
 
@@ -75,7 +75,7 @@ export const MainPage = () => {
         <MainPageMarquee />
         <MainPageHero />
         <MainPageNowSection
-          isAuth={isAuth}
+          isAuth={isAuthResolved && isAuth}
           isDark={isDark}
           items={nowData}
           showModal={showModal}

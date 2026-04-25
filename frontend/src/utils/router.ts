@@ -1,9 +1,20 @@
 import { createBrowserRouter } from "react-router";
 
-import { MainLogin } from "@/pages/MainLogin";
-import { MainPage } from "@/pages/MainPage";
-
 export const router = createBrowserRouter([
-  { path: "/", Component: MainPage },
-  { path: "/login", Component: MainLogin },
+  {
+    path: "/",
+    lazy: async () => {
+      const { MainPage } = await import("@/pages/MainPage");
+
+      return { Component: MainPage };
+    },
+  },
+  {
+    path: "/login",
+    lazy: async () => {
+      const { MainLogin } = await import("@/pages/MainLogin");
+
+      return { Component: MainLogin };
+    },
+  },
 ]);

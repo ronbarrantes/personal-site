@@ -1,7 +1,7 @@
 import {
   type About,
-  type Link,
   type PortfolioItem,
+  type SocialLink,
   type WorkExperience,
 } from "@/lib/types";
 
@@ -177,7 +177,7 @@ export const portfolioItems: PortfolioItem[] = [
       label: "ReqGo",
     },
     description: [
-      "This is a project I’m currently working on for firms that need a cleaner way to request, collect, and keep client documents organized.",
+      "This is a project I'm currently working on for firms that need a cleaner way to request, collect, and keep client documents organized.",
       "It is meant for teams like bookkeepers, tax professionals, and other admin-heavy firms that are tired of chasing files across email threads and random links.",
       "The goal is to give clients a simple, secure place to upload what is needed, while giving the firm a better way to keep requests clear, track progress, and keep documents in one organized flow.",
     ],
@@ -277,7 +277,7 @@ export const contactText = {
   description: `Do you want to get a hold of me? Just use the buttons below to go to my socials`,
 };
 
-export const mediaLinks: Link[] = [
+export const mediaLinks: SocialLink[] = [
   {
     label: "linkedin",
     href: "https://www.linkedin.com/in/ronbarrantes",

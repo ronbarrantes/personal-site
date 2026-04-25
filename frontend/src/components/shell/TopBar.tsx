@@ -30,8 +30,13 @@ export const TopBar = ({
           <Icon name="calendar" className="mr-1 inline size-3" />
           {date}
         </span>
-        <button type="button" className="btn text-xs" onClick={onToggleTheme}>
-          {isDark ? "☼" : "☾"}
+        <button
+          type="button"
+          className="btn text-xs"
+          onClick={onToggleTheme}
+          aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+        >
+          <span aria-hidden="true">{isDark ? "☼" : "☾"}</span>
         </button>
       </div>
     </nav>

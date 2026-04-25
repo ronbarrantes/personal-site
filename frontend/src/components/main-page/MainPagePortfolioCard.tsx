@@ -46,8 +46,8 @@ export const MainPagePortfolioCard = ({
       </div>
       <h3 className="mb-3 text-3xl">{item.name}</h3>
       <div className="mb-4 space-y-3">
-        {item.description.map((paragraph) => (
-          <p key={paragraph} className="text-sm leading-relaxed">
+        {item.description.map((paragraph, index) => (
+          <p key={`${item.name}-desc-${index}`} className="text-sm leading-relaxed">
             {paragraph}
           </p>
         ))}

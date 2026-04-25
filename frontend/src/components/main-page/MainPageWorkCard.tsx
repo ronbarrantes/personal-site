@@ -1,6 +1,16 @@
 import { Icon } from "@/components/icon";
 import type { WorkExperience } from "@/lib/types";
 
+const toMonthDateTime = (value: string) => {
+  const [month, year] = value.split("/");
+
+  if (!month || !year) {
+    return undefined;
+  }
+
+  return `${year}-${month.padStart(2, "0")}`;
+};
+
 type MainPageWorkCardProps = {
   item: WorkExperience;
   index: number;
@@ -10,6 +20,9 @@ export const MainPageWorkCard = ({
   item,
   index,
 }: MainPageWorkCardProps) => {
+  const startDateTime = toMonthDateTime(item.startDate);
+  const endDateTime = item.endDate ? toMonthDateTime(item.endDate) : undefined;
+
   return (
     <article className="box grid items-start gap-4 p-5 md:grid-cols-12">
       <div className="md:col-span-2">
@@ -19,8 +32,16 @@ export const MainPageWorkCard = ({
         >
           {String(index + 1).padStart(2, "0")}
         </div>
-        <div className="text-xs">
-          {item.startDate} → {item.endDate || "NOW"}
+        <div
+          className="text-xs"
+          aria-label={`From ${item.startDate} to ${item.endDate ?? "now"}`}
+        >
+          <time dateTime={startDateTime}>{item.startDate}</time> →{" "}
+          {item.endDate ? (
+            <time dateTime={endDateTime}>{item.endDate}</time>
+          ) : (
+            <time>NOW</time>
+          )}
         </div>
       </div>
       <div className="md:col-span-7">
@@ -41,8 +62,11 @@ export const MainPageWorkCard = ({
           )}
         </div>
         <div className="space-y-3">
-          {item.description.map((paragraph) => (
-            <p key={paragraph} className="text-sm leading-relaxed">
+          {item.description.map((paragraph, descriptionIndex) => (
+            <p
+              key={`${item.employer}-desc-${descriptionIndex}`}
+              className="text-sm leading-relaxed"
+            >
               {paragraph}
             </p>
           ))}

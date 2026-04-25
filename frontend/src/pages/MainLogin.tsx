@@ -1,7 +1,7 @@
-import type { FormEvent } from "react";
 import { useState } from "react";
 
 import { useQueryClient } from "@tanstack/react-query";
+import type { FormEvent } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
@@ -18,7 +18,7 @@ import { tryCatch } from "@/utils/try-catch";
 export const MainLogin = () => {
   const { theme, setTheme } = useTheme();
   const { time, date } = useClock();
-  const { isAuth } = useIsAuthenticated();
+  const { isAuth, isAuthResolved } = useIsAuthenticated();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const isDark = theme === "dark";
@@ -49,8 +49,7 @@ export const MainLogin = () => {
       return;
     }
 
-    queryClient.setQueryData([queryKeys.ME], { authenticated: true });
-    queryClient.invalidateQueries({ queryKey: [queryKeys.ME] });
+    await queryClient.invalidateQueries({ queryKey: [queryKeys.ME] });
     navigate("/");
   };
 
@@ -67,6 +66,7 @@ export const MainLogin = () => {
     }
 
     queryClient.setQueryData([queryKeys.ME], null);
+    await queryClient.invalidateQueries({ queryKey: [queryKeys.ME] });
     setUsername("");
     setPassword("");
   };
@@ -81,7 +81,7 @@ export const MainLogin = () => {
           onToggleTheme={() => setTheme(isDark ? "light" : "dark")}
         />
         <div className="flex flex-1 items-center justify-center px-4 py-16">
-          {isAuth ? (
+          {!isAuthResolved ? null : isAuth ? (
             <MainLoginAuthenticatedCard
               isLoading={loading}
               onLogout={handleLogout}

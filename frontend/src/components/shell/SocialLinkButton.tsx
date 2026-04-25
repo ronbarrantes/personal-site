@@ -1,8 +1,8 @@
 import { Icon } from "@/components/icon";
-import type { Link } from "@/lib/types";
+import type { SocialLink } from "@/lib/types";
 
 type SocialLinkButtonProps = {
-  link: Link;
+  link: SocialLink;
   className: string;
   iconClassName?: string;
 };
@@ -19,7 +19,7 @@ export const SocialLinkButton = ({
       rel="noopener noreferrer"
       className={className}
     >
-      <Icon name={link.label as "github"} className={iconClassName} />
+      <Icon name={link.label} className={iconClassName} />
       {link.label.toUpperCase()}
     </a>
   );

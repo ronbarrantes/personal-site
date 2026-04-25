@@ -4,9 +4,8 @@ import { toast } from "sonner";
 import { Icon } from "@/components/icon";
 import { mediaLinks } from "@/data/text";
 import { useClock } from "@/hooks/use-clock";
-import type { Link } from "@/lib/types";
+import type { SocialLink } from "@/lib/types";
 import { useLinksStore } from "@/store/use-links";
-import type { IconsLisType } from "./icon/icons-list-files";
 
 const LineSection = ({
   direction,
@@ -36,7 +35,7 @@ const FooterMediaItem = ({
   label,
   href,
   isLast,
-}: Link & { isLast: boolean; className?: string }) => {
+}: SocialLink & { isLast: boolean; className?: string }) => {
   return (
     <>
       <a
@@ -46,8 +45,9 @@ const FooterMediaItem = ({
         )}
         href={href}
         target="_blank"
+        rel="noopener noreferrer"
       >
-        <Icon tooltip name={label as IconsLisType} />
+        <Icon tooltip name={label} />
       </a>
     </>
   );

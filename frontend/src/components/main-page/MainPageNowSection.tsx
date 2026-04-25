@@ -1,7 +1,6 @@
 import type { FormEvent } from "react";
 
 import type { NowData } from "@/hooks/use-api";
-
 import { MainPageNowCard } from "./MainPageNowCard";
 import { MainPageNowDialog } from "./MainPageNowDialog";
 
@@ -34,6 +33,8 @@ export const MainPageNowSection = ({
   onSubmit,
   onDelete,
 }: MainPageNowSectionProps) => {
+  const visibleItems = items.slice(0, 6);
+
   return (
     <section
       className="border-y-4"
@@ -52,7 +53,7 @@ export const MainPageNowSection = ({
               className="tag"
               style={{ background: "var(--bg)", color: "var(--ink)" }}
             >
-              {items.length} ITEMS
+              {visibleItems.length} ITEMS
             </div>
             {isAuth && (
               <MainPageNowDialog
@@ -70,7 +71,7 @@ export const MainPageNowSection = ({
           </div>
         </div>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {items.slice(0, 6).map((item) => (
+          {visibleItems.map((item) => (
             <MainPageNowCard
               key={item.id}
               item={item}

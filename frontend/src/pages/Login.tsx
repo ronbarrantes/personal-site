@@ -56,8 +56,7 @@ export function LoginForm() {
     console.log("success");
 
     console.info("data", data.data);
-    queryClient.setQueryData([queryKeys.ME], { authenticated: true });
-    queryClient.invalidateQueries({ queryKey: [queryKeys.ME] });
+    await queryClient.invalidateQueries({ queryKey: [queryKeys.ME] });
     form.reset();
     navigate("/");
   }
@@ -111,6 +110,7 @@ const LogOutButton = () => {
         }
 
         queryClient.setQueryData([queryKeys.ME], null);
+        await queryClient.invalidateQueries({ queryKey: [queryKeys.ME] });
         console.info(data.data);
       }}
     >
@@ -120,12 +120,14 @@ const LogOutButton = () => {
 };
 
 export const Login = () => {
-  const { isAuth } = useIsAuthenticated();
+  const { isAuth, isAuthResolved } = useIsAuthenticated();
 
   return (
     <div className="h-screen overflow-hidden py-18">
       <div className="flex flex-col gap-3">
-        <div>{isAuth ? <LogOutButton /> : <LoginForm />}</div>
+        <div>
+          {!isAuthResolved ? null : isAuth ? <LogOutButton /> : <LoginForm />}
+        </div>
       </div>
     </div>
   );

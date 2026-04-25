@@ -215,7 +215,7 @@ export function AddOrUpdateItem({
 
 export const Home = () => {
   const { api } = useRoutes();
-  const { isAuth } = useIsAuthenticated();
+  const { isAuth, isAuthResolved } = useIsAuthenticated();
   const nowData = api.now.get.data || [];
   const isLoading = api.now.get.isLoading;
   return (
@@ -226,7 +226,7 @@ export const Home = () => {
       </div>
       <div className="h-screen md:w-2/3 md:overflow-hidden md:overflow-y-scroll md:pt-10 lg:w-7/12">
         <h2 className="mb-8 text-2xl md:mb-0">What I've been up to:</h2>
-        {isAuth && <AddOrUpdateItem>Add Item</AddOrUpdateItem>}
+        {isAuthResolved && isAuth && <AddOrUpdateItem>Add Item</AddOrUpdateItem>}
         {isLoading ? (
           <span>LOADING...</span>
         ) : (
@@ -244,7 +244,7 @@ export const Home = () => {
                       {formatDate(item.created_at)}
                     </span>
                   </div>
-                  {isAuth && (
+                  {isAuthResolved && isAuth && (
                     <div className="flex gap-2">
                       <AddOrUpdateItem
                         id={item.id}

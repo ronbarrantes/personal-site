@@ -95,7 +95,7 @@ const nowApi = {
 };
 
 export const useAuthStatus = () => {
-  const { data, isLoading, error, isPending, isFetching } = useQuery({
+  const { data, isLoading, error, isPending, isFetching, isError } = useQuery({
     queryKey: [queryKeys.ME],
     retry: false,
     queryFn: async () => {
@@ -112,6 +112,7 @@ export const useAuthStatus = () => {
         error: error,
         isPending: isPending,
         isFetching: isFetching,
+        isError: isError,
       },
     },
   };
@@ -119,9 +120,12 @@ export const useAuthStatus = () => {
 
 export const useIsAuthenticated = () => {
   const { me } = useAuthStatus();
+  const isAuthResolved =
+    !me.get.isPending && !me.get.isLoading && !me.get.isError;
 
   return {
-    isAuth: Boolean(me.get.data),
+    isAuth: isAuthResolved && Boolean(me.get.data),
+    isAuthResolved,
     isPending: me.get.isPending,
     isFetching: me.get.isFetching,
   };
