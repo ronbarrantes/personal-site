@@ -82,7 +82,7 @@ export const Footer = ({ className }: { className: string }) => {
               <Icon
                 tooltip
                 asChild
-                className="ml-2 hover:text-yellow-600 hover:dark:text-yellow-400"
+                className="ml-2 hover:text-sky-600 hover:dark:text-sky-300"
                 name="duck"
               />
             </button>

@@ -14,9 +14,9 @@ export const bruStyles = `
 }
 .bru.dark {
   --bg: #0c0c0c;
-  --ink: #ffe500;
+  --ink: #6c9;
   --alt: #111;
-  --accent: #ff3864;
+  --accent: #84c;
 }
 .bru::before {
   content: '';
