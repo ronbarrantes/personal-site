@@ -50,7 +50,7 @@ export const MainPage = () => {
           setNewDesc("");
         },
         onError: () => toast.error("FAILED TO POST"),
-      },
+      }
     );
   };
 
@@ -92,8 +92,7 @@ export const MainPage = () => {
         <MainPagePortfolioSection />
         <MainPageContactSection />
         <BrutalistFooter>
-          © {new Date().getFullYear()} RON BARRANTES — BUILT WITH ANGER &amp;
-          LOVE
+          {new Date().getFullYear()} RON BARRANTES — BUILT WITH LOVE
         </BrutalistFooter>
       </div>
     </BrutalistPageShell>
