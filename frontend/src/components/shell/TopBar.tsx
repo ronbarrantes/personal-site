@@ -1,6 +1,6 @@
 import { Icon } from "@/components/icon";
 
-type BrutalistTopBarProps = {
+type TopBarProps = {
   date: string;
   time: string;
   isDark: boolean;
@@ -8,13 +8,13 @@ type BrutalistTopBarProps = {
   sticky?: boolean;
 };
 
-export const BrutalistTopBar = ({
+export const TopBar = ({
   date,
   time,
   isDark,
   onToggleTheme,
   sticky = false,
-}: BrutalistTopBarProps) => {
+}: TopBarProps) => {
   return (
     <nav
       className={`${sticky ? "sticky top-0 z-30" : ""} flex items-center justify-between border-b-4 px-4 py-3 md:px-8`}

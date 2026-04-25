@@ -2,15 +2,15 @@ import type { ReactNode } from "react";
 
 import { bruStyles } from "@/styles/bru-styles";
 
-type BrutalistPageShellProps = {
+type PageShellProps = {
   children: ReactNode;
   isDark: boolean;
 };
 
-export const BrutalistPageShell = ({
+export const PageShell = ({
   children,
   isDark,
-}: BrutalistPageShellProps) => {
+}: PageShellProps) => {
   return (
     <>
       <style>{bruStyles}</style>

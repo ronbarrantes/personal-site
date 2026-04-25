@@ -1,17 +1,17 @@
 import { Icon } from "@/components/icon";
 import type { Link } from "@/lib/types";
 
-type BrutalistSocialLinkProps = {
+type SocialLinkButtonProps = {
   link: Link;
   className: string;
   iconClassName?: string;
 };
 
-export const BrutalistSocialLink = ({
+export const SocialLinkButton = ({
   link,
   className,
   iconClassName,
-}: BrutalistSocialLinkProps) => {
+}: SocialLinkButtonProps) => {
   return (
     <a
       href={link.href}

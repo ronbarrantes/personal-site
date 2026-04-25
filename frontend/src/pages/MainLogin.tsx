@@ -5,11 +5,11 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
-import { BrutalistFooter } from "@/components/brutalist/BrutalistFooter";
-import { BrutalistPageShell } from "@/components/brutalist/BrutalistPageShell";
-import { BrutalistTopBar } from "@/components/brutalist/BrutalistTopBar";
 import { MainLoginAuthenticatedCard } from "@/components/main-login/MainLoginAuthenticatedCard";
 import { MainLoginFormCard } from "@/components/main-login/MainLoginFormCard";
+import { PageFooter } from "@/components/shell/PageFooter";
+import { PageShell } from "@/components/shell/PageShell";
+import { TopBar } from "@/components/shell/TopBar";
 import { useTheme } from "@/components/theme-provider/theme-provider-state";
 import { loginApi, queryKeys, useIsAuthenticated } from "@/hooks/use-api";
 import { useClock } from "@/hooks/use-clock";
@@ -72,9 +72,9 @@ export const MainLogin = () => {
   };
 
   return (
-    <BrutalistPageShell isDark={isDark}>
+    <PageShell isDark={isDark}>
       <div className="relative z-10 flex min-h-screen flex-col">
-        <BrutalistTopBar
+        <TopBar
           date={date}
           time={time}
           isDark={isDark}
@@ -98,8 +98,8 @@ export const MainLogin = () => {
             />
           )}
         </div>
-        <BrutalistFooter>© {new Date().getFullYear()} RON BARRANTES</BrutalistFooter>
+        <PageFooter>© {new Date().getFullYear()} RON BARRANTES</PageFooter>
       </div>
-    </BrutalistPageShell>
+    </PageShell>
   );
 };

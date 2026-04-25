@@ -1,6 +1,6 @@
 import { contactText, mediaLinks } from "@/data/text";
 
-import { BrutalistSocialLink } from "@/components/brutalist/BrutalistSocialLink";
+import { SocialLinkButton } from "@/components/shell/SocialLinkButton";
 
 export const MainPageContactSection = () => {
   return (
@@ -21,7 +21,7 @@ export const MainPageContactSection = () => {
         <p className="mx-auto mb-8 max-w-xl text-sm">{contactText.description}</p>
         <div className="flex flex-wrap justify-center gap-4">
           {mediaLinks.map((link) => (
-            <BrutalistSocialLink
+            <SocialLinkButton
               key={link.label}
               link={link}
               className="btn btn-alt"

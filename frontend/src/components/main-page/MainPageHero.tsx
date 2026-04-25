@@ -1,6 +1,6 @@
 import { about, mediaLinks } from "@/data/text";
 
-import { BrutalistSocialLink } from "@/components/brutalist/BrutalistSocialLink";
+import { SocialLinkButton } from "@/components/shell/SocialLinkButton";
 
 import { MainPagePortrait } from "./MainPagePortrait";
 
@@ -42,7 +42,7 @@ export const MainPageHero = () => {
             <div className="stripe mt-4 h-3" />
             <div className="mt-4 flex flex-wrap gap-2">
               {mediaLinks.map((link) => (
-                <BrutalistSocialLink
+                <SocialLinkButton
                   key={link.label}
                   link={link}
                   className="btn text-xs"
