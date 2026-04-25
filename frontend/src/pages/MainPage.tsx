@@ -75,7 +75,6 @@ export const MainPage = () => {
           sticky
         />
         <MainPageMarquee />
-        <MainPageHero />
         <MainPageNowSection
           isAuth={isAuthResolved && isAuth}
           isDark={isDark}
@@ -90,6 +89,7 @@ export const MainPage = () => {
           onSubmit={handleAddNow}
           onDelete={handleDeleteNow}
         />
+        <MainPageHero />
         <MainPageWorkSection />
         <MainPagePortfolioSection />
         <MainPageContactSection />
