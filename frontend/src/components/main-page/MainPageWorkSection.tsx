@@ -1,5 +1,4 @@
 import { experienceItems } from "@/data/text";
-
 import { MainPageWorkCard } from "./MainPageWorkCard";
 
 export const MainPageWorkSection = () => {

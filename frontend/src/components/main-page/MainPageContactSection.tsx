@@ -1,6 +1,5 @@
-import { contactText, mediaLinks } from "@/data/text";
-
 import { SocialLinkButton } from "@/components/shell/SocialLinkButton";
+import { contactText, mediaLinks } from "@/data/text";
 
 export const MainPageContactSection = () => {
   return (

@@ -1,7 +1,5 @@
-import { about, mediaLinks } from "@/data/text";
-
 import { SocialLinkButton } from "@/components/shell/SocialLinkButton";
-
+import { about, mediaLinks } from "@/data/text";
 import { MainPagePortrait } from "./MainPagePortrait";
 
 export const MainPageHero = () => {

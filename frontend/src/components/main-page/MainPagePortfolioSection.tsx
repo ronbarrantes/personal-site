@@ -1,5 +1,4 @@
 import { portfolioItems } from "@/data/text";
-
 import { MainPagePortfolioCard } from "./MainPagePortfolioCard";
 
 export const MainPagePortfolioSection = () => {

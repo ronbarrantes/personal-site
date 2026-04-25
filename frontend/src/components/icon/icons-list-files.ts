@@ -9,7 +9,7 @@ import {
   FaRegFileAlt,
   FaJava,
 } from "react-icons/fa";
-import { FiCalendar, FiClock, FiCpu, FiHome } from "react-icons/fi";
+import { FiCalendar, FiClock, FiCpu, FiHome, FiMoon, FiMonitor, FiSun } from "react-icons/fi";
 import { GiHamburgerMenu, GiPlasticDuck } from "react-icons/gi";
 import { LuBriefcase, LuContact, LuSettings } from "react-icons/lu";
 import {
@@ -86,6 +86,9 @@ export const iconFileNames = {
   remove: { icon: MdRemove },
   resume: { icon: FaRegFileAlt },
   settings: { icon: LuSettings },
+  sun: { icon: FiSun },
+  moon: { icon: FiMoon },
+  monitor: { icon: FiMonitor },
   warning: { icon: AiOutlineWarning },
 
   // ICONS FOR TECHNOLOGIES

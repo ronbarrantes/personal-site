@@ -120,11 +120,10 @@ export const useAuthStatus = () => {
 
 export const useIsAuthenticated = () => {
   const { me } = useAuthStatus();
-  const isAuthResolved =
-    !me.get.isPending && !me.get.isLoading && !me.get.isError;
+  const isAuthResolved = !me.get.isPending && !me.get.isLoading;
 
   return {
-    isAuth: isAuthResolved && Boolean(me.get.data),
+    isAuth: !me.get.isError && isAuthResolved && Boolean(me.get.data),
     isAuthResolved,
     isPending: me.get.isPending,
     isFetching: me.get.isFetching,
