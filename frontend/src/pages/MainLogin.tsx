@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
@@ -6,17 +6,15 @@ import { toast } from "sonner";
 
 import { Icon } from "@/components/icon";
 import { useTheme } from "@/components/theme-provider/theme-provider-state";
-import { loginApi, queryKeys, useAuthStatus } from "@/hooks/use-api";
+import { loginApi, queryKeys, useIsAuthenticated } from "@/hooks/use-api";
 import { useClock } from "@/hooks/use-clock";
-import { useAuthStore } from "@/store/use-auth";
 import { bruStyles } from "@/styles/bru-styles";
 import { tryCatch } from "@/utils/try-catch";
 
 export const MainLogin = () => {
   const { theme, setTheme } = useTheme();
   const { time, date } = useClock();
-  const { me } = useAuthStatus();
-  const { isAuth, setIsAuth } = useAuthStore();
+  const { isAuth } = useIsAuthenticated();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const isDark = theme === "dark";
@@ -25,18 +23,17 @@ export const MainLogin = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (!me.get.isPending && !me.get.isFetching) {
-      if (me.get.data) setIsAuth(true);
-      else setIsAuth(false);
-    }
-  }, [me.get.data, me.get.isFetching, me.get.isPending, setIsAuth]);
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return;
+    const trimmedUsername = username.trim();
+    if (!trimmedUsername) {
+      toast.error("USER ID IS REQUIRED");
+      return;
+    }
     setLoading(true);
     const { error } = await tryCatch(
-      loginApi.login({ username, password }),
+      loginApi.login({ username: trimmedUsername, password }),
     );
     setLoading(false);
     if (error) {
@@ -46,7 +43,6 @@ export const MainLogin = () => {
     }
     queryClient.setQueryData([queryKeys.ME], { authenticated: true });
     queryClient.invalidateQueries({ queryKey: [queryKeys.ME] });
-    setIsAuth(true);
     navigate("/");
   };
 
@@ -60,7 +56,6 @@ export const MainLogin = () => {
       return;
     }
     queryClient.setQueryData([queryKeys.ME], null);
-    setIsAuth(false);
     setUsername("");
     setPassword("");
   };
@@ -86,6 +81,7 @@ export const MainLogin = () => {
                 {date}
               </span>
               <button
+                type="button"
                 className="btn text-xs"
                 onClick={() => setTheme(isDark ? "light" : "dark")}
               >
@@ -133,8 +129,11 @@ export const MainLogin = () => {
                 </h1>
                 <form onSubmit={handleLogin} className="space-y-5">
                   <div>
-                    <label className="tag mb-2 block">USER_ID</label>
+                    <label htmlFor="username" className="tag mb-2 block">
+                      USER_ID
+                    </label>
                     <input
+                      id="username"
                       type="text"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
@@ -144,8 +143,11 @@ export const MainLogin = () => {
                     />
                   </div>
                   <div>
-                    <label className="tag mb-2 block">PASSKEY</label>
+                    <label htmlFor="password" className="tag mb-2 block">
+                      PASSKEY
+                    </label>
                     <input
+                      id="password"
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}

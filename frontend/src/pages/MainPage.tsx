@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { toast } from "sonner";
 
@@ -18,9 +18,8 @@ import {
   mediaLinks,
   portfolioItems,
 } from "@/data/text";
-import { useAuthStatus, useRoutes } from "@/hooks/use-api";
+import { useIsAuthenticated, useRoutes } from "@/hooks/use-api";
 import { useClock } from "@/hooks/use-clock";
-import { useAuthStore } from "@/store/use-auth";
 import { bruStyles } from "@/styles/bru-styles";
 import { formatDate } from "@/utils/time";
 
@@ -28,21 +27,13 @@ export const MainPage = () => {
   const { theme, setTheme } = useTheme();
   const { date, time } = useClock();
   const { api } = useRoutes();
-  const { me } = useAuthStatus();
-  const { isAuth, setIsAuth } = useAuthStore();
+  const { isAuth } = useIsAuthenticated();
   const nowData = api.now.get.data || [];
   const isDark = theme === "dark";
 
   const [showModal, setShowModal] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [newDesc, setNewDesc] = useState("");
-
-  useEffect(() => {
-    if (!me.get.isPending && !me.get.isFetching) {
-      if (me.get.data) setIsAuth(true);
-      else setIsAuth(false);
-    }
-  }, [me.get.data, me.get.isFetching, me.get.isPending, setIsAuth]);
 
   const handleAddNow = (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,6 +78,7 @@ export const MainPage = () => {
                 {date}
               </span>
               <button
+                type="button"
                 className="btn text-xs"
                 onClick={() => setTheme(isDark ? "light" : "dark")}
               >
@@ -366,8 +358,11 @@ export const MainPage = () => {
                         </DialogDescription>
                         <form onSubmit={handleAddNow}>
                           <div className="mb-4">
-                            <label className="tag mb-2 block">TITLE</label>
+                            <label htmlFor="now-title" className="tag mb-2 block">
+                              TITLE
+                            </label>
                             <input
+                              id="now-title"
                               value={newTitle}
                               onChange={(e) => setNewTitle(e.target.value)}
                               placeholder="WHAT ARE YOU ON..."
@@ -375,8 +370,14 @@ export const MainPage = () => {
                             />
                           </div>
                           <div className="mb-5">
-                            <label className="tag mb-2 block">DESCRIPTION</label>
+                            <label
+                              htmlFor="now-description"
+                              className="tag mb-2 block"
+                            >
+                              DESCRIPTION
+                            </label>
                             <textarea
+                              id="now-description"
                               value={newDesc}
                               onChange={(e) => setNewDesc(e.target.value)}
                               placeholder="TELL ME MORE..."
@@ -441,7 +442,7 @@ export const MainPage = () => {
                 ))}
                 {nowData.length === 0 && (
                   <div
-                    className="text-center text-xl md:col-span-3"
+                    className="text-center text-xl md:col-span-2 lg:col-span-3"
                     style={{ color: "var(--bg)" }}
                   >
                     [ NO_DATA ]
@@ -459,7 +460,7 @@ export const MainPage = () => {
             <div className="space-y-5">
               {experienceItems.map((w, i) => (
                 <article
-                  key={i}
+                  key={`${w.employer}-${w.startDate}`}
                   className="box grid items-start gap-4 p-5 md:grid-cols-12"
                 >
                   <div className="md:col-span-2">

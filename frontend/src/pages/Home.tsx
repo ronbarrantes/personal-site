@@ -35,8 +35,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
-import { useRoutes } from "@/hooks/use-api";
-import { useAuthStore } from "@/store/use-auth";
+import { useIsAuthenticated, useRoutes } from "@/hooks/use-api";
 import { formatDate } from "@/utils/time";
 import { tryCatch } from "@/utils/try-catch";
 
@@ -216,9 +215,9 @@ export function AddOrUpdateItem({
 
 export const Home = () => {
   const { api } = useRoutes();
+  const { isAuth } = useIsAuthenticated();
   const nowData = api.now.get.data || [];
   const isLoading = api.now.get.isLoading;
-  const { isAuth } = useAuthStore();
   return (
     <div className="mx-auto block h-screen max-w-screen-lg items-center justify-between gap-5 overflow-y-scroll pt-16 md:flex md:overflow-hidden">
       <div className="mb-8 h-fit w-full md:mb-10 md:w-1/3">

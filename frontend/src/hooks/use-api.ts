@@ -117,6 +117,16 @@ export const useAuthStatus = () => {
   };
 };
 
+export const useIsAuthenticated = () => {
+  const { me } = useAuthStatus();
+
+  return {
+    isAuth: Boolean(me.get.data),
+    isPending: me.get.isPending,
+    isFetching: me.get.isFetching,
+  };
+};
+
 const useNow = () => {
   const queryClient = useQueryClient();
   const { data, isLoading, error, isPending } = useQuery<NowData[]>({
