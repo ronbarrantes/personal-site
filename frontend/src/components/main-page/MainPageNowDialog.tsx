@@ -47,7 +47,7 @@ export const MainPageNowDialog = ({
       </DialogTrigger>
       <DialogContent
         showCloseButton={false}
-        className={`bru ${isDark ? "dark" : ""} box max-w-md border-0 p-6 shadow-none`}
+        className={`bru ${isDark ? "dark" : ""} box max-h-[calc(100dvh-2rem)] max-w-md overflow-y-auto border-0 p-6 shadow-none`}
       >
         <div className="tag mb-4">NEW // NOW</div>
         <DialogTitle asChild>

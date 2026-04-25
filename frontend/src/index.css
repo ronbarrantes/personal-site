@@ -20,6 +20,8 @@
 body {
   font-family: "Fira Mono", monospace;
   @apply bg-radial-[at_80%_0%] from-slate-200 from-10% to-fuchsia-300/30 dark:from-slate-950 dark:to-fuchsia-800/30;
+  margin: 0;
+  overflow-x: hidden;
 }
 
 h1 {

@@ -23,7 +23,10 @@ export const MainPage = () => {
   const { api } = useRoutes();
   const { isAuth, isAuthResolved } = useIsAuthenticated();
   const nowData = api.now.get.data || [];
-  const isDark = theme === "dark";
+  const isDark =
+    theme === "dark" ||
+    (theme === "system" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches);
 
   const [showModal, setShowModal] = useState(false);
   const [newTitle, setNewTitle] = useState("");

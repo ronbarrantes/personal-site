@@ -17,11 +17,14 @@ import { tryCatch } from "@/utils/try-catch";
 
 export const MainLogin = () => {
   const { theme, setTheme } = useTheme();
-  const { time, date } = useClock();
+  const { date, time } = useClock();
   const { isAuth, isAuthResolved } = useIsAuthenticated();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const isDark = theme === "dark";
+  const isDark =
+    theme === "dark" ||
+    (theme === "system" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
