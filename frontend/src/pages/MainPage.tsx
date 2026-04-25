@@ -92,8 +92,7 @@ export const MainPage = () => {
         <MainPagePortfolioSection />
         <MainPageContactSection />
         <PageFooter>
-          © {new Date().getFullYear()} RON BARRANTES — BUILT WITH ANGER &amp;
-          LOVE
+          {new Date().getFullYear()} RON BARRANTES — BUILT WITH LOVE
         </PageFooter>
       </div>
     </PageShell>
