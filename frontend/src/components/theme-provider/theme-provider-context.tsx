@@ -4,6 +4,7 @@ import type { ThemeProviderState } from "./theme-provider-types";
 
 const initialState: ThemeProviderState = {
   theme: "system",
+  resolvedTheme: "light",
   setTheme: () => null,
 };
 

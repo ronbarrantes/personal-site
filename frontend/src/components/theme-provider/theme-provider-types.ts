@@ -8,5 +8,6 @@ export type ThemeProviderProps = {
 
 export type ThemeProviderState = {
   theme: Theme;
+  resolvedTheme: Exclude<Theme, "system">;
   setTheme: (theme: Theme) => void;
 };

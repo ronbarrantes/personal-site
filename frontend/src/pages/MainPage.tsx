@@ -18,15 +18,12 @@ import { useIsAuthenticated, useRoutes } from "@/hooks/use-api";
 import { useClock } from "@/hooks/use-clock";
 
 export const MainPage = () => {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const { date, time } = useClock();
   const { api } = useRoutes();
   const { isAuth, isAuthResolved } = useIsAuthenticated();
   const nowData = api.now.get.data || [];
-  const isDark =
-    theme === "dark" ||
-    (theme === "system" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches);
+  const isDark = resolvedTheme === "dark";
 
   const [showModal, setShowModal] = useState(false);
   const [newTitle, setNewTitle] = useState("");
