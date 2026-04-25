@@ -22,14 +22,16 @@ export const TopBar = ({
     >
       <div className="syne text-xl font-extrabold">★ RON/B.CO</div>
       <div className="flex items-center gap-3 text-xs">
-        <span className="tag">
-          <Icon name="clock" className="mr-1 inline size-3" />
-          {time}
-        </span>
-        <span className="tag hidden md:inline-block">
-          <Icon name="calendar" className="mr-1 inline size-3" />
-          {date}
-        </span>
+        <div className="flex flex-col items-end gap-1 md:flex-row">
+          <span className="tag">
+            <Icon name="clock" className="mr-1 inline size-3" />
+            {time}
+          </span>
+          <span className="tag">
+            <Icon name="calendar" className="mr-1 inline size-3" />
+            {date}
+          </span>
+        </div>
         <button
           type="button"
           className="btn text-xs"

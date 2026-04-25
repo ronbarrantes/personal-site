@@ -18,12 +18,14 @@ import { useIsAuthenticated, useRoutes } from "@/hooks/use-api";
 import { useClock } from "@/hooks/use-clock";
 
 export const MainPage = () => {
-  const { theme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
   const { date, time } = useClock();
   const { api } = useRoutes();
   const { isAuth, isAuthResolved } = useIsAuthenticated();
   const nowData = api.now.get.data || [];
-  const isDark = theme === "dark";
+  const isDark = resolvedTheme === "dark";
+  const nextTheme =
+    theme === "system" ? "dark" : theme === "dark" ? "light" : "system";
 
   const [showModal, setShowModal] = useState(false);
   const [newTitle, setNewTitle] = useState("");
@@ -69,7 +71,7 @@ export const MainPage = () => {
           date={date}
           time={time}
           isDark={isDark}
-          onToggleTheme={() => setTheme(isDark ? "light" : "dark")}
+          onToggleTheme={() => setTheme(nextTheme)}
           sticky
         />
         <MainPageMarquee />

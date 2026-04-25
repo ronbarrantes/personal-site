@@ -16,12 +16,14 @@ import { useClock } from "@/hooks/use-clock";
 import { tryCatch } from "@/utils/try-catch";
 
 export const MainLogin = () => {
-  const { theme, setTheme } = useTheme();
-  const { time, date } = useClock();
+  const { theme, resolvedTheme, setTheme } = useTheme();
+  const { date, time } = useClock();
   const { isAuth, isAuthResolved } = useIsAuthenticated();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const isDark = theme === "dark";
+  const isDark = resolvedTheme === "dark";
+  const nextTheme =
+    theme === "system" ? "dark" : theme === "dark" ? "light" : "system";
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -78,7 +80,7 @@ export const MainLogin = () => {
           date={date}
           time={time}
           isDark={isDark}
-          onToggleTheme={() => setTheme(isDark ? "light" : "dark")}
+          onToggleTheme={() => setTheme(nextTheme)}
         />
         <div className="flex flex-1 items-center justify-center px-4 py-16">
           {!isAuthResolved ? null : isAuth ? (

@@ -6,7 +6,7 @@ import { router } from "@/utils/router";
 
 function App() {
   return (
-    <ThemeProvider>
+    <ThemeProvider defaultTheme="system">
       <RouterProvider router={router} />
       <Toaster />
     </ThemeProvider>
