@@ -249,25 +249,6 @@ export const portfolioItems: PortfolioItem[] = [
       "git",
     ],
   },
-
-  {
-    name: "Shuttly",
-    github: "https://github.com/ronbarrantes/shuttly",
-    description: [
-      `This is a project I'm building on the side, it's a scheduling app for a shuttles.`,
-      `It is being built with Next.js, TypeScript, TailwindCSS, ReactNative, using TurboRepo as monorepo It is hosted on Vercel.`,
-    ],
-    tools: [
-      "nextjs",
-      "typescript",
-      "reactnative",
-      "tailwind",
-      "turborepo",
-      "vercel",
-      "github",
-      "git",
-    ],
-  },
 ];
 
 export const contactText = {
