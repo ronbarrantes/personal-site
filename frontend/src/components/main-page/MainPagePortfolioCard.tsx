@@ -45,7 +45,13 @@ export const MainPagePortfolioCard = ({
         </div>
       </div>
       <h3 className="mb-3 text-3xl">{item.name}</h3>
-      <p className="mb-4 text-sm leading-relaxed">{item.description[0]}</p>
+      <div className="mb-4 space-y-3">
+        {item.description.map((paragraph) => (
+          <p key={paragraph} className="text-sm leading-relaxed">
+            {paragraph}
+          </p>
+        ))}
+      </div>
       <div
         className="flex flex-wrap gap-2 border-t-2 pt-3"
         style={{ borderColor: "var(--ink)" }}

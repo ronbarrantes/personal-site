@@ -40,7 +40,13 @@ export const MainPageWorkCard = ({
             item.employer
           )}
         </div>
-        <p className="text-sm leading-relaxed">{item.description[0]}</p>
+        <div className="space-y-3">
+          {item.description.map((paragraph) => (
+            <p key={paragraph} className="text-sm leading-relaxed">
+              {paragraph}
+            </p>
+          ))}
+        </div>
       </div>
       <div className="md:col-span-3">
         <div className="tag mb-2">STACK</div>
