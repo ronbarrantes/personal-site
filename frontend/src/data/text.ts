@@ -171,6 +171,27 @@ export const portfolioText = {
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    name: "ReqGo",
+    link: {
+      href: "https://reqgo.com",
+      label: "ReqGo",
+    },
+    description: [
+      "This is a project I’m currently working on for firms that need a cleaner way to request, collect, and keep client documents organized.",
+      "It is meant for teams like bookkeepers, tax professionals, and other admin-heavy firms that are tired of chasing files across email threads and random links.",
+      "The goal is to give clients a simple, secure place to upload what is needed, while giving the firm a better way to keep requests clear, track progress, and keep documents in one organized flow.",
+    ],
+    tools: [
+      "nextjs",
+      "typescript",
+      "tailwind",
+      "postgresql",
+      "vercel",
+      "supabase",
+      "git",
+    ],
+  },
+  {
     name: "Personal porfolio",
     github: "https://github.com/ronbarrantes/personal-site",
     description: [
