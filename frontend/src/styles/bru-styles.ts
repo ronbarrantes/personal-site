@@ -10,7 +10,6 @@ export const bruStyles = `
   color: var(--ink);
   font-family: 'Space Mono', monospace;
   min-height: 100vh;
-  overflow-x: hidden;
   position: relative;
 }
 .bru.dark {

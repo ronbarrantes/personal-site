@@ -57,7 +57,12 @@ export function ThemeProvider({
     theme,
     resolvedTheme,
     setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme);
+      if (theme === "system") {
+        localStorage.removeItem(storageKey);
+      } else {
+        localStorage.setItem(storageKey, theme);
+      }
+
       setTheme(theme);
     },
   };
