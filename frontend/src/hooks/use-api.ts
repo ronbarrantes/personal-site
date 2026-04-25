@@ -8,7 +8,7 @@ export const queryKeys = {
   ME: "me",
 };
 
-type NowData = {
+export type NowData = {
   id: number;
   title: string;
   desc: string;
