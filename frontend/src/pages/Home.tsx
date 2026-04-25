@@ -35,8 +35,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
-import { useRoutes } from "@/hooks/use-api";
-import { useAuthStore } from "@/store/use-auth";
+import { useIsAuthenticated, useRoutes } from "@/hooks/use-api";
 import { formatDate } from "@/utils/time";
 import { tryCatch } from "@/utils/try-catch";
 
@@ -216,9 +215,9 @@ export function AddOrUpdateItem({
 
 export const Home = () => {
   const { api } = useRoutes();
+  const { isAuth, isAuthResolved } = useIsAuthenticated();
   const nowData = api.now.get.data || [];
   const isLoading = api.now.get.isLoading;
-  const { isAuth } = useAuthStore();
   return (
     <div className="mx-auto block h-screen max-w-screen-lg items-center justify-between gap-5 overflow-y-scroll pt-16 md:flex md:overflow-hidden">
       <div className="mb-8 h-fit w-full md:mb-10 md:w-1/3">
@@ -227,7 +226,7 @@ export const Home = () => {
       </div>
       <div className="h-screen md:w-2/3 md:overflow-hidden md:overflow-y-scroll md:pt-10 lg:w-7/12">
         <h2 className="mb-8 text-2xl md:mb-0">What I've been up to:</h2>
-        {isAuth && <AddOrUpdateItem>Add Item</AddOrUpdateItem>}
+        {isAuthResolved && isAuth && <AddOrUpdateItem>Add Item</AddOrUpdateItem>}
         {isLoading ? (
           <span>LOADING...</span>
         ) : (
@@ -245,7 +244,7 @@ export const Home = () => {
                       {formatDate(item.created_at)}
                     </span>
                   </div>
-                  {isAuth && (
+                  {isAuthResolved && isAuth && (
                     <div className="flex gap-2">
                       <AddOrUpdateItem
                         id={item.id}

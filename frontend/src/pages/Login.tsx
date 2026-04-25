@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
@@ -14,8 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { loginApi } from "@/hooks/use-api";
-import { useAuthStore } from "@/store/use-auth";
+import { loginApi, queryKeys, useIsAuthenticated } from "@/hooks/use-api";
 import { tryCatch } from "@/utils/try-catch";
 
 const formSchema = z.object({
@@ -28,8 +28,8 @@ const formSchema = z.object({
 });
 
 export function LoginForm() {
-  const { setIsAuth } = useAuthStore();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -56,7 +56,7 @@ export function LoginForm() {
     console.log("success");
 
     console.info("data", data.data);
-    setIsAuth(true);
+    await queryClient.invalidateQueries({ queryKey: [queryKeys.ME] });
     form.reset();
     navigate("/");
   }
@@ -97,7 +97,7 @@ export function LoginForm() {
 }
 
 const LogOutButton = () => {
-  const { setIsAuth } = useAuthStore();
+  const queryClient = useQueryClient();
 
   return (
     <Button
@@ -109,7 +109,8 @@ const LogOutButton = () => {
           return;
         }
 
-        setIsAuth(false);
+        queryClient.setQueryData([queryKeys.ME], null);
+        await queryClient.invalidateQueries({ queryKey: [queryKeys.ME] });
         console.info(data.data);
       }}
     >
@@ -119,12 +120,14 @@ const LogOutButton = () => {
 };
 
 export const Login = () => {
-  const { isAuth } = useAuthStore();
+  const { isAuth, isAuthResolved } = useIsAuthenticated();
 
   return (
     <div className="h-screen overflow-hidden py-18">
       <div className="flex flex-col gap-3">
-        <div>{isAuth ? <LogOutButton /> : <LoginForm />}</div>
+        <div>
+          {!isAuthResolved ? null : isAuth ? <LogOutButton /> : <LoginForm />}
+        </div>
       </div>
     </div>
   );

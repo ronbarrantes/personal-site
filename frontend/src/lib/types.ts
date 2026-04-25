@@ -14,6 +14,11 @@ export type Link = {
   href: string;
 };
 
+export type SocialLink = {
+  label: IconsLisType;
+  href: string;
+};
+
 export interface SectionText {
   title: string;
   description?: string[] | string;

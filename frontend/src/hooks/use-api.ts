@@ -3,12 +3,12 @@ import axios, { AxiosError } from "axios";
 
 import { BACKEND_URL } from "@/utils/constants";
 
-const queryKeys = {
+export const queryKeys = {
   NOW: "now",
   ME: "me",
 };
 
-type NowData = {
+export type NowData = {
   id: number;
   title: string;
   desc: string;
@@ -95,7 +95,7 @@ const nowApi = {
 };
 
 export const useAuthStatus = () => {
-  const { data, isLoading, error, isPending } = useQuery({
+  const { data, isLoading, error, isPending, isFetching, isError } = useQuery({
     queryKey: [queryKeys.ME],
     retry: false,
     queryFn: async () => {
@@ -111,8 +111,23 @@ export const useAuthStatus = () => {
         isLoading: isLoading,
         error: error,
         isPending: isPending,
+        isFetching: isFetching,
+        isError: isError,
       },
     },
+  };
+};
+
+export const useIsAuthenticated = () => {
+  const { me } = useAuthStatus();
+  const isAuthResolved =
+    !me.get.isPending && !me.get.isLoading && !me.get.isError;
+
+  return {
+    isAuth: isAuthResolved && Boolean(me.get.data),
+    isAuthResolved,
+    isPending: me.get.isPending,
+    isFetching: me.get.isFetching,
   };
 };
 
