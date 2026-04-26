@@ -41,13 +41,11 @@ export const MainPage = () => {
   const handleOpenChange = (open: boolean) => {
     setShowModal(open);
     if (!open) {
-      setEditingItem(null);
-      setNewTitle("");
-      setNewDesc("");
+      resetNowForm();
     }
   };
 
-  const handleAddNow = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmitNow = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isSubmitting) return;
 
@@ -118,7 +116,7 @@ export const MainPage = () => {
           onOpenChange={handleOpenChange}
           onTitleChange={setNewTitle}
           onDescriptionChange={setNewDesc}
-          onSubmit={handleAddNow}
+          onSubmit={handleSubmitNow}
           onEdit={handleEditNow}
           onDelete={handleDeleteNow}
         />
