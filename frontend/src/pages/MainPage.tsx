@@ -24,9 +24,6 @@ export const MainPage = () => {
   const { isAuth, isAuthResolved } = useIsAuthenticated();
   const nowData = api.now.get.data || [];
   const isDark = resolvedTheme === "dark";
-  const nextTheme =
-    theme === "system" ? "dark" : theme === "dark" ? "light" : "system";
-
   const [showModal, setShowModal] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [newDesc, setNewDesc] = useState("");
@@ -72,7 +69,7 @@ export const MainPage = () => {
           time={time}
           theme={theme}
           isDark={isDark}
-          onToggleTheme={() => setTheme(nextTheme)}
+          onSetTheme={setTheme}
           sticky
         />
         <MainPageMarquee />
