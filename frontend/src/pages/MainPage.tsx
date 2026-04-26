@@ -30,6 +30,7 @@ export const MainPage = () => {
   const [newDesc, setNewDesc] = useState("");
   const dialogMode = editingItem ? "edit" : "add";
   const isSubmitting = api.now.post.isPending || api.now.put.isPending;
+  const isNowLoading = api.now.get.isLoading || api.now.get.isPending;
 
   const resetNowForm = () => {
     setShowModal(false);
@@ -113,6 +114,7 @@ export const MainPage = () => {
           title={newTitle}
           description={newDesc}
           isSubmitting={isSubmitting}
+          isLoading={isNowLoading}
           onOpenChange={handleOpenChange}
           onTitleChange={setNewTitle}
           onDescriptionChange={setNewDesc}

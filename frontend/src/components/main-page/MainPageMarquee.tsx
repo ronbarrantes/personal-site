@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import { marqueeItems } from "@/data/text";
 
 const shuffleItems = (items: string[]) => {
