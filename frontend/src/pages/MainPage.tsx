@@ -68,7 +68,6 @@ export const MainPage = () => {
           date={date}
           time={time}
           theme={theme}
-          isDark={isDark}
           onSetTheme={setTheme}
           sticky
         />

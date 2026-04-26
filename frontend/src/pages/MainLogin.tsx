@@ -22,8 +22,6 @@ export const MainLogin = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const isDark = resolvedTheme === "dark";
-  const nextTheme =
-    theme === "system" ? "dark" : theme === "dark" ? "light" : "system";
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -79,8 +77,8 @@ export const MainLogin = () => {
         <TopBar
           date={date}
           time={time}
-          isDark={isDark}
-          onToggleTheme={() => setTheme(nextTheme)}
+          theme={theme}
+          onSetTheme={setTheme}
         />
         <div className="flex flex-1 items-center justify-center px-4 py-16">
           {!isAuthResolved ? null : isAuth ? (

@@ -8,7 +8,6 @@ type TopBarProps = {
   date: string;
   time: string;
   theme: Theme;
-  isDark: boolean;
   onSetTheme: (theme: Theme) => void;
   sticky?: boolean;
 };
@@ -29,7 +28,6 @@ export const TopBar = ({
   date,
   time,
   theme,
-  isDark,
   onSetTheme,
   sticky = false,
 }: TopBarProps) => {
