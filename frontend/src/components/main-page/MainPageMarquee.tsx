@@ -18,12 +18,15 @@ const shuffleItems = (items: string[]) => {
 
 export const MainPageMarquee = () => {
   const [items] = useState(() => shuffleItems(marqueeItems));
+  const animationDuration = `${Math.max(items.length * 5, 44)}s`;
 
   const renderContent = (keyPrefix: string) =>
     items.map((item, index) => (
       <span key={`${keyPrefix}-${item}-${index}`} className="marquee-item">
-        <span aria-hidden="true">★</span>
         <span>{item}</span>
+        <span aria-hidden="true" className="marquee-separator">
+          ★
+        </span>
       </span>
     ));
 
@@ -35,6 +38,7 @@ export const MainPageMarquee = () => {
       <div
         aria-hidden="true"
         className="marquee syne text-2xl font-extrabold text-[var(--bg)]"
+        style={{ animationDuration }}
       >
         <div className="marquee-group">{renderContent("first")}</div>
         <div className="marquee-group">{renderContent("second")}</div>
