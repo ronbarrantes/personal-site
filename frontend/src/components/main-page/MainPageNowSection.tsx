@@ -13,6 +13,7 @@ type MainPageNowSectionProps = {
   title: string;
   description: string;
   isSubmitting: boolean;
+  isLoading: boolean;
   onOpenChange: (open: boolean) => void;
   onTitleChange: (title: string) => void;
   onDescriptionChange: (description: string) => void;
@@ -30,6 +31,7 @@ export const MainPageNowSection = ({
   title,
   description,
   isSubmitting,
+  isLoading,
   onOpenChange,
   onTitleChange,
   onDescriptionChange,
@@ -75,6 +77,11 @@ export const MainPageNowSection = ({
             )}
           </div>
         </div>
+        {isLoading && (
+          <div className="mb-4 text-sm tracking-[0.15em]" style={{ color: "var(--bg)" }}>
+            FETCHING LATEST UPDATES… (COLD START CAN TAKE ~30S)
+          </div>
+        )}
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {visibleItems.map((item) => (
             <MainPageNowCard
