@@ -3,9 +3,10 @@ import type { FormEvent } from "react";
 type MainPageNowDialogProps = {
   isDark: boolean;
   isOpen: boolean;
+  mode: "add" | "edit";
   title: string;
   description: string;
-  isPosting: boolean;
+  isSubmitting: boolean;
   onOpenChange: (open: boolean) => void;
   onTitleChange: (title: string) => void;
   onDescriptionChange: (description: string) => void;
@@ -15,27 +16,32 @@ type MainPageNowDialogProps = {
 export const MainPageNowDialog = ({
   isDark,
   isOpen,
+  mode,
   title,
   description,
-  isPosting,
+  isSubmitting,
   onOpenChange,
   onTitleChange,
   onDescriptionChange,
   onSubmit,
 }: MainPageNowDialogProps) => {
+  const isEditMode = mode === "edit";
+
   return (
     <>
-      <button
-        type="button"
-        className="tag cursor-pointer"
-        style={{
-          background: "var(--accent)",
-          color: "var(--alt)",
-        }}
-        onClick={() => onOpenChange(true)}
-      >
-        + ADD NOW
-      </button>
+      {!isEditMode && (
+        <button
+          type="button"
+          className="tag cursor-pointer"
+          style={{
+            background: "var(--accent)",
+            color: "var(--alt)",
+          }}
+          onClick={() => onOpenChange(true)}
+        >
+          + ADD NOW
+        </button>
+      )}
 
       {isOpen && (
         <div
@@ -47,7 +53,7 @@ export const MainPageNowDialog = ({
           <button
             type="button"
             className="absolute inset-0 bg-black/50"
-            aria-label="Close add now dialog"
+            aria-label={`Close ${isEditMode ? "edit" : "add"} now dialog`}
             onClick={() => onOpenChange(false)}
           />
 
@@ -66,18 +72,20 @@ export const MainPageNowDialog = ({
                 className="tag"
                 style={{ background: "var(--accent)", color: "var(--alt)" }}
               >
-                NEW // NOW
+                {isEditMode ? "EDIT // NOW" : "NEW // NOW"}
               </div>
             </div>
 
             <div className="flex-1 overflow-y-auto p-6">
               <div className="mb-6">
                 <h3 id="now-dialog-title" className="text-4xl">
-                  ADD ITEM
+                  {isEditMode ? "EDIT ITEM" : "ADD ITEM"}
                   <span style={{ color: "var(--accent)" }}>.</span>
                 </h3>
                 <p className="sr-only">
-                  Add a new NOW item with a title and description.
+                  {isEditMode
+                    ? "Edit an existing NOW item with a title and description."
+                    : "Add a new NOW item with a title and description."}
                 </p>
               </div>
 
@@ -111,9 +119,15 @@ export const MainPageNowDialog = ({
                   <button
                     type="submit"
                     className="btn flex-1 justify-center"
-                    disabled={isPosting}
+                    disabled={isSubmitting}
                   >
-                    {isPosting ? "POSTING..." : "POST IT →"}
+                    {isSubmitting
+                      ? isEditMode
+                        ? "SAVING..."
+                        : "POSTING..."
+                      : isEditMode
+                        ? "SAVE IT →"
+                        : "POST IT →"}
                   </button>
                   <button
                     type="button"

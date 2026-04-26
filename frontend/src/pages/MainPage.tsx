@@ -25,12 +25,31 @@ export const MainPage = () => {
   const nowData = api.now.get.data || [];
   const isDark = resolvedTheme === "dark";
   const [showModal, setShowModal] = useState(false);
+  const [editingItem, setEditingItem] = useState<NowData | null>(null);
   const [newTitle, setNewTitle] = useState("");
   const [newDesc, setNewDesc] = useState("");
+  const dialogMode = editingItem ? "edit" : "add";
+  const isSubmitting = api.now.post.isPending || api.now.put.isPending;
+
+  const resetNowForm = () => {
+    setShowModal(false);
+    setEditingItem(null);
+    setNewTitle("");
+    setNewDesc("");
+  };
+
+  const handleOpenChange = (open: boolean) => {
+    setShowModal(open);
+    if (!open) {
+      setEditingItem(null);
+      setNewTitle("");
+      setNewDesc("");
+    }
+  };
 
   const handleAddNow = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (api.now.post.isPending) return;
+    if (isSubmitting) return;
 
     const title = newTitle.trim();
     const desc = newDesc.trim();
@@ -40,17 +59,31 @@ export const MainPage = () => {
       return;
     }
 
+    if (editingItem) {
+      api.now.put.mutate(
+        { id: editingItem.id, body: { title, desc } },
+        {
+          onSuccess: resetNowForm,
+          onError: () => toast.error("FAILED TO SAVE"),
+        }
+      );
+      return;
+    }
+
     api.now.post.mutate(
       { body: { title, desc } },
       {
-        onSuccess: () => {
-          setShowModal(false);
-          setNewTitle("");
-          setNewDesc("");
-        },
+        onSuccess: resetNowForm,
         onError: () => toast.error("FAILED TO POST"),
       }
     );
+  };
+
+  const handleEditNow = (item: NowData) => {
+    setEditingItem(item);
+    setNewTitle(item.title);
+    setNewDesc(item.desc);
+    setShowModal(true);
   };
 
   const handleDeleteNow = (item: NowData) => {
@@ -78,13 +111,15 @@ export const MainPage = () => {
           isDark={isDark}
           items={nowData}
           showModal={showModal}
+          dialogMode={dialogMode}
           title={newTitle}
           description={newDesc}
-          isPosting={api.now.post.isPending}
-          onOpenChange={setShowModal}
+          isSubmitting={isSubmitting}
+          onOpenChange={handleOpenChange}
           onTitleChange={setNewTitle}
           onDescriptionChange={setNewDesc}
           onSubmit={handleAddNow}
+          onEdit={handleEditNow}
           onDelete={handleDeleteNow}
         />
         <MainPageWorkSection />

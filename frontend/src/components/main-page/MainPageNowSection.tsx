@@ -9,13 +9,15 @@ type MainPageNowSectionProps = {
   isDark: boolean;
   items: NowData[];
   showModal: boolean;
+  dialogMode: "add" | "edit";
   title: string;
   description: string;
-  isPosting: boolean;
+  isSubmitting: boolean;
   onOpenChange: (open: boolean) => void;
   onTitleChange: (title: string) => void;
   onDescriptionChange: (description: string) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onEdit: (item: NowData) => void;
   onDelete: (item: NowData) => void;
 };
 
@@ -24,13 +26,15 @@ export const MainPageNowSection = ({
   isDark,
   items,
   showModal,
+  dialogMode,
   title,
   description,
-  isPosting,
+  isSubmitting,
   onOpenChange,
   onTitleChange,
   onDescriptionChange,
   onSubmit,
+  onEdit,
   onDelete,
 }: MainPageNowSectionProps) => {
   const visibleItems = items.slice(0, 6);
@@ -59,9 +63,10 @@ export const MainPageNowSection = ({
               <MainPageNowDialog
                 isDark={isDark}
                 isOpen={showModal}
+                mode={dialogMode}
                 title={title}
                 description={description}
-                isPosting={isPosting}
+                isSubmitting={isSubmitting}
                 onOpenChange={onOpenChange}
                 onTitleChange={onTitleChange}
                 onDescriptionChange={onDescriptionChange}
@@ -76,6 +81,7 @@ export const MainPageNowSection = ({
               key={item.id}
               item={item}
               isAuth={isAuth}
+              onEdit={onEdit}
               onDelete={onDelete}
             />
           ))}
