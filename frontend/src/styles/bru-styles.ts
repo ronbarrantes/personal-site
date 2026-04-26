@@ -13,10 +13,10 @@ export const bruStyles = `
   position: relative;
 }
 .bru.dark {
-  --bg: #0c0c0c;
-  --ink: #6ca;
-  --alt: #111;
-  --accent: #b7c;
+  --bg: #0b0d09;
+  --ink: #5abf97;
+  --alt: #111a0e;
+  --accent: #a870c2;
 }
 .bru::before {
   content: '';
@@ -40,7 +40,7 @@ export const bruStyles = `
   box-shadow: 8px 8px 0 var(--ink);
   position: relative;
 }
-.bru.dark .box { background: #1a1a1a; color: var(--ink); }
+.bru.dark .box { background: #111a0e; color: var(--ink); }
 .bru .box:hover { transform: translate(-2px,-2px); box-shadow: 12px 12px 0 var(--ink); }
 .bru .tag {
   display: inline-block;
