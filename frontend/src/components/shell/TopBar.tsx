@@ -3,14 +3,22 @@ import { Icon } from "@/components/icon";
 type TopBarProps = {
   date: string;
   time: string;
+  theme: "light" | "dark" | "system";
   isDark: boolean;
   onToggleTheme: () => void;
   sticky?: boolean;
 };
 
+const THEME_LABELS: Record<"light" | "dark" | "system", string> = {
+  system: "◉ SYS",
+  dark: "☼ DRK",
+  light: "☾ LGT",
+};
+
 export const TopBar = ({
   date,
   time,
+  theme,
   isDark,
   onToggleTheme,
   sticky = false,
@@ -36,9 +44,9 @@ export const TopBar = ({
           type="button"
           className="btn text-xs"
           onClick={onToggleTheme}
-          aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+          aria-label={`Current theme: ${theme}. Click to cycle theme.`}
         >
-          <span aria-hidden="true">{isDark ? "☼" : "☾"}</span>
+          <span aria-hidden="true">{THEME_LABELS[theme]}</span>
         </button>
       </div>
     </nav>

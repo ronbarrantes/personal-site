@@ -70,6 +70,7 @@ export const MainPage = () => {
         <TopBar
           date={date}
           time={time}
+          theme={theme}
           isDark={isDark}
           onToggleTheme={() => setTheme(nextTheme)}
           sticky
