@@ -5,12 +5,14 @@ import { formatDate } from "@/utils/time";
 type MainPageNowCardProps = {
   item: NowData;
   isAuth: boolean;
+  onEdit: (item: NowData) => void;
   onDelete: (item: NowData) => void;
 };
 
 export const MainPageNowCard = ({
   item,
   isAuth,
+  onEdit,
   onDelete,
 }: MainPageNowCardProps) => {
   return (
@@ -22,15 +24,26 @@ export const MainPageNowCard = ({
         ///
       </div>
       {isAuth && (
-        <button
-          type="button"
-          aria-label={`Delete ${item.title}`}
-          className="tag absolute top-2 right-2 cursor-pointer"
-          style={{ background: "var(--ink)", color: "var(--bg)" }}
-          onClick={() => onDelete(item)}
-        >
-          ×
-        </button>
+        <div className="absolute top-2 right-2 flex items-center gap-2">
+          <button
+            type="button"
+            aria-label={`Edit ${item.title}`}
+            className="tag cursor-pointer"
+            style={{ background: "var(--accent)", color: "var(--alt)" }}
+            onClick={() => onEdit(item)}
+          >
+            EDIT
+          </button>
+          <button
+            type="button"
+            aria-label={`Delete ${item.title}`}
+            className="tag cursor-pointer"
+            style={{ background: "var(--ink)", color: "var(--bg)" }}
+            onClick={() => onDelete(item)}
+          >
+            ×
+          </button>
+        </div>
       )}
       <h3 className="mb-2 text-2xl">{item.title}</h3>
       <p className="mb-3 text-sm">{item.desc}</p>
