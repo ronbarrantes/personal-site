@@ -6,6 +6,8 @@ type MarqueeToken =
   | { kind: "text"; value: string }
   | { kind: "separator"; value: string };
 
+const MARQUEE_SAMPLE_SIZE = 14;
+
 const shuffleItems = (items: string[]) => {
   const [firstItem, ...rest] = items;
   const shuffled = [...rest];
@@ -21,15 +23,17 @@ const shuffleItems = (items: string[]) => {
   return firstItem ? [firstItem, ...shuffled] : shuffled;
 };
 
+const sampleMarqueeItems = (items: string[]) =>
+  shuffleItems(items).slice(0, MARQUEE_SAMPLE_SIZE);
+
 const buildMarqueeTokens = (items: string[]): MarqueeToken[] =>
   items.flatMap((item) => [
     { kind: "text", value: item },
     { kind: "separator", value: "★" },
   ]);
-;
 
 export const MainPageMarquee = () => {
-  const [items] = useState(() => shuffleItems(marqueeItems));
+  const [items] = useState(() => sampleMarqueeItems(marqueeItems));
   const tokens = buildMarqueeTokens(items);
   const animationDuration = `${Math.max(items.length * 5, 44)}s`;
 
