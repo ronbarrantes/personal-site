@@ -68,16 +68,17 @@ export const bruStyles = `
 .bru .marquee-group {
   display: flex;
   flex-shrink: 0;
-  gap: 0.5rem;
+  gap: 0;
 }
 .bru .marquee-item {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
   padding-inline: 0.5rem;
 }
 .bru .marquee-separator {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: 0.5rem;
   transform: translateY(-0.04em);
 }
 .bru .btn {
