@@ -1,4 +1,32 @@
+import { useState } from "react";
+import { marqueeItems } from "@/data/text";
+
+const shuffleItems = (items: string[]) => {
+  const [firstItem, ...rest] = items;
+  const shuffled = [...rest];
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[randomIndex]] = [
+      shuffled[randomIndex],
+      shuffled[index],
+    ];
+  }
+
+  return firstItem ? [firstItem, ...shuffled] : shuffled;
+};
+
 export const MainPageMarquee = () => {
+  const [items] = useState(() => shuffleItems(marqueeItems));
+
+  const renderContent = (keyPrefix: string) =>
+    items.map((item, index) => (
+      <span key={`${keyPrefix}-${item}-${index}`} className="marquee-item">
+        <span aria-hidden="true">★</span>
+        <span>{item}</span>
+      </span>
+    ));
+
   return (
     <div
       className="overflow-hidden border-b-4 py-2"
@@ -8,12 +36,8 @@ export const MainPageMarquee = () => {
         aria-hidden="true"
         className="marquee syne text-2xl font-extrabold text-[var(--bg)]"
       >
-        {Array.from({ length: 6 }).map((_, index) => (
-          <span key={index} className="mx-6">
-            ★ SHIPS CODE ★ BUILDS INTERFACES ★ DRINKS COFFEE ★ DANCES SALSA ★
-            TRAVELS LIGHT ★
-          </span>
-        ))}
+        <div className="marquee-group">{renderContent("first")}</div>
+        <div className="marquee-group">{renderContent("second")}</div>
       </div>
     </div>
   );

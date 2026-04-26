@@ -61,8 +61,20 @@ export const bruStyles = `
 }
 .bru .marquee {
   display: flex;
+  width: max-content;
   white-space: nowrap;
   animation: bru-marq 28s linear infinite;
+}
+.bru .marquee-group {
+  display: flex;
+  flex-shrink: 0;
+  gap: 1.5rem;
+}
+.bru .marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-inline: 1.5rem;
 }
 .bru .btn {
   display: inline-flex;
