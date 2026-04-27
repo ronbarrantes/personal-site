@@ -2,6 +2,12 @@ import { useState } from "react";
 
 import { marqueeItems } from "@/data/text";
 
+type MarqueeToken =
+  | { kind: "text"; value: string }
+  | { kind: "separator"; value: string };
+
+const MARQUEE_SAMPLE_SIZE = 14;
+
 const shuffleItems = (items: string[]) => {
   const [firstItem, ...rest] = items;
   const shuffled = [...rest];
@@ -17,17 +23,30 @@ const shuffleItems = (items: string[]) => {
   return firstItem ? [firstItem, ...shuffled] : shuffled;
 };
 
+const sampleMarqueeItems = (items: string[]) =>
+  shuffleItems(items).slice(0, MARQUEE_SAMPLE_SIZE);
+
+const buildMarqueeTokens = (items: string[]): MarqueeToken[] =>
+  items.flatMap((item) => [
+    { kind: "text", value: item },
+    { kind: "separator", value: "★" },
+  ]);
+
 export const MainPageMarquee = () => {
-  const [items] = useState(() => shuffleItems(marqueeItems));
+  const [items] = useState(() => sampleMarqueeItems(marqueeItems));
+  const tokens = buildMarqueeTokens(items);
   const animationDuration = `${Math.max(items.length * 5, 44)}s`;
 
   const renderContent = (keyPrefix: string) =>
-    items.map((item, index) => (
-      <span key={`${keyPrefix}-${item}-${index}`} className="marquee-item">
-        <span>{item}</span>
-        <span aria-hidden="true" className="marquee-separator">
-          ★
-        </span>
+    tokens.map((token, index) => (
+      <span
+        key={`${keyPrefix}-${token.kind}-${token.value}-${index}`}
+        aria-hidden={token.kind === "separator" ? "true" : undefined}
+        className={
+          token.kind === "separator" ? "marquee-separator" : "marquee-item"
+        }
+      >
+        {token.value}
       </span>
     ));
 

@@ -56,28 +56,37 @@ export const bruStyles = `
   background: repeating-linear-gradient(-45deg, var(--ink) 0 10px, transparent 10px 20px);
 }
 @keyframes bru-marq {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
 }
 .bru .marquee {
   display: flex;
   width: max-content;
   white-space: nowrap;
   animation: bru-marq 28s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 }
 .bru .marquee-group {
   display: flex;
   flex-shrink: 0;
-  gap: 0.5rem;
+  flex-basis: auto;
+  gap: 0;
+  min-width: max-content;
 }
 .bru .marquee-item {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
+  flex-shrink: 0;
   padding-inline: 0.5rem;
 }
 .bru .marquee-separator {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding-inline: 0.5rem;
   transform: translateY(-0.04em);
 }
 .bru .btn {
