@@ -70,6 +70,8 @@ import {
 } from "react-icons/si";
 import { TbBrandAzure, TbBrandReactNative } from "react-icons/tb";
 
+import { ConvexIcon } from "./custom-icons";
+
 export const iconFileNames = {
   about: { icon: MdOutlineInfo },
   arrow: { icon: MdArrowForward },
@@ -104,7 +106,7 @@ export const iconFileNames = {
   // ICONS FOR TECHNOLOGIES
   azure: { icon: TbBrandAzure },
   clerk: { icon: SiClerk },
-  convex: { icon: BsLightningCharge },
+  convex: { icon: ConvexIcon },
   css: { icon: SiCss3 },
   facebook: { icon: SiFacebook },
   gcp: { icon: SiGooglecloud },
