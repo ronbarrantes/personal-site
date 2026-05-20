@@ -53,7 +53,6 @@ import {
   SiPlanetscale,
   SiPostgresql,
   SiPython,
-  SiRadixui,
   SiRedis,
   SiRedux,
   SiRetool,
@@ -122,7 +121,6 @@ export const iconFileNames = {
   postgresql: { icon: SiPostgresql },
   premierepro: { icon: SiAdobepremierepro },
   python: { icon: SiPython },
-  radixui: { icon: SiRadixui },
   react: { icon: FaReact },
   rails: { icon: SiRubyonrails },
   reactnative: { icon: TbBrandReactNative },
@@ -140,7 +138,6 @@ export const iconFileNames = {
   vercel: { icon: SiVercel },
   vite: { icon: SiVite },
   wordpress: { icon: SiWordpress },
-
   golang: { icon: SiGoland },
   jira: { icon: SiJira },
   copilot: { icon: RiCopilotFill },

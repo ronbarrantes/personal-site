@@ -219,7 +219,6 @@ export const portfolioItems: PortfolioItem[] = [
       "convex",
       "clerk",
       "shadcn",
-      "radixui",
       "vercel",
       "git",
     ],
