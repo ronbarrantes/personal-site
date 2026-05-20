@@ -232,7 +232,7 @@ export const portfolioItems: PortfolioItem[] = [
     },
     description: [
       "This is a project I’m creating for my family to help them review the questions commonly found on the U.S. citizenship exam.",
-      "It gives the user 10 of the 100 questions in a multiple choice format",
+      "It gives the user 10 of the 100 official questions in a multiple choice format, then shows results and review screens so they can see what they missed and keep practicing without the whole thing feeling like a giant study packet.",
     ],
     tools: [
       "nextjs",
@@ -240,25 +240,10 @@ export const portfolioItems: PortfolioItem[] = [
       "tailwind",
       "vercel",
       "postgresql",
-
       "github",
-
       "git",
     ],
   },
-  {
-    name: "Game of Life",
-    github: "https://github.com/ronbarrantes/guessing-game",
-    link: {
-      href: "https://game-of-life.ronb.co/",
-      label: "Game of Life",
-    },
-    description: [
-      "An interpretation of the classic game of life, built with good old React, TypeScript, and TailwindCSS. It is hosted on Vercel.",
-    ],
-    tools: ["react", "typescript", "tailwind", "vercel", "github", "git"],
-  },
-
   {
     name: "Matching game",
     github: "https://github.com/ronbarrantes/guessing-game",
@@ -276,10 +261,21 @@ export const portfolioItems: PortfolioItem[] = [
       "tailwind",
       "vite",
       "vercel",
-
       "github",
       "git",
     ],
+  },
+  {
+    name: "Game of Life",
+    github: "https://github.com/ronbarrantes/guessing-game",
+    link: {
+      href: "https://game-of-life.ronb.co/",
+      label: "Game of Life",
+    },
+    description: [
+      "An interpretation of the classic game of life, built with good old React, TypeScript, and TailwindCSS. It is hosted on Vercel.",
+    ],
+    tools: ["react", "typescript", "tailwind", "vercel", "github", "git"],
   },
 ];
 

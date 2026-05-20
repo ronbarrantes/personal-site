@@ -11,7 +11,7 @@ export const MainPagePortfolioCard = ({
   index,
 }: MainPagePortfolioCardProps) => {
   return (
-    <article className="box p-5">
+    <article className="box flex h-full flex-col p-5">
       <div className="mb-3 flex items-center justify-between">
         <span
           className="text-5xl"
@@ -47,13 +47,16 @@ export const MainPagePortfolioCard = ({
       <h3 className="mb-3 text-3xl">{item.name}</h3>
       <div className="mb-4 space-y-3">
         {item.description.map((paragraph, index) => (
-          <p key={`${item.name}-desc-${index}`} className="text-sm leading-relaxed">
+          <p
+            key={`${item.name}-desc-${index}`}
+            className="text-sm leading-relaxed"
+          >
             {paragraph}
           </p>
         ))}
       </div>
       <div
-        className="flex flex-wrap gap-2 border-t-2 pt-3"
+        className="mt-auto flex flex-wrap gap-2 border-t-2 pt-3"
         style={{ borderColor: "var(--ink)" }}
       >
         {item.tools.map((tool) => (
