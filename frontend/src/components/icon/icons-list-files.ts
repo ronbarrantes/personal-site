@@ -9,7 +9,15 @@ import {
   FaRegFileAlt,
   FaJava,
 } from "react-icons/fa";
-import { FiCalendar, FiClock, FiCpu, FiHome, FiMoon, FiMonitor, FiSun } from "react-icons/fi";
+import {
+  FiCalendar,
+  FiClock,
+  FiCpu,
+  FiHome,
+  FiMoon,
+  FiMonitor,
+  FiSun,
+} from "react-icons/fi";
 import { GiHamburgerMenu, GiPlasticDuck } from "react-icons/gi";
 import { LuBriefcase, LuContact, LuSettings } from "react-icons/lu";
 import {
@@ -24,6 +32,7 @@ import {
 } from "react-icons/md";
 import { RiCopilotFill, RiNextjsFill, RiSupabaseLine } from "react-icons/ri";
 import {
+  SiClerk,
   SiAdobeillustrator,
   SiAdobeindesign,
   SiAdobephotoshop,
@@ -44,11 +53,13 @@ import {
   SiPlanetscale,
   SiPostgresql,
   SiPython,
+  SiRadixui,
   SiRedis,
   SiRedux,
   SiRetool,
   SiRubyonrails,
   SiSelenium,
+  SiShadcnui,
   SiStripe,
   SiTailwindcss,
   SiTrpc,
@@ -93,6 +104,8 @@ export const iconFileNames = {
 
   // ICONS FOR TECHNOLOGIES
   azure: { icon: TbBrandAzure },
+  clerk: { icon: SiClerk },
+  convex: { icon: BsLightningCharge },
   css: { icon: SiCss3 },
   facebook: { icon: SiFacebook },
   gcp: { icon: SiGooglecloud },
@@ -109,6 +122,7 @@ export const iconFileNames = {
   postgresql: { icon: SiPostgresql },
   premierepro: { icon: SiAdobepremierepro },
   python: { icon: SiPython },
+  radixui: { icon: SiRadixui },
   react: { icon: FaReact },
   rails: { icon: SiRubyonrails },
   reactnative: { icon: TbBrandReactNative },
@@ -116,6 +130,7 @@ export const iconFileNames = {
   redux: { icon: SiRedux },
   retool: { icon: SiRetool },
   selenium: { icon: SiSelenium },
+  shadcn: { icon: SiShadcnui },
   stripe: { icon: SiStripe },
   supabase: { icon: RiSupabaseLine },
   tailwind: { icon: SiTailwindcss },
