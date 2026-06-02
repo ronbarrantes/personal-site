@@ -1,8 +1,11 @@
+"use client";
+
 import { useState } from "react";
+
+import { useRouter } from "next/navigation";
 
 import { useQueryClient } from "@tanstack/react-query";
 import type { FormEvent } from "react";
-import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
 import { MainLoginAuthenticatedCard } from "@/components/main-login/MainLoginAuthenticatedCard";
@@ -19,7 +22,7 @@ export const MainLogin = () => {
   const { theme, resolvedTheme, setTheme } = useTheme();
   const { date, time } = useClock();
   const { isAuth, isAuthResolved } = useIsAuthenticated();
-  const navigate = useNavigate();
+  const router = useRouter();
   const queryClient = useQueryClient();
   const isDark = resolvedTheme === "dark";
 
@@ -50,7 +53,7 @@ export const MainLogin = () => {
     }
 
     await queryClient.invalidateQueries({ queryKey: [queryKeys.ME] });
-    navigate("/");
+    router.push("/");
   };
 
   const handleLogout = async () => {
@@ -85,7 +88,7 @@ export const MainLogin = () => {
             <MainLoginAuthenticatedCard
               isLoading={loading}
               onLogout={handleLogout}
-              onGoHome={() => navigate("/")}
+              onGoHome={() => router.push("/")}
             />
           ) : (
             <MainLoginFormCard

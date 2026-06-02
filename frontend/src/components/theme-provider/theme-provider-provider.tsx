@@ -3,23 +3,25 @@ import { useEffect, useState } from "react";
 import { ThemeProviderContext } from "./theme-provider-context";
 import type { Theme, ThemeProviderProps } from "./theme-provider-types";
 
+const isTheme = (value: string | null) =>
+  value === "dark" || value === "light" || value === "system";
+
 export function ThemeProvider({
   children,
   defaultTheme = "system",
   storageKey = "vite-ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const getSystemTheme = () =>
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
+  const [theme, setTheme] = useState<Theme>(defaultTheme);
+  const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">("light");
 
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
-  );
-  const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">(
-    () => (theme === "system" ? getSystemTheme() : theme)
-  );
+  useEffect(() => {
+    // The stored preference is only available after the server-rendered shell hydrates.
+    const storedTheme = localStorage.getItem(storageKey);
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTheme(isTheme(storedTheme) ? storedTheme : defaultTheme);
+  }, [defaultTheme, storageKey]);
 
   useEffect(() => {
     const root = window.document.documentElement;

@@ -5,6 +5,11 @@ type ClockData = {
   time: string; // HH:MM (24h)
 };
 
+const initialClock: ClockData = {
+  date: "----/--/--",
+  time: "--:--",
+};
+
 export function useClock(): ClockData {
   const getFormatted = (): ClockData => {
     const now = new Date();
@@ -16,12 +21,14 @@ export function useClock(): ClockData {
     };
   };
 
-  const [clock, setClock] = useState<ClockData>(getFormatted());
+  const [clock, setClock] = useState<ClockData>(initialClock);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    // Replace the server-safe placeholder once the browser clock is available.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setClock(getFormatted());
 
     const now = new Date();

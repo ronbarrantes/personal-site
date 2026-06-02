@@ -21,7 +21,7 @@ export const MainPageNowCard = ({
         className="tag mb-2"
         style={{ background: "var(--accent)", color: "var(--alt)" }}
       >
-        ///
+        {"///"}
       </div>
       {isAuth && (
         <div className="absolute top-2 right-2 flex items-center gap-2">

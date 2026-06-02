@@ -1,13 +1,14 @@
 # Personal Site Frontend
 
-Frontend for the personal site. The app is a Vite + React single-page app with two live routes:
+Frontend for the personal site. The app uses Next.js with the app router and two live routes:
 
-- `/` renders [src/pages/MainPage.tsx](src/pages/MainPage.tsx)
-- `/login` renders [src/pages/MainLogin.tsx](src/pages/MainLogin.tsx)
+- `/` renders [src/app/page.tsx](src/app/page.tsx)
+- `/login` renders [src/app/login/page.tsx](src/app/login/page.tsx)
 
 ## Structure
 
-- `src/pages`: route entrypoints
+- `src/app`: Next.js routes, layout, and client providers
+- `src/screens`: page-level client UI used by route entrypoints
 - `src/components/main-page`: homepage sections
 - `src/components/main-login`: login screen cards
 - `src/components/shell`: shared page chrome for the live UI
@@ -17,7 +18,14 @@ Frontend for the personal site. The app is a Vite + React single-page app with t
 ## Commands
 
 ```bash
-bun run dev
-bun run build
-bun run lint
+pnpm dev
+pnpm build
+pnpm lint
 ```
+
+## Environment
+
+- `NEXT_PUBLIC_BACKEND_URL`: URL for the Go backend
+- `NEXT_PUBLIC_USE_REACT_QUERY_DEVTOOLS`: set to `true` to include React Query devtools
+
+Update the corresponding deployment environment variables when replacing the Vite deployment.
