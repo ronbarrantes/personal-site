@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { ThemeProviderContext } from "./theme-provider-context";
 import type { Theme, ThemeProviderProps } from "./theme-provider-types";
 
+const isTheme = (value: string | null) =>
+  value === "dark" || value === "light" || value === "system";
+
 export function ThemeProvider({
   children,
   defaultTheme = "system",
@@ -14,8 +17,10 @@ export function ThemeProvider({
 
   useEffect(() => {
     // The stored preference is only available after the server-rendered shell hydrates.
+    const storedTheme = localStorage.getItem(storageKey);
+
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTheme((localStorage.getItem(storageKey) as Theme) || defaultTheme);
+    setTheme(isTheme(storedTheme) ? storedTheme : defaultTheme);
   }, [defaultTheme, storageKey]);
 
   useEffect(() => {
