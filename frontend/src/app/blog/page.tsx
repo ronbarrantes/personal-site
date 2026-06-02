@@ -35,6 +35,7 @@ export default async function BlogIndexPage() {
                 <div className="mb-3 flex flex-wrap items-center gap-2">
                   {post.date && <span className="tag">{post.date}</span>}
                   <span className="tag">{post.slug}</span>
+                  {post.isDraft && <span className="tag">DRAFT</span>}
                 </div>
                 <h2 className="mb-3 text-4xl">{post.title}</h2>
                 {post.description && (

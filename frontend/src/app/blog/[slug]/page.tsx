@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { BlogShell } from "@/components/blog/BlogShell";
+import { isServerAuthenticated } from "@/lib/auth/server";
 import { markdownToHtml } from "@/lib/blog/markdown";
 import { getBlogPost, getBlogPosts } from "@/lib/blog/posts";
 
@@ -24,11 +25,15 @@ export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getBlogPost(slug);
+  const post = await getBlogPost(slug, { includeDrafts: true });
 
-  if (!post) {
+  if (!post || (post.isDraft && !(await isServerAuthenticated()))) {
     return {
       title: "Post Not Found | RON/B.CO",
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
@@ -43,14 +48,21 @@ export async function generateMetadata({
     alternates: {
       canonical: `/blog/${post.slug}`,
     },
+    robots: post.isDraft
+      ? {
+          index: false,
+          follow: false,
+        }
+      : undefined,
   };
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = await getBlogPost(slug);
+  const post = await getBlogPost(slug, { includeDrafts: true });
 
   if (!post) notFound();
+  if (post.isDraft && !(await isServerAuthenticated())) notFound();
 
   const html = await markdownToHtml(post.content);
 
@@ -65,6 +77,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="mb-4 flex flex-wrap items-center gap-2">
             {post.date && <span className="tag">{post.date}</span>}
             <span className="tag">{post.slug}</span>
+            {post.isDraft && <span className="tag">DRAFT</span>}
           </div>
           <h1 className="text-5xl md:text-7xl">{post.title}</h1>
           {post.description && (

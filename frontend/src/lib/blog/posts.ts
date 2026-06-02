@@ -10,6 +10,7 @@ type BlogFrontmatter = {
   title?: string;
   description?: string;
   date?: Date | string;
+  draft?: boolean;
 };
 
 export type BlogPost = {
@@ -17,7 +18,12 @@ export type BlogPost = {
   title: string;
   description: string;
   date: string;
+  isDraft: boolean;
   content: string;
+};
+
+type GetBlogPostsOptions = {
+  includeDrafts?: boolean;
 };
 
 async function getPostFilenames() {
@@ -40,6 +46,7 @@ async function readPost(filename: string) {
     title,
     description: frontmatter.description || "",
     date: frontmatter.date ? formatDate(frontmatter.date) : "",
+    isDraft: frontmatter.draft === true,
     content,
   };
 }
@@ -52,15 +59,21 @@ function formatDate(date: Date | string) {
   return date;
 }
 
-export async function getBlogPosts() {
+export async function getBlogPosts(options: GetBlogPostsOptions = {}) {
   const filenames = await getPostFilenames();
   const posts = await Promise.all(filenames.map(readPost));
+  const visiblePosts = options.includeDrafts
+    ? posts
+    : posts.filter((post) => !post.isDraft);
 
-  return posts.sort((a, b) => b.date.localeCompare(a.date));
+  return visiblePosts.sort((a, b) => b.date.localeCompare(a.date));
 }
 
-export async function getBlogPost(slug: string) {
-  const posts = await getBlogPosts();
+export async function getBlogPost(
+  slug: string,
+  options: GetBlogPostsOptions = {}
+) {
+  const posts = await getBlogPosts(options);
 
   return posts.find((post) => post.slug === slug);
 }
