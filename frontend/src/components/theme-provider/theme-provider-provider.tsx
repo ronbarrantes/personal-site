@@ -9,17 +9,14 @@ export function ThemeProvider({
   storageKey = "vite-ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const getSystemTheme = () =>
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
+  const [theme, setTheme] = useState<Theme>(defaultTheme);
+  const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">("light");
 
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
-  );
-  const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">(
-    () => (theme === "system" ? getSystemTheme() : theme)
-  );
+  useEffect(() => {
+    // The stored preference is only available after the server-rendered shell hydrates.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTheme((localStorage.getItem(storageKey) as Theme) || defaultTheme);
+  }, [defaultTheme, storageKey]);
 
   useEffect(() => {
     const root = window.document.documentElement;

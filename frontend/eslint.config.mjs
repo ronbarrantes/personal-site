@@ -1,31 +1,22 @@
-import js from "@eslint/js";
-import globals from "globals";
-import reactHooks from "eslint-plugin-react-hooks";
+import nextVitals from "eslint-config-next/core-web-vitals";
 import reactRefresh from "eslint-plugin-react-refresh";
-import tseslint from "typescript-eslint";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintConfigPrettier from "eslint-config-prettier";
 
-export default tseslint.config(
+const eslintConfig = [
+  ...nextVitals,
   eslintConfigPrettier,
-  { ignores: ["dist"] },
+  { ignores: [".next", "dist", "next-env.d.ts"] },
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-    },
     plugins: {
-      "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
       "simple-import-sort": simpleImportSort,
     },
     rules: {
-      ...reactHooks.configs.recommended.rules,
       "react-refresh/only-export-components": [
         "warn",
-        { allowConstantExport: true },
+        { allowConstantExport: true, allowExportNames: ["metadata"] },
       ],
 
       "simple-import-sort/exports": "error",
@@ -46,5 +37,7 @@ export default tseslint.config(
         },
       ],
     },
-  }
-);
+  },
+];
+
+export default eslintConfig;

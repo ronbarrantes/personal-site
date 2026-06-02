@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type MainPagePortraitProps = {
   mobile?: boolean;
 };
@@ -35,10 +37,13 @@ export const MainPagePortrait = ({ mobile = false }: MainPagePortraitProps) => {
             boxShadow: "6px 6px 0 var(--accent)",
           }}
         >
-          <img
+          <Image
             src="/img/ron.webp"
             alt="Ron Barrantes"
-            className="block h-full w-full object-cover"
+            fill
+            priority
+            sizes="40vw"
+            className="object-cover"
             style={{ filter: "grayscale(100%) contrast(1.15) brightness(1.05)" }}
           />
           <div
@@ -67,7 +72,7 @@ export const MainPagePortrait = ({ mobile = false }: MainPagePortraitProps) => {
             className="syne absolute right-2 bottom-2 text-[10px] font-extrabold"
             style={{ color: "var(--bg)" }}
           >
-            ★'09
+            {"★'09"}
           </div>
         </div>
       </div>
@@ -84,11 +89,14 @@ export const MainPagePortrait = ({ mobile = false }: MainPagePortraitProps) => {
             boxShadow: "10px 10px 0 var(--accent)",
           }}
         >
-          <div className="relative overflow-hidden">
-            <img
+          <div className="relative aspect-[4/5] overflow-hidden">
+            <Image
               src="/img/ron.webp"
               alt="Ron Barrantes"
-              className="block aspect-[4/5] w-full object-cover"
+              fill
+              priority
+              sizes="(min-width: 768px) 42vw, 0px"
+              className="object-cover"
               style={{ filter: "grayscale(100%) contrast(1.15) brightness(1.05)" }}
             />
             <div

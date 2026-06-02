@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { marqueeItems } from "@/data/text";
 
 type MarqueeToken =
@@ -8,24 +6,6 @@ type MarqueeToken =
 
 const MARQUEE_SAMPLE_SIZE = 14;
 
-const shuffleItems = (items: string[]) => {
-  const [firstItem, ...rest] = items;
-  const shuffled = [...rest];
-
-  for (let index = shuffled.length - 1; index > 0; index -= 1) {
-    const randomIndex = Math.floor(Math.random() * (index + 1));
-    [shuffled[index], shuffled[randomIndex]] = [
-      shuffled[randomIndex],
-      shuffled[index],
-    ];
-  }
-
-  return firstItem ? [firstItem, ...shuffled] : shuffled;
-};
-
-const sampleMarqueeItems = (items: string[]) =>
-  shuffleItems(items).slice(0, MARQUEE_SAMPLE_SIZE);
-
 const buildMarqueeTokens = (items: string[]): MarqueeToken[] =>
   items.flatMap((item) => [
     { kind: "text", value: item },
@@ -33,7 +13,7 @@ const buildMarqueeTokens = (items: string[]): MarqueeToken[] =>
   ]);
 
 export const MainPageMarquee = () => {
-  const [items] = useState(() => sampleMarqueeItems(marqueeItems));
+  const items = marqueeItems.slice(0, MARQUEE_SAMPLE_SIZE);
   const tokens = buildMarqueeTokens(items);
   const animationDuration = `${Math.max(items.length * 5, 44)}s`;
 
