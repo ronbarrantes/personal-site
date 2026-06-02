@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
+import Link from "next/link";
+
 import { Icon } from "@/components/icon";
 
 type Theme = "light" | "dark" | "system";
@@ -53,8 +55,13 @@ export const TopBar = ({
       className={`${sticky ? "sticky top-0 z-30" : ""} flex items-center justify-between border-b-4 px-4 py-3 md:px-8`}
       style={{ borderColor: "var(--ink)", background: "var(--bg)" }}
     >
-      <div className="syne text-xl font-extrabold">★ RON/B.CO</div>
+      <Link href="/" className="syne text-xl font-extrabold">
+        ★ RON/B.CO
+      </Link>
       <div className="flex items-center gap-3 text-xs">
+        <Link href="/blog" className="btn hidden px-3 py-2 text-xs sm:inline-flex">
+          BLOG
+        </Link>
         <div className="flex flex-col items-end gap-1 md:flex-row">
           <span className="tag">
             <Icon name="clock" className="mr-1 inline size-3" />

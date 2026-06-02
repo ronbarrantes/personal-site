@@ -133,4 +133,75 @@ export const bruStyles = `
   border-color: var(--accent);
   box-shadow: 4px 4px 0 var(--accent);
 }
+.bru .blog-prose {
+  font-size: 16px;
+  line-height: 1.75;
+}
+.bru .blog-prose > * + * {
+  margin-top: 1.25rem;
+}
+.bru .blog-prose h1,
+.bru .blog-prose h2,
+.bru .blog-prose h3 {
+  margin-top: 2rem;
+}
+.bru .blog-prose h2 {
+  font-size: clamp(2rem, 8vw, 4rem);
+}
+.bru .blog-prose h3 {
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
+}
+.bru .blog-prose p,
+.bru .blog-prose li {
+  max-width: 72ch;
+}
+.bru .blog-prose a {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: underline;
+}
+.bru .blog-prose ul,
+.bru .blog-prose ol {
+  padding-left: 1.5rem;
+}
+.bru .blog-prose ul {
+  list-style: square;
+}
+.bru .blog-prose ol {
+  list-style: decimal;
+}
+.bru .blog-prose blockquote {
+  border-left: 8px solid var(--accent);
+  background: var(--alt);
+  padding: 1rem;
+  font-weight: 700;
+  box-shadow: 6px 6px 0 var(--ink);
+}
+.bru .blog-prose pre {
+  overflow-x: auto;
+  border: 3px solid var(--ink);
+  background: #ffffff;
+  padding: 1rem;
+  box-shadow: 8px 8px 0 var(--ink);
+}
+.bru.dark .blog-prose pre {
+  background: #0d1117;
+}
+.bru .blog-prose code {
+  font-family: 'Fira Mono', 'Space Mono', monospace;
+  font-size: 0.9em;
+}
+.bru .blog-prose pre code,
+.bru .blog-prose pre code span {
+  color: var(--shiki-light);
+}
+.bru.dark .blog-prose pre code,
+.bru.dark .blog-prose pre code span {
+  color: var(--shiki-dark);
+}
+.bru .blog-prose :not(pre) > code {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0.1rem 0.35rem;
+}
 `;
