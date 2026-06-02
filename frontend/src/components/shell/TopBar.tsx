@@ -14,7 +14,11 @@ type TopBarProps = {
   sticky?: boolean;
 };
 
-const THEME_OPTIONS: { value: Theme; icon: "sun" | "moon" | "monitor"; label: string }[] = [
+const THEME_OPTIONS: {
+  value: Theme;
+  icon: "sun" | "moon" | "monitor";
+  label: string;
+}[] = [
   { value: "light", icon: "sun", label: "Light" },
   { value: "dark", icon: "moon", label: "Dark" },
   { value: "system", icon: "monitor", label: "System" },
@@ -39,9 +43,12 @@ export const TopBar = ({
   useEffect(() => {
     if (!open) return;
     const handleClick = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      if (ref.current && !ref.current.contains(e.target as Node))
+        setOpen(false);
     };
-    const handleKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
     document.addEventListener("mousedown", handleClick);
     document.addEventListener("keydown", handleKey);
     return () => {
@@ -59,9 +66,6 @@ export const TopBar = ({
         ★ RON/B.CO
       </Link>
       <div className="flex items-center gap-3 text-xs">
-        <Link href="/blog" className="btn hidden px-3 py-2 text-xs sm:inline-flex">
-          BLOG
-        </Link>
         <div className="flex flex-col items-end gap-1 md:flex-row">
           <span className="tag">
             <Icon name="clock" className="mr-1 inline size-3" />
@@ -72,6 +76,13 @@ export const TopBar = ({
             {date}
           </span>
         </div>
+
+        <Link
+          href="/blog"
+          className="btn hidden px-3 py-2 text-xs sm:inline-flex"
+        >
+          BLOG
+        </Link>
 
         <div className="relative" ref={ref}>
           <button
@@ -87,7 +98,7 @@ export const TopBar = ({
 
           {open && (
             <div
-              className="absolute right-0 top-full z-50 mt-1 flex flex-col overflow-hidden border-2"
+              className="absolute top-full right-0 z-50 mt-1 flex flex-col overflow-hidden border-2"
               style={{
                 borderColor: "var(--ink)",
                 background: "var(--bg)",
@@ -100,18 +111,23 @@ export const TopBar = ({
                   className="flex items-center gap-2 px-3 py-2 text-xs font-bold transition-colors"
                   style={{
                     color: theme === opt.value ? "var(--bg)" : "var(--ink)",
-                    background: theme === opt.value ? "var(--ink)" : "transparent",
+                    background:
+                      theme === opt.value ? "var(--ink)" : "transparent",
                   }}
                   onMouseEnter={(e) => {
                     if (theme !== opt.value) {
-                      (e.currentTarget as HTMLButtonElement).style.background = "var(--ink)";
-                      (e.currentTarget as HTMLButtonElement).style.color = "var(--bg)";
+                      (e.currentTarget as HTMLButtonElement).style.background =
+                        "var(--ink)";
+                      (e.currentTarget as HTMLButtonElement).style.color =
+                        "var(--bg)";
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (theme !== opt.value) {
-                      (e.currentTarget as HTMLButtonElement).style.background = "transparent";
-                      (e.currentTarget as HTMLButtonElement).style.color = "var(--ink)";
+                      (e.currentTarget as HTMLButtonElement).style.background =
+                        "transparent";
+                      (e.currentTarget as HTMLButtonElement).style.color =
+                        "var(--ink)";
                     }
                   }}
                   onClick={() => {

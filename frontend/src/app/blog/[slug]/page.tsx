@@ -74,10 +74,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           )}
         </header>
 
-        <div
-          className="blog-prose"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        <div className="blog-reader">
+          <div
+            className="blog-prose"
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+        </div>
       </article>
     </BlogShell>
   );

@@ -137,6 +137,17 @@ export const bruStyles = `
   font-size: 16px;
   line-height: 1.75;
 }
+.bru .blog-reader {
+  background: #ffffff;
+  border: 3px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  color: #0a0a0a;
+  padding: clamp(1rem, 4vw, 2rem);
+}
+.bru.dark .blog-reader {
+  background: #050505;
+  color: #f6f6f6;
+}
 .bru .blog-prose > * + * {
   margin-top: 1.25rem;
 }
@@ -172,10 +183,13 @@ export const bruStyles = `
 }
 .bru .blog-prose blockquote {
   border-left: 8px solid var(--accent);
-  background: var(--alt);
+  background: #f4f4f4;
   padding: 1rem;
   font-weight: 700;
   box-shadow: 6px 6px 0 var(--ink);
+}
+.bru.dark .blog-prose blockquote {
+  background: #141414;
 }
 .bru .blog-prose pre {
   overflow-x: auto;
