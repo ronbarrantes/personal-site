@@ -12,7 +12,8 @@ export const bruStyles = `
   min-height: 100vh;
   position: relative;
 }
-.bru.dark {
+.bru.dark,
+.dark .bru {
   --bg: #0b0d09;
   --ink: #35af96;
   --alt: #111a0e;
@@ -40,7 +41,8 @@ export const bruStyles = `
   box-shadow: 8px 8px 0 var(--ink);
   position: relative;
 }
-.bru.dark .box { background: #111a0e; color: var(--ink); }
+.bru.dark .box,
+.dark .bru .box { background: #111a0e; color: var(--ink); }
 .bru .box:hover { transform: translate(-2px,-2px); box-shadow: 12px 12px 0 var(--ink); }
 .bru .tag {
   display: inline-block;
@@ -144,7 +146,8 @@ export const bruStyles = `
   color: #0a0a0a;
   padding: clamp(1rem, 4vw, 2rem);
 }
-.bru.dark .blog-reader {
+.bru.dark .blog-reader,
+.dark .bru .blog-reader {
   background: #050505;
   color: #f6f6f6;
 }
@@ -188,7 +191,8 @@ export const bruStyles = `
   font-weight: 700;
   box-shadow: 6px 6px 0 var(--ink);
 }
-.bru.dark .blog-prose blockquote {
+.bru.dark .blog-prose blockquote,
+.dark .bru .blog-prose blockquote {
   background: #141414;
 }
 .bru .blog-prose pre {
@@ -198,7 +202,8 @@ export const bruStyles = `
   padding: 1rem;
   box-shadow: 8px 8px 0 var(--ink);
 }
-.bru.dark .blog-prose pre {
+.bru.dark .blog-prose pre,
+.dark .bru .blog-prose pre {
   background: #0d1117;
 }
 .bru .blog-prose code {
@@ -210,12 +215,40 @@ export const bruStyles = `
   color: var(--shiki-light);
 }
 .bru.dark .blog-prose pre code,
-.bru.dark .blog-prose pre code span {
+.bru.dark .blog-prose pre code span,
+.dark .bru .blog-prose pre code,
+.dark .bru .blog-prose pre code span {
   color: var(--shiki-dark);
 }
 .bru .blog-prose :not(pre) > code {
   background: var(--ink);
   color: var(--bg);
   padding: 0.1rem 0.35rem;
+}
+@media (prefers-color-scheme: dark) {
+  html:not(.light) .bru {
+    --bg: #0b0d09;
+    --ink: #35af96;
+    --alt: #111a0e;
+    --accent: #a870c2;
+  }
+  html:not(.light) .bru .box {
+    background: #111a0e;
+    color: var(--ink);
+  }
+  html:not(.light) .bru .blog-reader {
+    background: #050505;
+    color: #f6f6f6;
+  }
+  html:not(.light) .bru .blog-prose blockquote {
+    background: #141414;
+  }
+  html:not(.light) .bru .blog-prose pre {
+    background: #0d1117;
+  }
+  html:not(.light) .bru .blog-prose pre code,
+  html:not(.light) .bru .blog-prose pre code span {
+    color: var(--shiki-dark);
+  }
 }
 `;
