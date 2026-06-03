@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 
 const TOKEN_NAME = "x-ronb-co-token";
+const AUTH_CHECK_TIMEOUT_MS = 2000;
 
 export async function isServerAuthenticated() {
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -15,6 +16,7 @@ export async function isServerAuthenticated() {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      signal: AbortSignal.timeout(AUTH_CHECK_TIMEOUT_MS),
     });
 
     return response.ok;
