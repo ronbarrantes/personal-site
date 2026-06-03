@@ -1,8 +1,8 @@
 ---
 title: Basics of C
-date: 2023-07-08T11:00:00.000Z
+description: "Rough notes from learning C: compiling, types, memory, pointers, structs, and the preprocessor."
+date: 2026-06-01T11:00:15.000Z
 # image: https://upload.wikimedia.org/wikipedia/commons/a/af/Cara_de_quem_caiu_do_caminh%C3%A3o..._%28cropped%29.jpg
-type: Note
 tags:
   - C
   - learning
@@ -10,30 +10,54 @@ tags:
 
 ## Why am I writing this?
 
-Soooo... Here is the deal! I am an experienced programmer, but, as of July 2023, I very new to C. Hence the reason for me writing this note.
-This right here is a vague summary based on the article [_The C Beginner's Handbook: Learn C Programming Language basics in just a few hours_](https://www.freecodecamp.org/news/the-c-beginners-handbook) by [Flavio Copes](https://flaviocopes.com/) as well as the auto suggestion from github copilot. lol!
-So if you want the real deal article with the actual knowledge, go read the article, but if you want some dirty cliff notes, you're welcome to chill here for a bit.
-I hope this help you as much as it is helping me.
+I am an experienced programmer, but I am also new to C Programming.
+
+That is the reason this note exists.
+
+This was primarily written using AI so take it as you will
+
+If you want the real article with the actual teaching, go read that. If you want my dirty cliff notes while I learn this language, you can hang out here for a bit.
+
+I hope this helps you as much as it is helping me.
 
 ## Who is this for?
 
-I don't know my dude, I'm just writing this for myself, but if you're here, I guess it's for you too.
+I don't know, my dude. I am writing this for myself, but if you are here, I guess it is for you too.
 
 ## What is C?
 
-C is a general-purpose programming language that is extremely popular, simple and flexible. That's all I know. I haven't research the history, I'm sure it's important, and I'm sure I'll learn it eventually. All I know is that you can do litteraly anything with it.
+C is a general-purpose programming language that is extremely popular, simple, and flexible.
+
+That is about as much as I know right now. I have not researched the whole history yet. I am sure it is important, and I am sure I will learn it eventually. For now, all I know is that you can do basically anything with it.
 
 ## Why C?
 
-I've been wanting to learn a low level language for years now but I just haven't had the time (I've been doing too much [React](https://react.dev) recently)! At first, I thought about learing _c++_ and since I didn't really know what tf I was doing, I figured tackling some [leetcode](https://leetcode.com) challenges would at least scratch that itch a little.
+I have wanted to learn a low-level language for years, but I never really made the time. I have been doing too much [React](https://react.dev) lately.
 
-This plan was going great until I ran across a video on youtube by [_Eskil Steenberg_](https://www.youtube.com/@eskilsteenberg) called [How I program C](https://www.youtube.com/watch?v=443UNeGrFoM) and the way he talked about _c_ very much resonated with me and with my belief about programming. So I became inspired to first learn _c_, and then go back and tackle _c++_, that or _rust_.
+At first, I thought about learning _C++_. Since I did not really know what I was doing, I figured tackling some [LeetCode](https://leetcode.com) problems would at least scratch the itch.
+
+That plan was going fine until I ran across a video by [_Eskil Steenberg_](https://www.youtube.com/@eskilsteenberg) called [How I program C](https://www.youtube.com/watch?v=443UNeGrFoM). The way he talked about _C_ resonated with me and with how I think about programming. So now I want to learn _C_ first, then maybe go back and tackle _C++_ or _Rust_.
 
 _With that out of the way, here we go!_
 
+## What I need to understand
+
+If I want an actual foundation in C, I do not just need syntax. I need the mental model:
+
+- how a `.c` file becomes a program
+- what the compiler checks and what it does not check
+- how values live in memory
+- how pointers point at memory
+- how arrays and strings are represented
+- how headers and source files work together
+- how allocation, ownership, and cleanup work
+- what undefined behavior is and why it matters
+
+That is the stuff that makes C feel different from higher-level languages.
+
 ## Basic hello world
 
-A basic c program looks like this:
+A basic C program looks like this:
 
 ```c
 #include <stdio.h>
@@ -44,63 +68,93 @@ int main(void)
 }
 ```
 
-Every c program starts with `#include <stdio.h>` which includes the standard input and output library.
-Every c program has a main function which is `int main(void)`.
+Every C program starts with `#include <stdio.h>`, which includes the standard input/output library.
+Every C program has a main function, which is `int main(void)`.
 The `main()` function is the entry point for a C program.
-Sometimes a c program `return 0` at the end but it is not necessary.
-Every line of code in c ends with a semicolon `;`.
+Sometimes a C program returns `0` at the end, but it is not necessary in this tiny example.
+Every statement in C ends with a semicolon `;`.
 
 ## Compiling
 
-To compile a c program you need to have a c compiler installed on your computer.
-You can use `gcc` to compile a c program.
+To compile a C program, you need a C compiler installed on your computer.
+You can use `gcc`:
 
 ```bash
 gcc hello.c -o hello
 ```
 
-Instructions of how to download and install `gcc` can be found [here](https://gcc.gnu.org/install/index.html).
+Instructions for downloading and installing `gcc` can be found [here](https://gcc.gnu.org/install/index.html).
+
+When learning, compile with warnings turned on:
+
+```bash
+gcc -Wall -Wextra -pedantic hello.c -o hello
+```
+
+- `-Wall` turns on a useful set of warnings
+- `-Wextra` turns on more warnings
+- `-pedantic` asks the compiler to complain about non-standard C
+
+Warnings are not decoration in C. Treat them like bugs until you know exactly why they are safe.
+
+## The build pipeline
+
+A C program goes through a few steps before it becomes an executable:
+
+- preprocessing: handles `#include`, `#define`, and other preprocessor directives
+- compiling: turns C source into object code
+- linking: combines object files and libraries into one executable
+
+That is why this works:
+
+```bash
+gcc main.c helper.c -o app
+```
+
+`main.c` and `helper.c` are compiled, then linked together into `app`.
 
 ## Variables and Types
 
-There are a bunch of types in c, they all have different sizes and they are:
+There are a bunch of types in C. Their exact sizes can depend on the platform and compiler, so do not blindly memorize the numbers. Use `sizeof` when it matters.
 
-- `char`: character and it's size is 1 byte
-- `int`: integer number (signed) and it's size is 4 bytes
-- `short`: short integer number (signed) and it's size is 2 bytes
-- `long`: long integer number (signed) and it's size is 8 bytes
-- `float`: floating point number and it's size is 4 bytes
-- `double`: double floating point number and it's size is 8 bytes
-- `long double`: long double floating point number and it's size is 16 bytes
-- `bool`: boolean (bool requires including `stdbool.h` to work) and it's size is 1 byte
-- `void`: nothing and it's size is 1 byte
+Common sizes on modern 64-bit systems look something like this:
+
+- `char`: character, usually 1 byte
+- `int`: signed integer, commonly 4 bytes
+- `short`: signed short integer, commonly 2 bytes
+- `long`: signed long integer, commonly 8 bytes
+- `float`: floating-point number, commonly 4 bytes
+- `double`: double-precision floating-point number, commonly 8 bytes
+- `long double`: extended-precision floating-point number, commonly 16 bytes
+- `bool`: boolean, requires `stdbool.h`, commonly 1 byte
+- `void`: no value
 
 ```c
 #include <stdio.h>
 
 int main(void)
 {
-  printf("char size: %lu bytes\n", sizeof(char)); // 1 byte
-  printf("int size: %lu bytes\n", sizeof(int)); // 4 bytes
-  printf("short size: %lu bytes\n", sizeof(short)); // 2 bytes
-  printf("long size: %lu bytes\n", sizeof(long)); // 8 bytes
-  printf("float size: %lu bytes\n", sizeof(float)); // 4 bytes
-  printf("double size: %lu bytes\n", sizeof(double)); // 8 bytes
-  printf("long double size: %lu bytes\n", sizeof(long double)); // 16 bytes
+  printf("char size: %zu bytes\n", sizeof(char)); // 1 byte
+  printf("int size: %zu bytes\n", sizeof(int)); // often 4 bytes
+  printf("short size: %zu bytes\n", sizeof(short)); // often 2 bytes
+  printf("long size: %zu bytes\n", sizeof(long)); // often 8 bytes on 64-bit Unix
+  printf("float size: %zu bytes\n", sizeof(float)); // often 4 bytes
+  printf("double size: %zu bytes\n", sizeof(double)); // often 8 bytes
+  printf("long double size: %zu bytes\n", sizeof(long double)); // platform-dependent
 }
 ```
 
-The sizeof operator returns the size of a type or a variable in bytes.
+The `sizeof` operator returns the size of a type or variable in bytes.
+Its result has type `size_t`, so `%zu` is the right `printf` format for it.
 
 ## Constants
 
-There are two types of constants in c:
+There are two common ways to define constants in C:
 
-- `const`: a constant that can be used in the whole program
-- `#define`: a constant that can be used in the whole program
+- `const`: creates a typed read-only variable
+- `#define`: creates a preprocessor macro
 
 ```c
-
 #include <stdio.h>
 
 int main(void)
@@ -111,14 +165,13 @@ int main(void)
   #define b 20
   printf("b: %d\n", b); // 20
 }
-
 ```
 
 ## Operators
 
-There are a bunch of operators in c, they are:
+C has a bunch of operators.
 
-Normal math operators:
+Math operators:
 
 - `+`: addition
 - `-`: subtraction
@@ -133,7 +186,8 @@ Logical operators:
 - `&&`: and
 - `||`: or
 - `!`: not
-- Bitwise operators:
+
+Bitwise operators:
 
 - `&`: bitwise and
 - `|`: bitwise or
@@ -215,14 +269,13 @@ int main(void)
 
 ## Loops
 
-There are three types of loops in c:
+There are three main kinds of loops in C:
 
 - `for`: for loop
 - `while`: while loop
-- `do while`: do while loop (it is like while loop but it runs at least once, almost never used)
+- `do while`: like a `while` loop, but it runs at least once
 
 ```c
-
 #include <stdio.h>
 
 int main(void)
@@ -246,7 +299,6 @@ int main(void)
     i++;
   } while (i < 10);
 }
-
 ```
 
 If you want to break out of a loop you can use `break` and if you want to skip the rest of the loop you can use `continue`.
@@ -296,8 +348,7 @@ int main(void)
 A string is an array of characters that ends with a null character `\0`.
 The last character is called a terminator.
 
-To manipulate strings you can use the `string.h` library.
-which contains functions such as
+To manipulate strings you can use the `string.h` library, which contains functions like:
 
 - `strlen()`: returns the length of a string
 - `strcpy()`: copies a string to another string
@@ -307,7 +358,7 @@ which contains functions such as
 ## Pointers
 
 A pointer is a variable that stores the address of another variable.
-Probably one of the most confusing things in c.
+Probably one of the most confusing things in C.
 An address is a location in memory.
 Memory is an array of bytes.
 
@@ -324,14 +375,14 @@ int main(void)
   int *b = &a;
 
   printf("a: %d\n", a); // 10
-  printf("b: %p\n", b); // 0x7ffeeb0b4a3c
+  printf("b: %p\n", (void *) b); // 0x7ffeeb0b4a3c
   printf("*b: %d\n", *b); // 10
-  printf("&a: %p\n", &a); // 0x7ffeeb0b4a3c
-  printf("&b: %p\n", &b); // 0x7ffeeb0b4a30
+  printf("&a: %p\n", (void *) &a); // 0x7ffeeb0b4a3c
+  printf("&b: %p\n", (void *) &b); // 0x7ffeeb0b4a30
 }
 ```
 
-An array is just a pointer to the first element of the array.
+An array can often behave like a pointer to the first element of the array.
 
 ```c
 #include <stdio.h>
@@ -341,8 +392,8 @@ int main(void)
   int a[10] = {0,1,2,3,4,5,6,7,8,9};
   int *b = a;
 
-  printf("a: %p\n", a); // 0x7ffeeb0b4a30
-  printf("b: %p\n", b); // 0x7ffeeb0b4a30
+  printf("a: %p\n", (void *) a); // 0x7ffeeb0b4a30
+  printf("b: %p\n", (void *) b); // 0x7ffeeb0b4a30
   printf("a[0]: %d\n", a[0]); // 0
   printf("b[0]: %d\n", b[0]); // 0
   printf("*a: %d\n", *a); // 0
@@ -350,7 +401,7 @@ int main(void)
 }
 ```
 
-And could be iterated over using pointer arithmetic.
+You can iterate over it using pointer arithmetic.
 
 ```c
 #include <stdio.h>
@@ -375,6 +426,82 @@ int main(void)
   }
 }
 ```
+
+## Memory lifetime
+
+This is the part I really need to get into my head.
+
+C makes me care about where data lives and how long it stays valid:
+
+- automatic storage: local variables inside a function, often on the stack
+- static storage: globals and `static` variables, alive for the whole program
+- allocated storage: memory requested with `malloc`, alive until `free`
+
+Example of automatic storage:
+
+```c
+int add(int a, int b)
+{
+  int result = a + b;
+  return result;
+}
+```
+
+`result` only exists while `add` is running. Returning its value is fine. Returning a pointer to `result` would be wrong because the local variable stops existing after the function returns.
+
+## Dynamic memory
+
+If I need memory whose size is not known until runtime, I can request it with `malloc`.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void)
+{
+  int count = 5;
+  int *numbers = malloc(sizeof(int) * count);
+
+  if (numbers == NULL)
+  {
+    return 1;
+  }
+
+  for (int i = 0; i < count; i++)
+  {
+    numbers[i] = i * 2;
+  }
+
+  for (int i = 0; i < count; i++)
+  {
+    printf("%d\n", numbers[i]);
+  }
+
+  free(numbers);
+}
+```
+
+The important rules:
+
+- check whether `malloc` returned `NULL`
+- call `free` exactly once when done
+- do not use the pointer after `free`
+- do not lose the pointer before freeing it
+
+## Undefined behavior
+
+C lets me write code that compiles but has no valid meaning. That is called undefined behavior.
+
+Examples:
+
+- reading past the end of an array
+- using an uninitialized variable
+- dereferencing a null pointer
+- using memory after `free`
+- returning a pointer to a local variable
+- overflowing a signed integer
+
+Undefined behavior is not just "maybe wrong output." The compiler is allowed to assume it never happens, which can make bugs extremely weird.
 
 ## Functions
 
@@ -407,7 +534,6 @@ Functions can be declared anywhere in the program but must be defined before the
 Parameters can be pointers.
 
 ```c
-
 #include <stdio.h>
 
 // swap the values of two variables
@@ -429,7 +555,6 @@ int main(void)
 
   printf("a: %d | b: %d\n", a, b); // a: 20 | b: 10
 }
-
 ```
 
 ## Scope
@@ -500,19 +625,21 @@ int main(void)
 
 ## Enumerated Types
 
+This is how to create a named enum type. If I want real booleans, I should usually use `stdbool.h` instead.
+
 ```c
 #include <stdio.h>
 
 typedef enum
 {
-  true,
-  false
+  false,
+  true
 } BOOLEAN;
 
 int main(void)
 {
   BOOLEAN isTrue = true;
-  printf("isTrue: %d\n", isTrue); // 0
+  printf("isTrue: %d\n", isTrue); // 1
 }
 ```
 
@@ -571,7 +698,7 @@ int main(void)
 
 ```
 
-Structures are passed by copy
+Structures are passed by copy.
 
 ## Typedef Structures
 
@@ -669,7 +796,7 @@ int main(void)
 {
   struct Date today = {26, 4, 2020};
 
-  printf("size of today: %lu\n", sizeof(today)); // 4
+  printf("size of today: %zu\n", sizeof(today)); // 4
   printf("day: %d\n", today.day); // 26
   printf("month: %d\n", today.month); // 4
   printf("year: %d\n", today.year); // 2020
@@ -680,7 +807,7 @@ int main(void)
 ## Command line parameters
 
 Sometimes you want to pass parameters to your program when you run it.
-In this case instead of using `int main(void)` you can use `int main(int argc, char *argv[])`.
+In this case, instead of using `int main(void)`, you can use `int main(int argc, char *argv[])`.
 
 - `argc` is the number of arguments passed to the program
 - `argv` is an array of strings containing the arguments passed to the program
@@ -752,8 +879,9 @@ There are a few directives that the preprocessor uses to modify the source code 
 - `#elif` - alternative for `#if`
 - `#endif` - ends a conditional block
 - `#error` - prints an error message
-- `#pragma` - implementation defined directive
-  and more...
+- `#pragma` - implementation-defined directive
+
+And more...
 
 ```c
 #include <stdio.h>
@@ -773,7 +901,7 @@ In the case below, the preprocessor will replace `DEBUG` with `0` and the compil
 ```c
 #include <stdio.h>
 
-const int DEBUG = 0;
+#define DEBUG 0
 
 int main(void) {
 #if DEBUG == 0
@@ -841,3 +969,36 @@ int main(void) {
   printf("Line: %d\n", __LINE__);
 }
 ```
+
+## What I should practice next
+
+This note covers a lot of surface area, but reading is not enough. To get solid at C, I need to write small programs that force me to deal with memory, files, and errors.
+
+Good practice projects:
+
+- write a calculator that parses command line arguments
+- write a dynamic array for integers with `push`, `get`, and `free`
+- write a string helper that copies, trims, and compares strings
+- read a text file line by line and count words
+- implement a linked list
+- implement a hash table
+- write tests for tiny functions
+- compile every program with `-Wall -Wextra -pedantic`
+- run programs with sanitizers when available
+
+Sanitizers can catch memory bugs while I am learning:
+
+```bash
+gcc -Wall -Wextra -pedantic -fsanitize=address,undefined main.c -o main
+```
+
+That is not a replacement for understanding memory, but it gives me better feedback when I mess up.
+
+The main things I want burned into my brain:
+
+- know who owns memory
+- know when memory stops being valid
+- check return values
+- keep headers and source files organized
+- avoid undefined behavior
+- let compiler warnings teach me
