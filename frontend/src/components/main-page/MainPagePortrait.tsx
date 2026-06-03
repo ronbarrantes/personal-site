@@ -31,7 +31,7 @@ export const MainPagePortrait = ({ mobile = false }: MainPagePortraitProps) => {
     return (
       <div className="w-[40%] shrink-0 md:hidden">
         <div
-          className="relative h-full border-4"
+          className="relative h-full min-h-48 overflow-hidden border-4"
           style={{
             borderColor: "var(--ink)",
             boxShadow: "6px 6px 0 var(--accent)",

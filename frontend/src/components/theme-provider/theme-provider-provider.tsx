@@ -3,44 +3,74 @@ import { useEffect, useState } from "react";
 import { ThemeProviderContext } from "./theme-provider-context";
 import type { Theme, ThemeProviderProps } from "./theme-provider-types";
 
-const isTheme = (value: string | null) =>
+const isTheme = (value: string | null): value is Theme =>
   value === "dark" || value === "light" || value === "system";
+
+function getSystemTheme() {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+function getStoredTheme(storageKey: string, defaultTheme: Theme) {
+  const storedTheme = localStorage.getItem(storageKey);
+
+  return isTheme(storedTheme) ? storedTheme : defaultTheme;
+}
+
+function resolveTheme(theme: Theme) {
+  return theme === "system" ? getSystemTheme() : theme;
+}
+
+function persistTheme(theme: Theme, storageKey: string) {
+  if (theme === "system") {
+    localStorage.removeItem(storageKey);
+    document.cookie = `${storageKey}=; Path=/; Max-Age=0; SameSite=Lax`;
+    return;
+  }
+
+  localStorage.setItem(storageKey, theme);
+  document.cookie = `${storageKey}=${theme}; Path=/; Max-Age=31536000; SameSite=Lax`;
+}
 
 export function ThemeProvider({
   children,
   defaultTheme = "system",
+  initialResolvedTheme,
+  initialTheme,
   storageKey = "vite-ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(defaultTheme);
-  const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">("light");
-
-  useEffect(() => {
-    // The stored preference is only available after the server-rendered shell hydrates.
-    const storedTheme = localStorage.getItem(storageKey);
-
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTheme(isTheme(storedTheme) ? storedTheme : defaultTheme);
-  }, [defaultTheme, storageKey]);
+  const [theme, setTheme] = useState<Theme>(() => {
+    return initialTheme ?? defaultTheme;
+  });
+  const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">(() => {
+    return initialResolvedTheme ?? "light";
+  });
 
   useEffect(() => {
     const root = window.document.documentElement;
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const storedTheme = getStoredTheme(storageKey, defaultTheme);
+
+    if (!initialTheme && storedTheme !== theme) {
+      // Sync the client state with localStorage after SSR-provided initial state.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setTheme(storedTheme);
+      return;
+    }
 
     const applyTheme = (nextTheme: Theme) => {
-      const activeTheme =
-        nextTheme === "system"
-          ? mediaQuery.matches
-            ? "dark"
-            : "light"
-          : nextTheme;
+      const activeTheme = resolveTheme(nextTheme);
 
       root.classList.remove("light", "dark");
       root.classList.add(activeTheme);
+      root.style.colorScheme = activeTheme;
       setResolvedTheme(activeTheme);
     };
 
     applyTheme(theme);
+    persistTheme(theme, storageKey);
 
     if (theme !== "system") return;
 
@@ -53,18 +83,13 @@ export function ThemeProvider({
     return () => {
       mediaQuery.removeEventListener("change", handleChange);
     };
-  }, [theme]);
+  }, [defaultTheme, initialTheme, storageKey, theme]);
 
   const value = {
     theme,
     resolvedTheme,
     setTheme: (theme: Theme) => {
-      if (theme === "system") {
-        localStorage.removeItem(storageKey);
-      } else {
-        localStorage.setItem(storageKey, theme);
-      }
-
+      persistTheme(theme, storageKey);
       setTheme(theme);
     },
   };
