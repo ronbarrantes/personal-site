@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import { BlogShell } from "@/components/blog/BlogShell";
 import { isServerAuthenticated } from "@/lib/auth/server";
-import { markdownToHtml } from "@/lib/blog/markdown";
+import { renderSafeBlogMarkdown } from "@/lib/blog/markdown";
 import { getBlogPost, getBlogPosts } from "@/lib/blog/posts";
 
 type BlogPostPageProps = {
@@ -64,7 +64,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) notFound();
   if (post.isDraft && !(await isServerAuthenticated())) notFound();
 
-  const html = await markdownToHtml(post.content);
+  const html = await renderSafeBlogMarkdown(post.content);
 
   return (
     <BlogShell>

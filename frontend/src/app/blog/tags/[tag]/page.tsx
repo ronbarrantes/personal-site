@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { BlogPagination } from "@/components/blog/BlogPagination";
 import { BlogShell } from "@/components/blog/BlogShell";
+import { paginateItems } from "@/lib/blog/pagination";
 import {
   getAllBlogTags,
   getBlogPosts,
@@ -21,11 +22,6 @@ type BlogTagPageProps = {
     page?: string;
   }>;
 };
-
-function getPageNumber(value?: string) {
-  const page = Number.parseInt(value ?? "1", 10);
-  return Number.isNaN(page) || page < 1 ? 1 : page;
-}
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
@@ -70,17 +66,13 @@ export default async function BlogTagPage({
     getAllBlogTags(),
   ]);
   const { page } = await searchParams;
-  const currentPage = getPageNumber(page);
-  const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
-  const pagePosts = posts.slice(
-    (currentPage - 1) * POSTS_PER_PAGE,
-    currentPage * POSTS_PER_PAGE
-  );
+  const paginatedPosts = paginateItems(posts, {
+    page,
+    pageSize: POSTS_PER_PAGE,
+  });
 
   if (!blogTag || posts.length === 0) notFound();
-  if (totalPages > 0 && currentPage > totalPages) notFound();
-
-  const showPagination = posts.length > POSTS_PER_PAGE;
+  if (paginatedPosts.isOutOfRange) notFound();
 
   return (
     <BlogShell>
@@ -125,7 +117,7 @@ export default async function BlogTagPage({
         )}
 
         <div className="space-y-5">
-          {pagePosts.map((post) => (
+          {paginatedPosts.pageItems.map((post) => (
             <article key={post.slug} className="box p-5">
               <div className="mb-3 flex flex-wrap items-center gap-2">
                 {post.date && <span className="tag">{post.date}</span>}
@@ -154,10 +146,10 @@ export default async function BlogTagPage({
           ))}
         </div>
 
-        {showPagination && (
+        {paginatedPosts.showPagination && (
           <BlogPagination
-            currentPage={currentPage}
-            totalPages={totalPages}
+            currentPage={paginatedPosts.currentPage}
+            totalPages={paginatedPosts.totalPages}
             makeHref={(nextPage) =>
               nextPage === 1
                 ? `/blog/tags/${blogTag.slug}`
