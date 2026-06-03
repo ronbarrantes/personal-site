@@ -36,6 +36,15 @@ export default async function BlogIndexPage() {
                   {post.date && <span className="tag">{post.date}</span>}
                   <span className="tag">{post.slug}</span>
                   {post.isDraft && <span className="tag">DRAFT</span>}
+                  {post.tags.map((tag) => (
+                    <Link
+                      key={tag.slug}
+                      href={`/blog/tags/${tag.slug}`}
+                      className="tag"
+                    >
+                      #{tag.name}
+                    </Link>
+                  ))}
                 </div>
                 <h2 className="mb-3 text-4xl">{post.title}</h2>
                 {post.description && (

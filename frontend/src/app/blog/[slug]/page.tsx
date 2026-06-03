@@ -78,6 +78,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {post.date && <span className="tag">{post.date}</span>}
             <span className="tag">{post.slug}</span>
             {post.isDraft && <span className="tag">DRAFT</span>}
+            {post.tags.map((tag) => (
+              <Link
+                key={tag.slug}
+                href={`/blog/tags/${tag.slug}`}
+                className="tag"
+              >
+                #{tag.name}
+              </Link>
+            ))}
           </div>
           <h1 className="text-5xl md:text-7xl">{post.title}</h1>
           {post.description && (

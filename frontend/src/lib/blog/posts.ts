@@ -11,6 +11,13 @@ type BlogFrontmatter = {
   description?: string;
   date?: Date | string;
   draft?: boolean;
+  tag?: string | string[];
+  tags?: string | string[];
+};
+
+export type BlogTag = {
+  name: string;
+  slug: string;
 };
 
 export type BlogPost = {
@@ -19,6 +26,7 @@ export type BlogPost = {
   description: string;
   date: string;
   isDraft: boolean;
+  tags: BlogTag[];
   content: string;
 };
 
@@ -47,6 +55,7 @@ async function readPost(filename: string) {
     description: frontmatter.description || "",
     date: frontmatter.date ? formatDate(frontmatter.date) : "",
     isDraft: frontmatter.draft === true,
+    tags: normalizeTags(frontmatter.tags ?? frontmatter.tag),
     content,
   };
 }
@@ -57,6 +66,27 @@ function formatDate(date: Date | string) {
   }
 
   return date;
+}
+
+function normalizeTags(tags?: string | string[]) {
+  if (!tags) return [];
+
+  const tagValues = Array.isArray(tags) ? tags : [tags];
+  if (!tagValues.length) return [];
+
+  const uniqueTags = new Map<string, BlogTag>();
+
+  for (const tag of tagValues) {
+    const name = tag.trim();
+    if (!name) continue;
+
+    const slug = slugify(name);
+    if (!slug || uniqueTags.has(slug)) continue;
+
+    uniqueTags.set(slug, { name, slug });
+  }
+
+  return [...uniqueTags.values()];
 }
 
 export async function getBlogPosts(options: GetBlogPostsOptions = {}) {
@@ -76,4 +106,24 @@ export async function getBlogPost(
   const posts = await getBlogPosts(options);
 
   return posts.find((post) => post.slug === slug);
+}
+
+export async function getBlogTag(slug: string, options: GetBlogPostsOptions = {}) {
+  const posts = await getBlogPosts(options);
+
+  for (const post of posts) {
+    const tag = post.tags.find((entry) => entry.slug === slug);
+    if (tag) return tag;
+  }
+
+  return undefined;
+}
+
+export async function getBlogPostsByTag(
+  tagSlug: string,
+  options: GetBlogPostsOptions = {}
+) {
+  const posts = await getBlogPosts(options);
+
+  return posts.filter((post) => post.tags.some((tag) => tag.slug === tagSlug));
 }
