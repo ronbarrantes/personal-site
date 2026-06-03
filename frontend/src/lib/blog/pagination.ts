@@ -1,3 +1,5 @@
+export const BLOG_POSTS_PER_PAGE = 10;
+
 export function getPageNumber(value?: string) {
   const page = Number.parseInt(value ?? "1", 10);
 

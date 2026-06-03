@@ -4,15 +4,13 @@ import { notFound } from "next/navigation";
 
 import { BlogPagination } from "@/components/blog/BlogPagination";
 import { BlogShell } from "@/components/blog/BlogShell";
-import { paginateItems } from "@/lib/blog/pagination";
+import { BLOG_POSTS_PER_PAGE, paginateItems } from "@/lib/blog/pagination";
 import {
   getAllBlogTags,
   getBlogPosts,
   getBlogPostsByTag,
   getBlogTag,
 } from "@/lib/blog/posts";
-
-const POSTS_PER_PAGE = 15;
 
 type BlogTagPageProps = {
   params: Promise<{
@@ -68,7 +66,7 @@ export default async function BlogTagPage({
   const { page } = await searchParams;
   const paginatedPosts = paginateItems(posts, {
     page,
-    pageSize: POSTS_PER_PAGE,
+    pageSize: BLOG_POSTS_PER_PAGE,
   });
 
   if (!blogTag || posts.length === 0) notFound();
@@ -122,7 +120,6 @@ export default async function BlogTagPage({
               <div className="mb-3 flex flex-wrap items-center gap-2">
                 {post.date && <span className="tag">{post.date}</span>}
                 <span className="tag">{post.slug}</span>
-                {post.isDraft && <span className="tag">DRAFT</span>}
                 {post.tags.map((entry) => (
                   <Link
                     key={entry.slug}

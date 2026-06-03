@@ -4,10 +4,8 @@ import { notFound } from "next/navigation";
 
 import { BlogPagination } from "@/components/blog/BlogPagination";
 import { BlogShell } from "@/components/blog/BlogShell";
-import { paginateItems } from "@/lib/blog/pagination";
+import { BLOG_POSTS_PER_PAGE, paginateItems } from "@/lib/blog/pagination";
 import { getAllBlogTags, getBlogPosts } from "@/lib/blog/posts";
-
-const POSTS_PER_PAGE = 10;
 
 export const metadata: Metadata = {
   title: "Blog | RON/B.CO",
@@ -27,7 +25,7 @@ export default async function BlogIndexPage({
   const { page } = await searchParams;
   const paginatedPosts = paginateItems(posts, {
     page,
-    pageSize: POSTS_PER_PAGE,
+    pageSize: BLOG_POSTS_PER_PAGE,
   });
 
   if (paginatedPosts.isOutOfRange) notFound();
@@ -76,7 +74,6 @@ export default async function BlogIndexPage({
                   <div className="mb-3 flex flex-wrap items-center gap-2">
                     {post.date && <span className="tag">{post.date}</span>}
                     <span className="tag">{post.slug}</span>
-                    {post.isDraft && <span className="tag">DRAFT</span>}
                     {post.tags.map((tag) => (
                       <Link
                         key={tag.slug}

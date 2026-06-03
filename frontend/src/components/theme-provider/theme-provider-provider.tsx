@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ThemeProviderContext } from "./theme-provider-context";
 import type { Theme, ThemeProviderProps } from "./theme-provider-types";
 
-const isTheme = (value: string | null) =>
+const isTheme = (value: string | null): value is Theme =>
   value === "dark" || value === "light" || value === "system";
 
 function getSystemTheme() {
@@ -54,6 +54,8 @@ export function ThemeProvider({
     const storedTheme = getStoredTheme(storageKey, defaultTheme);
 
     if (!initialTheme && storedTheme !== theme) {
+      // Sync the client state with localStorage after SSR-provided initial state.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTheme(storedTheme);
       return;
     }
@@ -81,7 +83,7 @@ export function ThemeProvider({
     return () => {
       mediaQuery.removeEventListener("change", handleChange);
     };
-  }, [theme]);
+  }, [defaultTheme, initialTheme, storageKey, theme]);
 
   const value = {
     theme,

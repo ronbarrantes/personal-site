@@ -77,10 +77,7 @@ export const TopBar = ({
           </span>
         </div>
 
-        <Link
-          href="/blog"
-          className="btn hidden px-3 py-2 text-xs sm:inline-flex"
-        >
+        <Link href="/blog" className="btn px-3 py-2 text-xs">
           BLOG
         </Link>
 
