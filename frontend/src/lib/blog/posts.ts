@@ -20,6 +20,10 @@ export type BlogTag = {
   slug: string;
 };
 
+export type BlogTagSummary = BlogTag & {
+  count: number;
+};
+
 export type BlogPost = {
   slug: string;
   title: string;
@@ -117,6 +121,29 @@ export async function getBlogTag(slug: string, options: GetBlogPostsOptions = {}
   }
 
   return undefined;
+}
+
+export async function getAllBlogTags(options: GetBlogPostsOptions = {}) {
+  const posts = await getBlogPosts(options);
+  const tags = new Map<string, BlogTagSummary>();
+
+  for (const post of posts) {
+    for (const tag of post.tags) {
+      const current = tags.get(tag.slug);
+
+      if (current) {
+        current.count += 1;
+        continue;
+      }
+
+      tags.set(tag.slug, {
+        ...tag,
+        count: 1,
+      });
+    }
+  }
+
+  return [...tags.values()].sort((a, b) => a.name.localeCompare(b.name));
 }
 
 export async function getBlogPostsByTag(

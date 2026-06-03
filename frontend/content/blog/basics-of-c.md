@@ -5,6 +5,7 @@ date: 2023-07-08T11:00:00.000Z
 type: Note
 tags:
   - C
+  - learning
 ---
 
 ## Why am I writing this?

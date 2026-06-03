@@ -2,14 +2,30 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { BlogPagination } from "@/components/blog/BlogPagination";
 import { BlogShell } from "@/components/blog/BlogShell";
-import { getBlogPosts, getBlogPostsByTag, getBlogTag } from "@/lib/blog/posts";
+import {
+  getAllBlogTags,
+  getBlogPosts,
+  getBlogPostsByTag,
+  getBlogTag,
+} from "@/lib/blog/posts";
+
+const POSTS_PER_PAGE = 15;
 
 type BlogTagPageProps = {
   params: Promise<{
     tag: string;
   }>;
+  searchParams: Promise<{
+    page?: string;
+  }>;
 };
+
+function getPageNumber(value?: string) {
+  const page = Number.parseInt(value ?? "1", 10);
+  return Number.isNaN(page) || page < 1 ? 1 : page;
+}
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
@@ -43,12 +59,28 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogTagPage({ params }: BlogTagPageProps) {
+export default async function BlogTagPage({
+  params,
+  searchParams,
+}: BlogTagPageProps) {
   const { tag } = await params;
-  const posts = await getBlogPostsByTag(tag);
-  const blogTag = await getBlogTag(tag);
+  const [posts, blogTag, tags] = await Promise.all([
+    getBlogPostsByTag(tag),
+    getBlogTag(tag),
+    getAllBlogTags(),
+  ]);
+  const { page } = await searchParams;
+  const currentPage = getPageNumber(page);
+  const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+  const pagePosts = posts.slice(
+    (currentPage - 1) * POSTS_PER_PAGE,
+    currentPage * POSTS_PER_PAGE
+  );
 
   if (!blogTag || posts.length === 0) notFound();
+  if (totalPages > 0 && currentPage > totalPages) notFound();
+
+  const showPagination = posts.length > POSTS_PER_PAGE;
 
   return (
     <BlogShell>
@@ -67,8 +99,33 @@ export default async function BlogTagPage({ params }: BlogTagPageProps) {
           </p>
         </div>
 
+        {tags.length > 0 && (
+          <div className="box mb-8 p-5">
+            <div className="mb-3 text-sm font-bold uppercase">All Tags</div>
+            <div className="flex flex-wrap gap-2">
+              {tags.map((entry) => (
+                <Link
+                  key={entry.slug}
+                  href={`/blog/tags/${entry.slug}`}
+                  className="tag"
+                  style={
+                    entry.slug === blogTag.slug
+                      ? {
+                          background: "var(--accent)",
+                          color: "var(--ink)",
+                        }
+                      : undefined
+                  }
+                >
+                  #{entry.name} [{entry.count}]
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="space-y-5">
-          {posts.map((post) => (
+          {pagePosts.map((post) => (
             <article key={post.slug} className="box p-5">
               <div className="mb-3 flex flex-wrap items-center gap-2">
                 {post.date && <span className="tag">{post.date}</span>}
@@ -96,6 +153,18 @@ export default async function BlogTagPage({ params }: BlogTagPageProps) {
             </article>
           ))}
         </div>
+
+        {showPagination && (
+          <BlogPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            makeHref={(nextPage) =>
+              nextPage === 1
+                ? `/blog/tags/${blogTag.slug}`
+                : `/blog/tags/${blogTag.slug}?page=${nextPage}`
+            }
+          />
+        )}
       </section>
     </BlogShell>
   );
