@@ -1,7 +1,7 @@
 ---
 title: Basics of C
 description: "Rough notes from learning C: compiling, types, memory, pointers, structs, and the preprocessor."
-date: 2026-06-01T11:00:15.000Z
+date: 2026-05-01T10:00:15.000Z
 # image: https://upload.wikimedia.org/wikipedia/commons/a/af/Cara_de_quem_caiu_do_caminh%C3%A3o..._%28cropped%29.jpg
 tags:
   - C

@@ -1,7 +1,7 @@
 ---
 title: C Foundation Next Steps
 description: "The missing second pass for learning C: files, errors, safer strings, headers, Makefiles, debugging, and practice."
-date: 2026-06-01T11:00:10.000Z
+date: 2026-05-15T10:30:10.000Z
 tags:
   - C
   - learning

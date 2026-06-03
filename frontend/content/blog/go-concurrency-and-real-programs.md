@@ -1,7 +1,7 @@
 ---
 title: Go Concurrency and Real Programs
 description: "A practical Go follow-up: goroutines, channels, context, HTTP handlers, graceful shutdown, and real backend habits."
-date: 2026-06-01T11:00:00.000Z
+date: 2026-06-02T11:30:00.000Z
 tags:
   - Go
   - learning
