@@ -9,9 +9,9 @@ tags:
 
 ## Why Go?
 
-Go feels like a good language to learn when I want to build boring, reliable backend software.
+Go is a strong language to learn for building boring, reliable backend software.
 
-It is smaller than C in some ways because I do not need to manage memory manually, write header files, or think about pointer arithmetic. But it still makes me understand programs at a useful level: types, files, packages, errors, networking, concurrency, and deployment.
+It is smaller than C in some ways because there is no manual memory management, no header-file model, and no pointer arithmetic. But it still teaches useful fundamentals: types, files, packages, errors, networking, concurrency, and deployment.
 
 The goal of this note is not to memorize every feature. The goal is to get productive and build the right habits.
 
@@ -68,7 +68,7 @@ Common commands:
 - `go test`: run tests
 - `go fmt`: format code
 
-I like that Go has this much built into the toolchain.
+One of Go's strengths is how much of the workflow is built into the toolchain.
 
 ## Packages
 
@@ -474,9 +474,9 @@ For every project:
 - keep interfaces small
 - prefer simple package structure
 
-## My Go foundation checklist
+## Go foundation checklist
 
-Before I say I "know Go basics," I should be comfortable with:
+Before claiming a solid grasp of Go basics, these should feel comfortable:
 
 - modules and packages
 - functions and multiple returns

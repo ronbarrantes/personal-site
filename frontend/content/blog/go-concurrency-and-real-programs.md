@@ -24,7 +24,7 @@ This note is about the practical side:
 - worker pools
 - real backend habits
 
-I do not want to learn concurrency as magic. I want a clear mental model.
+Concurrency is much easier to use well when the mental model stays clear.
 
 ## Goroutines
 
@@ -59,7 +59,7 @@ Important: when `main` exits, the program exits. It does not wait for every goro
 
 ## Wait groups
 
-Use `sync.WaitGroup` when I need to wait for goroutines to finish.
+Use `sync.WaitGroup` when work needs to wait for goroutines to finish.
 
 ```go
 package main
@@ -89,7 +89,7 @@ The pattern:
 
 - `Add(1)` before starting work
 - `defer Done()` inside the goroutine
-- `Wait()` where I need to block until all work finishes
+- `Wait()` where execution should block until all work finishes
 
 ## Channels
 
@@ -181,7 +181,7 @@ This is how Go handles "wait for this, but give up if it takes out."
 
 `context.Context` carries cancellation and deadlines across function calls and goroutines.
 
-This matters a lot in servers. If a request is canceled, I want the work for that request to stop too.
+This matters a lot in servers. If a request is canceled, the work for that request should stop too.
 
 ```go
 package main
@@ -212,11 +212,11 @@ func main() {
 }
 ```
 
-Rules I want to remember:
+Useful rules:
 
 - pass `context.Context` as the first argument
 - do not store context in structs
-- call `cancel` when I create a cancelable context
+- call `cancel` when creating a cancelable context
 - check `ctx.Done()` in long-running work
 
 ## Worker pool
@@ -449,7 +449,7 @@ That is a lot, but the idea is simple:
 
 ## Project shape
 
-For a small Go service, I would start boring:
+For a small Go service, a boring structure is usually the right one:
 
 ```txt
 .
@@ -504,7 +504,7 @@ Keep config boring until it needs to be fancy.
 
 ## Real-program checklist
 
-Before I call a Go program real, I want:
+Before calling a Go program real, these should be in place:
 
 - tests for business logic
 - `go test ./...` passing
@@ -549,6 +549,6 @@ The better model:
 - contexts cancel work
 - wait groups wait for work
 - mutexes protect shared state
-- tests and race detection keep me honest
+- tests and race detection catch problems early
 
-That is the foundation I want before building bigger Go services.
+That is the foundation needed before building bigger Go services.

@@ -22,7 +22,7 @@ This one is the second pass. It covers the stuff that makes C usable in real pro
 - debugging memory bugs
 - building small practice projects
 
-If the first post is "what are the pieces?", this one is "how do I use the pieces without lying to myself?"
+If the first post is "what are the pieces?", this one is "how are those pieces used in real programs?"
 
 ## Input from the terminal
 
@@ -47,9 +47,9 @@ int main(void)
 }
 ```
 
-The important part is the return value. `scanf` tells me how many values it successfully read. If I ignore that, my program can keep going with garbage data.
+The important part is the return value. `scanf` tells the program how many values it successfully read. Ignoring that means the program can keep going with bad data.
 
-For strings, `scanf("%s", name)` is dangerous unless I limit the width, because it can overflow the buffer.
+For strings, `scanf("%s", name)` is dangerous unless the width is limited, because it can overflow the buffer.
 
 ```c
 char name[32];
@@ -89,7 +89,7 @@ What is happening:
 - `name` is a fixed-size character buffer
 - `sizeof(name)` tells `fgets` how much room it has
 - `fgets` keeps the newline if there is room
-- `strcspn` finds the newline so I can replace it with `'\0'`
+- `strcspn` finds the newline so it can be replaced with `'\0'`
 
 ## Working with files
 
@@ -130,7 +130,7 @@ Core rules:
 
 C does not throw exceptions. Most errors show up through return values.
 
-That means I need to build the habit:
+The habit is simple:
 
 ```c
 if (something_failed)
@@ -155,7 +155,7 @@ The move is to read the function docs and check the return value every time.
 
 C strings are just character arrays ending in `'\0'`.
 
-That means string functions can write past the end of a buffer if I am careless.
+That means string functions can write past the end of a buffer if they are used carelessly.
 
 This is risky:
 
@@ -183,7 +183,7 @@ int main(void)
 
 `snprintf` knows the size of the destination buffer. The output may be truncated, but it should not overflow the buffer.
 
-This is the C lesson: safer does not mean automatic. I still need to think.
+That is the C lesson: safer does not mean automatic. The programmer still has to think.
 
 ## `const` and pointers
 
@@ -197,8 +197,8 @@ const int * const c = NULL;
 
 Read it like this:
 
-- `const int *a`: pointer to a constant int; I can move the pointer, but not change the value through it
-- `int * const b`: constant pointer to an int; I can change the value, but not move the pointer
+- `const int *a`: pointer to a constant int; the pointer can move, but the value cannot be changed through it
+- `int * const b`: constant pointer to an int; the value can change, but the pointer cannot move
 - `const int * const c`: constant pointer to a constant int
 
 This matters because function parameters use this to communicate intent.
@@ -216,7 +216,7 @@ void print_name(const char *name)
 
 Plain `int`, `long`, and `short` have sizes that can vary by platform.
 
-If I need exact sizes, C gives me `stdint.h`.
+When exact sizes matter, C provides `stdint.h`.
 
 ```c
 #include <stdint.h>
@@ -238,7 +238,7 @@ Useful types:
 - `uint8_t`, `uint16_t`, `uint32_t`, `uint64_t`
 - `size_t` for sizes and indexes
 
-I should not use these everywhere just to look fancy. Use them when the exact size matters.
+These do not need to be used everywhere just to look fancy. Use them when the exact size actually matters.
 
 ## Header guards
 
@@ -360,7 +360,7 @@ On macOS, AddressSanitizer is usually the better first tool.
 
 ## Practice projects
 
-Here is the practice path I would give myself:
+Here is a good practice path:
 
 1. Hello program with command line arguments
 2. Number guessing game using `fgets`
@@ -381,11 +381,11 @@ For every project:
 - write `free` for every `malloc`
 - keep `.h` and `.c` files organized
 
-## What this is really teaching me
+## What this is really teaching
 
 C is not just "JavaScript but lower level."
 
-C is teaching me:
+C teaches:
 
 - data representation
 - memory lifetime
@@ -396,4 +396,4 @@ C is teaching me:
 - careful error handling
 - respect for undefined behavior
 
-That is the foundation I actually want.
+That is the foundation that makes later C code easier to reason about.
