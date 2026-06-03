@@ -36,7 +36,7 @@ export function BlogPagination({
   const visiblePages = getVisiblePages(currentPage, totalPages);
 
   return (
-    <div className="box mt-8 p-5">
+    <div className="mt-8 p-5">
       <div className="mb-3 text-sm font-bold uppercase">
         Page {currentPage} of {totalPages}
       </div>

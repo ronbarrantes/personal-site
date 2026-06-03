@@ -6,7 +6,7 @@ import { BlogPagination } from "@/components/blog/BlogPagination";
 import { BlogShell } from "@/components/blog/BlogShell";
 import { getAllBlogTags, getBlogPosts } from "@/lib/blog/posts";
 
-const POSTS_PER_PAGE = 15;
+const POSTS_PER_PAGE = 10;
 
 export const metadata: Metadata = {
   title: "Blog | RON/B.CO",
@@ -43,18 +43,18 @@ export default async function BlogIndexPage({
   return (
     <BlogShell>
       <section className="mx-auto max-w-5xl px-4 py-10 md:px-8">
-        <div className="mb-8 flex border border-blue-400">
+        <div className="mb-4 flex gap-6">
           <div>
             <span className="tag">WRITING</span>
-            <div className="flex border border-red-400">
+            <div className="flex">
               <h1 className="mt-4 text-6xl md:text-8xl">
                 BLOG<span style={{ color: "var(--accent)" }}>{"///"}</span>
               </h1>
             </div>
           </div>
           {tags.length > 0 && (
-            <div className="mb-8 border border-green-400 pl-5">
-              <div className="mb-3 text-sm font-bold uppercase">Tags</div>
+            <div className="mb-8">
+              <div className="mb-1 text-sm font-bold uppercase">Topics</div>
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag) => (
                   <Link
