@@ -2,6 +2,7 @@
 title: Test Blog
 description: A first Markdown post to verify blog routing and code highlighting.
 date: 2026-06-02
+draft: true
 ---
 
 # Test Blog
