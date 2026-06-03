@@ -1,7 +1,10 @@
 export const BLOG_POSTS_PER_PAGE = 10;
 
-export function getPageNumber(value?: string) {
-  const page = Number.parseInt(value ?? "1", 10);
+type PageParam = string | string[] | undefined;
+
+export function getPageNumber(value?: PageParam) {
+  const rawPage = Array.isArray(value) ? value[0] : value;
+  const page = Number.parseInt(rawPage ?? "1", 10);
 
   return Number.isNaN(page) || page < 1 ? 1 : page;
 }
@@ -20,7 +23,7 @@ export function getVisiblePages(currentPage: number, totalPages: number) {
 }
 
 type PaginateItemsOptions = {
-  page?: string;
+  page?: PageParam;
   pageSize: number;
 };
 
