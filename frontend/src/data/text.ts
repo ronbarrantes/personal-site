@@ -201,10 +201,10 @@ export const portfolioText = {
 
 export const portfolioItems: PortfolioItem[] = [
   {
-    name: "ReqGo",
+    name: "PaperKoi",
     link: {
-      href: "https://reqgo.com",
-      label: "ReqGo",
+      href: "https://paperkoi.com",
+      label: "PaperKoi",
     },
     description: [
       "This is a project I'm currently working on for firms that need a cleaner way to request, collect, and keep client documents organized.",
