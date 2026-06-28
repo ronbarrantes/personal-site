@@ -61,7 +61,7 @@ That creates `go.mod`, which names the module and tracks dependencies.
 Common commands:
 
 - `go mod init`: create a module
-- `go get`: add or update dependencies
+- `go get`: add, update, or remove module requirements
 - `go mod tidy`: clean up dependencies
 - `go run`: compile and run
 - `go build`: compile
@@ -367,7 +367,9 @@ func main() {
 		fmt.Fprintln(w, "Hello from Go")
 	})
 
-	http.ListenAndServe(":8080", nil)
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		panic(err)
+	}
 }
 ```
 
@@ -383,13 +385,7 @@ Visit:
 http://localhost:8080
 ```
 
-For real programs, always check the server error:
-
-```go
-if err := http.ListenAndServe(":8080", nil); err != nil {
-	panic(err)
-}
-```
+For real programs, always check the server error.
 
 ## Tests
 

@@ -58,7 +58,7 @@ int main(void)
 }
 ```
 
-Every C program starts with `#include <stdio.h>`, which includes the standard input/output library.
+This program starts with `#include <stdio.h>` because it uses `printf`.
 Every C program has a main function, which is `int main(void)`.
 The `main()` function is the entry point for a C program.
 Sometimes a C program returns `0` at the end, but it is not necessary in this tiny example.
@@ -147,15 +147,18 @@ There are two common ways to define constants in C:
 ```c
 #include <stdio.h>
 
+#define B 20
+
 int main(void)
 {
   const int a = 10;
   printf("a: %d\n", a); // 10
 
-  #define b 20
-  printf("b: %d\n", b); // 20
+  printf("B: %d\n", B); // 20
 }
 ```
+
+Put macros at file scope, not inside functions. For ordinary values, prefer `const` when a typed variable works.
 
 ## Operators
 
@@ -341,9 +344,11 @@ The last character is called a terminator.
 To manipulate strings you can use the `string.h` library, which contains functions like:
 
 - `strlen()`: returns the length of a string
-- `strcpy()`: copies a string to another string
-- `strcat()`: concatenates two strings
+- `strcpy()`: copies a string to another string, but can overflow if the destination is too small
+- `strcat()`: concatenates two strings, but can overflow if the destination is too small
 - `strcmp()`: compares two strings
+
+For real code, prefer patterns that track the destination buffer size, such as `snprintf`, or write a helper that checks lengths before copying.
 
 ## Pointers
 
@@ -372,7 +377,7 @@ int main(void)
 }
 ```
 
-An array can often behave like a pointer to the first element of the array.
+In most expressions, an array decays to a pointer to its first element.
 
 ```c
 #include <stdio.h>
@@ -391,7 +396,7 @@ int main(void)
 }
 ```
 
-You can iterate over it using pointer arithmetic.
+You can iterate over an array using pointer arithmetic.
 
 ```c
 #include <stdio.h>
@@ -447,20 +452,21 @@ When memory size is not known until runtime, `malloc` is the standard tool.
 
 int main(void)
 {
-  int count = 5;
-  int *numbers = malloc(sizeof(int) * count);
+  size_t count = 5;
+  int *numbers = malloc(count * sizeof *numbers);
 
   if (numbers == NULL)
   {
+    perror("malloc");
     return 1;
   }
 
-  for (int i = 0; i < count; i++)
+  for (size_t i = 0; i < count; i++)
   {
-    numbers[i] = i * 2;
+    numbers[i] = (int) i * 2;
   }
 
-  for (int i = 0; i < count; i++)
+  for (size_t i = 0; i < count; i++)
   {
     printf("%d\n", numbers[i]);
   }
@@ -493,7 +499,7 @@ Undefined behavior is not just "maybe wrong output." The compiler is allowed to 
 
 ## Functions
 
-Functions are a block of code that can be called from anywhere in the program.
+Functions are blocks of code that can be called after the compiler has seen a declaration for them.
 
 ```c
 #include <stdio.h>
@@ -518,7 +524,7 @@ int main(void)
 ```
 
 Functions have a return type and may or may not take parameters.
-Functions can be declared anywhere in the program but must be defined before they are called.
+Functions should be declared before they are called. The full definition can come later if a prototype appears first.
 Parameters can be pointers.
 
 ```c
@@ -620,14 +626,14 @@ This is how to create a named enum type. For actual booleans, `stdbool.h` is usu
 
 typedef enum
 {
-  false,
-  true
-} BOOLEAN;
+  BOOL_FALSE,
+  BOOL_TRUE
+} Bool;
 
 int main(void)
 {
-  BOOLEAN isTrue = true;
-  printf("isTrue: %d\n", isTrue); // 1
+  Bool is_true = BOOL_TRUE;
+  printf("is_true: %d\n", is_true); // 1
 }
 ```
 
@@ -641,12 +647,11 @@ Structures use the word `struct` to define them.
 
 struct Person
 {
-  char *name; // pointer to a string
+  const char *name; // pointer to a string literal
   int age; // integer
 };
 
-// *name is a pointer because strings are arrays of characters and an array is a
-// pointer to the first element of the array
+// name points at the first character of a string literal.
 
 int main(void)
 {
@@ -666,7 +671,7 @@ Structures can be declared and defined at the same time.
 
 struct Person
 {
-  char *name;
+  const char *name;
   int age;
 } john, people[10], jim = {"Jim", 30}; // john is a struct Person, people is an array of struct Person and jim is a struct Person with the name Jim and age 30
 
@@ -697,13 +702,13 @@ You can create your own types using `typedef`.
 
 typedef struct
 {
-  char *name;
+  const char *name;
   int age;
-} PERSON;
+} Person;
 
 int main(void)
 {
-  PERSON person = {"John", 20};
+  Person person = {"John", 20};
 
   printf("name: %s\n", person.name); // John
   printf("age: %d\n", person.age); // 20
@@ -719,14 +724,14 @@ int main(void)
 
 typedef struct
 {
-  char *name;
+  const char *name;
   int age;
-} PERSON; // PERSON is a type
+} Person; // Person is a type
 
 int main(void)
 {
-  PERSON person = {"John", 20};
-  PERSON *p = &person;
+  Person person = {"John", 20};
+  Person *p = &person;
 
   printf("name: %s\n", p->name); // John
   printf("age: %d\n", p->age); // 20
@@ -754,21 +759,19 @@ int main(void)
   number.i = 10;
 
   printf("i: %d\n", number.i); // 10
-  printf("f: %f\n", number.f); // 0.000000
 
   number.f = 10.5;
 
-  printf("i: %d\n", number.i); // 1092616192
   printf("f: %f\n", number.f); // 10.500000
 }
 
 ```
 
-The difference between a union and a structure is that a union can only hold one value at a time.
+The difference between a union and a structure is that a union can only hold one active value at a time. Reading a different member than the one most recently written is not a portable way to convert values.
 
 ## Bit Fields
 
-Bit fields are used to store multiple values in a single byte.
+Bit fields are used to pack small integer fields into implementation-chosen storage units.
 
 ```c
 #include <stdio.h>
@@ -784,10 +787,10 @@ int main(void)
 {
   struct Date today = {26, 4, 2020};
 
-  printf("size of today: %zu\n", sizeof(today)); // 4
-  printf("day: %d\n", today.day); // 26
-  printf("month: %d\n", today.month); // 4
-  printf("year: %d\n", today.year); // 2020
+  printf("size of today: %zu\n", sizeof(today)); // platform-dependent
+  printf("day: %u\n", today.day); // 26
+  printf("month: %u\n", today.month); // 4
+  printf("year: %u\n", today.year); // 2020
 }
 
 ```
@@ -824,7 +827,12 @@ They can help to make your code more modular by separating the interface from th
 
 ```c
 // hello.h
+#ifndef HELLO_H
+#define HELLO_H
+
 void hello(void);
+
+#endif
 ```
 
 ```c
@@ -849,7 +857,7 @@ int main(void) {
 When you compile your program you need to pass all the source files to the compiler.
 
 ```bash
-gcc -o main main.c hello.c
+gcc -Wall -Wextra -pedantic main.c hello.c -o main
 ```
 
 ## Preprocessor
@@ -873,7 +881,7 @@ And more...
 
 ```c
 #include <stdio.h>
-#define PI 3.14
+#define PI 3.141592653589793
 
 int main(void)
 {
@@ -909,8 +917,8 @@ They are defined using the `#define` directive.
 ```c
 
 #include <stdio.h>
-#define PI 3.14
-#define AREA(r) (PI * r * r)
+#define PI 3.141592653589793
+#define AREA(r) (PI * (r) * (r))
 
 int main(void)
 {
@@ -919,6 +927,8 @@ int main(void)
 }
 
 ```
+
+Function-like macros are text substitution, so arguments can be evaluated more than once. Avoid passing expressions with side effects, such as `AREA(i++)`.
 
 ## If defined
 

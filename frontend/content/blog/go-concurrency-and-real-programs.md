@@ -175,7 +175,7 @@ func main() {
 }
 ```
 
-This is how Go handles "wait for this, but give up if it takes out."
+This is how Go handles "wait for this, but give up if it takes too long."
 
 ## Context
 
@@ -386,7 +386,7 @@ if err := server.ListenAndServe(); err != nil {
 }
 ```
 
-Timeouts are part of making a server real.
+Timeouts are part of making a server real. In a graceful-shutdown setup, also account for `http.ErrServerClosed` as shown below.
 
 ## Graceful shutdown
 
