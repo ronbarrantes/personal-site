@@ -60,11 +60,74 @@ That reads at most 31 characters and leaves room for the null terminator.
 
 ## Reading lines with `fgets`
 
-For most beginner programs, `fgets` is a better habit than raw string `scanf`.
+For line-based input, `fgets` is usually a better default than raw string `scanf`.
+
+The important habit is not just "use `fgets`." It is:
+
+- read into a fixed-size buffer
+- check whether the read worked
+- remove the trailing newline when it is present
+- detect when the input did not fit
+- discard the rest of an oversized line before reading again
+
+Here is a reusable pattern:
 
 ```c
 #include <stdio.h>
 #include <string.h>
+
+typedef enum
+{
+  READ_LINE_OK,
+  READ_LINE_TOO_LONG,
+  READ_LINE_EOF,
+  READ_LINE_ERROR
+} ReadLineResult;
+
+static void discard_remaining_line(FILE *stream)
+{
+  int ch;
+
+  while ((ch = fgetc(stream)) != '\n' && ch != EOF)
+  {
+  }
+}
+
+static ReadLineResult read_line(FILE *stream, char *buffer, size_t size)
+{
+  if (size == 0)
+  {
+    return READ_LINE_ERROR;
+  }
+
+  if (fgets(buffer, size, stream) == NULL)
+  {
+    return feof(stream) ? READ_LINE_EOF : READ_LINE_ERROR;
+  }
+
+  size_t newline = strcspn(buffer, "\n");
+
+  if (buffer[newline] == '\n')
+  {
+    buffer[newline] = '\0';
+    return READ_LINE_OK;
+  }
+
+  int ch = fgetc(stream);
+
+  if (ch == '\n')
+  {
+    return READ_LINE_OK;
+  }
+
+  if (ch == EOF)
+  {
+    return ferror(stream) ? READ_LINE_ERROR : READ_LINE_OK;
+  }
+
+  discard_remaining_line(stream);
+  return READ_LINE_TOO_LONG;
+}
 
 int main(void)
 {
@@ -72,15 +135,26 @@ int main(void)
 
   printf("Name: ");
 
-  if (fgets(name, sizeof(name), stdin) == NULL)
+  switch (read_line(stdin, name, sizeof(name)))
   {
-    printf("Could not read name\n");
-    return 1;
+    case READ_LINE_OK:
+      printf("Hello, %s\n", name);
+      return 0;
+
+    case READ_LINE_TOO_LONG:
+      printf("Name is too long\n");
+      return 1;
+
+    case READ_LINE_EOF:
+      printf("No input\n");
+      return 1;
+
+    case READ_LINE_ERROR:
+      perror("stdin");
+      return 1;
   }
 
-  name[strcspn(name, "\n")] = '\0';
-
-  printf("Hello, %s\n", name);
+  return 1;
 }
 ```
 
@@ -90,6 +164,11 @@ What is happening:
 - `sizeof(name)` tells `fgets` how much room it has
 - `fgets` keeps the newline if there is room
 - `strcspn` finds the newline so it can be replaced with `'\0'`
+- if there is no newline, the next character decides whether the input exactly filled the buffer or was too long
+- if the input was too long, the rest of the line is discarded
+- `read_line` separates successful input, input that was too long, end-of-file, and read errors
+
+For quick one-off programs, this may feel like a lot. For real code, the value is that the caller does not accidentally continue with half a line still waiting in the input stream.
 
 ## Working with files
 
@@ -219,6 +298,7 @@ Plain `int`, `long`, and `short` have sizes that can vary by platform.
 When exact sizes matter, C provides `stdint.h`.
 
 ```c
+#include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
 
@@ -227,8 +307,8 @@ int main(void)
   int32_t score = 100;
   uint8_t byte = 255;
 
-  printf("score: %d\n", score);
-  printf("byte: %u\n", byte);
+  printf("score: %" PRId32 "\n", score);
+  printf("byte: %" PRIu8 "\n", byte);
 }
 ```
 
@@ -239,6 +319,8 @@ Useful types:
 - `size_t` for sizes and indexes
 
 These do not need to be used everywhere just to look fancy. Use them when the exact size actually matters.
+
+When printing the fixed-width integer types, `inttypes.h` provides matching format macros like `PRId32` and `PRIu8`.
 
 ## Header guards
 
@@ -378,7 +460,7 @@ For every project:
 - compile with warnings
 - check return values
 - run with sanitizers
-- write `free` for every `malloc`
+- pair every `malloc` with a matching `free`
 - keep `.h` and `.c` files organized
 
 ## What this is really teaching
