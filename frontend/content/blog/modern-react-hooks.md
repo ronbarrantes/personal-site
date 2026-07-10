@@ -1,6 +1,6 @@
 ---
 title: Modern React Hooks
-description: "A practical guide to the React hooks that matter now: state, refs, memoization, transitions, deferred values, IDs, and when to stop reaching for useEffect."
+description: "A practical guide to classic and modern React hooks: state, refs, effects, transitions, deferred values, use(), useOptimistic, useActionState, and when to stop reaching for useEffect."
 date: 2026-07-10T16:05:00.000Z
 tags:
   - React
@@ -25,6 +25,8 @@ The short version:
 - `useEffect` is still useful, but people reach for it way too often
 - `useTransition` and `useDeferredValue` help with perceived responsiveness
 - `useId` solves a real accessibility problem cleanly
+- `use()` changes how async data can flow through render with Suspense
+- `useOptimistic` and `useActionState` make mutation and form flows feel more modern
 - server components, framework data APIs, and better architecture should remove some old hook-heavy patterns
 
 ## The mental model first
@@ -43,6 +45,48 @@ If a piece of logic is purely derived from props and state, it usually should no
 If a value needs to survive renders but should not trigger a rerender, it probably belongs in a ref.
 
 If an update is correct but feels slow, it might be a transition problem instead of a state problem.
+
+## Classic hooks vs modern hooks
+
+A useful distinction is not "old hooks bad, new hooks good."
+
+It is more like:
+
+### Classic everyday hooks
+
+These are still the bread and butter:
+
+- `useState`
+- `useReducer`
+- `useRef`
+- `useEffect`
+- `useMemo`
+- `useCallback`
+- `useContext`
+
+These solve most day-to-day client component problems.
+
+### More modern-feeling hooks
+
+These feel more tied to the newer React model:
+
+- `useId`
+- `useTransition`
+- `useDeferredValue`
+- `use()`
+- `useOptimistic`
+- `useActionState`
+
+Why they feel modern:
+
+- they fit better with Suspense and async rendering
+- they help with responsiveness instead of only state storage
+- they match the React 19 and server-action era better
+- they reduce some of the old fetch-in-effect and mutation boilerplate
+
+The point is not to replace the classic hooks.
+
+The point is to know which newer hooks change the shape of modern React code.
 
 ## `useState`
 
@@ -457,6 +501,125 @@ export function DeferredSearch({ items }: { items: string[] }) {
 
 This keeps the input responsive while allowing the expensive UI work to trail a little.
 
+## `use()`
+
+`use()` is real, and it is one of the most important newer hooks to understand.
+
+It lets React read a promise or context during render.
+
+Conceptually:
+
+```tsx
+import { Suspense, use } from "react";
+
+function ProductName({ productPromise }: { productPromise: Promise<{ name: string }> }) {
+  const product = use(productPromise);
+  return <h1>{product.name}</h1>;
+}
+
+export function ProductPage({ productPromise }: { productPromise: Promise<{ name: string }> }) {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <ProductName productPromise={productPromise} />
+    </Suspense>
+  );
+}
+```
+
+The big idea:
+
+- if the promise is ready, React keeps rendering
+- if it is not ready, React suspends
+- a Suspense boundary can show the fallback UI
+
+This is one reason older fetch-in-`useEffect` patterns feel less central in newer React code.
+
+`use()` is especially relevant in React 19 style code, Suspense-heavy apps, and frameworks like Next.js that lean into server-driven rendering.
+
+## `useOptimistic`
+
+`useOptimistic` helps the UI feel instant while a mutation is still in flight.
+
+That means you can show the state you expect to happen before the server confirms it.
+
+```tsx
+import { useOptimistic } from "react";
+
+export function LikeButton({ initialLikes }: { initialLikes: number }) {
+  const [optimisticLikes, addOptimisticLike] = useOptimistic(
+    initialLikes,
+    (current) => current + 1,
+  );
+
+  async function handleLike() {
+    addOptimisticLike();
+    await saveLike();
+  }
+
+  return <button onClick={handleLike}>Likes: {optimisticLikes}</button>;
+}
+
+async function saveLike() {
+  return Promise.resolve();
+}
+```
+
+This is great for:
+
+- comment forms
+- likes and toggles
+- adding items to a list
+- any UI that should feel immediate
+
+It does not remove the need for real error handling, but it makes optimistic UI a first-class pattern instead of a custom pile of state.
+
+## `useActionState`
+
+`useActionState` helps manage the result and pending state of an action, especially in form-heavy flows.
+
+```tsx
+import { useActionState } from "react";
+
+type FormState = {
+  error: string | null;
+};
+
+async function submitContact(
+  previousState: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const email = String(formData.get("email") ?? "");
+
+  if (!email.includes("@")) {
+    return { error: "Enter a valid email" };
+  }
+
+  return { error: null };
+}
+
+export function ContactForm() {
+  const [state, formAction, isPending] = useActionState(submitContact, {
+    error: null,
+  });
+
+  return (
+    <form action={formAction}>
+      <input name="email" type="email" />
+      <button disabled={isPending}>Send</button>
+      {state.error ? <p>{state.error}</p> : null}
+    </form>
+  );
+}
+```
+
+This is useful when:
+
+- a form submission returns structured state
+- you want pending UI without wiring a separate pile of booleans
+- you are working in the React 19 / server action style
+
+It is another example of React trying to make async UI flows more direct.
+
 ## The hooks modern apps use less directly
 
 Modern React apps, especially in frameworks like Next.js, often rely less on some older client-side patterns.
@@ -485,6 +648,8 @@ And more of these:
 - deliberate effects
 - framework-native data flow
 - transitions for responsiveness
+- async rendering patterns like `use()`
+- mutation helpers like `useOptimistic` and `useActionState`
 - accessibility hooks like `useId`
 
 ## Common hook mistakes
@@ -541,6 +706,9 @@ When I am deciding which hook to use, this is the quick filter:
 - need stable IDs for accessibility? `useId`
 - need better responsiveness for non-urgent updates? `useTransition`
 - need to let expensive UI lag behind input a bit? `useDeferredValue`
+- need to read a promise or async value during render with Suspense? `use()`
+- need optimistic UI during a mutation? `useOptimistic`
+- need action-driven form state and pending status? `useActionState`
 - need memoization because profiling says it matters? `useMemo` or `useCallback`
 
 That is usually enough.
@@ -581,6 +749,9 @@ If you want to get sharper with modern hooks, build small examples around these 
 6. a large filtered list using `useDeferredValue`
 7. a slow tab switch using `useTransition`
 8. accessible form fields using `useId`
+9. a Suspense example that reads a promise with `use()`
+10. a like button or comment form using `useOptimistic`
+11. a form submission flow using `useActionState`
 
 That mix is more useful than memorizing every hook definition in isolation.
 
