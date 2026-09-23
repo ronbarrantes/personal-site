@@ -1,12 +1,15 @@
-import type { FormEvent } from "react";
+import type { CSSProperties, FormEvent } from "react";
 
+import { sections } from "@/data/text";
 import type { NowData } from "@/hooks/use-api";
 import { MainPageNowCard } from "./MainPageNowCard";
 import { MainPageNowDialog } from "./MainPageNowDialog";
 
+const ITEMS_PER_ROW = 3;
+const MAX_ITEMS = 6;
+
 type MainPageNowSectionProps = {
   isAuth: boolean;
-  isDark: boolean;
   items: NowData[];
   showModal: boolean;
   dialogMode: "add" | "edit";
@@ -24,7 +27,6 @@ type MainPageNowSectionProps = {
 
 export const MainPageNowSection = ({
   isAuth,
-  isDark,
   items,
   showModal,
   dialogMode,
@@ -39,50 +41,46 @@ export const MainPageNowSection = ({
   onEdit,
   onDelete,
 }: MainPageNowSectionProps) => {
-  const visibleItems = items.slice(0, 6);
+  const visibleItems = items.slice(0, MAX_ITEMS);
+  const rows = Math.max(1, Math.ceil(visibleItems.length / ITEMS_PER_ROW));
+  // Empty cells that finish the last desktop row so no gap shows through.
+  const fillerCount =
+    visibleItems.length > 0
+      ? (ITEMS_PER_ROW - (visibleItems.length % ITEMS_PER_ROW)) % ITEMS_PER_ROW
+      : 0;
 
   return (
-    <section
-      className="border-y-4"
-      style={{ borderColor: "var(--ink)", background: "var(--ink)" }}
-    >
-      <div className="mx-auto max-w-7xl px-4 py-10 md:px-8">
-        <div
-          className="mb-6 flex items-end justify-between"
-          style={{ color: "var(--bg)" }}
-        >
-          <h2 className="text-6xl md:text-8xl">
-            NOW<span style={{ color: "var(--accent)" }}>.</span>
-          </h2>
-          <div className="flex items-center gap-3">
-            <div
-              className="tag"
-              style={{ background: "var(--bg)", color: "var(--ink)" }}
+    <section className="sheet" aria-labelledby="now-h">
+      <div
+        className="cell c-3 label lav now-label"
+        style={{ "--now-rows": rows } as CSSProperties}
+      >
+        <span className="n">01</span>
+        <h2 id="now-h">{sections.now.title}</h2>
+        <p>{sections.now.sub}</p>
+        {isAuth && (
+          <div className="label-actions">
+            <button
+              type="button"
+              className="btn sm"
+              onClick={() => onOpenChange(true)}
             >
-              {visibleItems.length} ITEMS
-            </div>
-            {isAuth && (
-              <MainPageNowDialog
-                isDark={isDark}
-                isOpen={showModal}
-                mode={dialogMode}
-                title={title}
-                description={description}
-                isSubmitting={isSubmitting}
-                onOpenChange={onOpenChange}
-                onTitleChange={onTitleChange}
-                onDescriptionChange={onDescriptionChange}
-                onSubmit={onSubmit}
-              />
-            )}
-          </div>
-        </div>
-        {isLoading && (
-          <div className="mb-4 text-sm tracking-[0.15em]" style={{ color: "var(--bg)" }}>
-            FETCHING LATEST UPDATES… (COLD START CAN TAKE ~30S)
+              + Add update
+            </button>
           </div>
         )}
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      </div>
+
+      {isLoading ? (
+        <div className="cell c-9 now-state" role="status">
+          <span className="bar" aria-hidden="true" />
+          Loading the latest updates. The server can take about 30 seconds to
+          wake up.
+        </div>
+      ) : visibleItems.length === 0 ? (
+        <div className="cell c-9 now-state">Nothing posted yet.</div>
+      ) : (
+        <>
           {visibleItems.map((item) => (
             <MainPageNowCard
               key={item.id}
@@ -92,16 +90,25 @@ export const MainPageNowSection = ({
               onDelete={onDelete}
             />
           ))}
-          {items.length === 0 && (
-            <div
-              className="text-center text-xl md:col-span-2 lg:col-span-3"
-              style={{ color: "var(--bg)" }}
-            >
-              [ NO_DATA ]
-            </div>
-          )}
-        </div>
-      </div>
+          {Array.from({ length: fillerCount }, (_, index) => (
+            <div key={index} className="cell c-3 now-filler" aria-hidden="true" />
+          ))}
+        </>
+      )}
+
+      {isAuth && (
+        <MainPageNowDialog
+          isOpen={showModal}
+          mode={dialogMode}
+          title={title}
+          description={description}
+          isSubmitting={isSubmitting}
+          onOpenChange={onOpenChange}
+          onTitleChange={onTitleChange}
+          onDescriptionChange={onDescriptionChange}
+          onSubmit={onSubmit}
+        />
+      )}
     </section>
   );
 };

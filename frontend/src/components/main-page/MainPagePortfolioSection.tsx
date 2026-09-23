@@ -1,22 +1,26 @@
-import { portfolioItems } from "@/data/text";
+import type { CSSProperties } from "react";
+
+import { portfolioItems, sections } from "@/data/text";
 import { MainPagePortfolioCard } from "./MainPagePortfolioCard";
 
+const PROJECTS_PER_ROW = 2;
+
 export const MainPagePortfolioSection = () => {
+  const rows = Math.ceil(portfolioItems.length / PROJECTS_PER_ROW);
+
   return (
-    <section className="stripe border-t-4" style={{ borderColor: "var(--ink)" }}>
+    <section className="sheet" id="projects" aria-labelledby="projects-h">
       <div
-        className="mx-auto max-w-7xl border-4 px-4 py-10 md:px-8"
-        style={{ borderColor: "var(--ink)", background: "var(--bg)" }}
+        className="cell c-4 label lav projects-label"
+        style={{ "--project-rows": rows } as CSSProperties}
       >
-        <h2 className="mb-6 text-6xl md:text-8xl">
-          SHIPS<span style={{ color: "var(--accent)" }}>.</span>
-        </h2>
-        <div className="grid gap-6 md:grid-cols-2">
-          {portfolioItems.map((item, index) => (
-            <MainPagePortfolioCard key={item.name} item={item} index={index} />
-          ))}
-        </div>
+        <span className="n">04</span>
+        <h2 id="projects-h">{sections.projects.title}</h2>
+        <p>{sections.projects.sub}</p>
       </div>
+      {portfolioItems.map((item) => (
+        <MainPagePortfolioCard key={item.name} item={item} />
+      ))}
     </section>
   );
 };

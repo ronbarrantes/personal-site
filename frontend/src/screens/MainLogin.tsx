@@ -10,21 +10,14 @@ import { toast } from "sonner";
 
 import { MainLoginAuthenticatedCard } from "@/components/main-login/MainLoginAuthenticatedCard";
 import { MainLoginFormCard } from "@/components/main-login/MainLoginFormCard";
-import { PageFooter } from "@/components/shell/PageFooter";
-import { PageShell } from "@/components/shell/PageShell";
-import { TopBar } from "@/components/shell/TopBar";
-import { useTheme } from "@/components/theme-provider/theme-provider-state";
+import { SiteShell } from "@/components/shell/SiteShell";
 import { loginApi, queryKeys, useIsAuthenticated } from "@/hooks/use-api";
-import { useClock } from "@/hooks/use-clock";
 import { tryCatch } from "@/utils/try-catch";
 
 export const MainLogin = () => {
-  const { theme, resolvedTheme, setTheme } = useTheme();
-  const { date, time } = useClock();
   const { isAuth, isAuthResolved } = useIsAuthenticated();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const isDark = resolvedTheme === "dark";
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +29,7 @@ export const MainLogin = () => {
 
     const trimmedUsername = username.trim();
     if (!trimmedUsername) {
-      toast.error("USER ID IS REQUIRED");
+      toast.error("Username is required.");
       return;
     }
 
@@ -47,7 +40,7 @@ export const MainLogin = () => {
     setLoading(false);
 
     if (error) {
-      toast.error("ACCESS DENIED");
+      toast.error("That username and password didn't work.");
       setPassword("");
       return;
     }
@@ -64,7 +57,7 @@ export const MainLogin = () => {
     setLoading(false);
 
     if (error) {
-      toast.error("SIGN OUT FAILED");
+      toast.error("Sign out failed. Try again.");
       return;
     }
 
@@ -75,16 +68,20 @@ export const MainLogin = () => {
   };
 
   return (
-    <PageShell isDark={isDark}>
-      <div className="relative z-10 flex min-h-screen flex-col">
-        <TopBar
-          date={date}
-          time={time}
-          theme={theme}
-          onSetTheme={setTheme}
-        />
-        <div className="flex flex-1 items-center justify-center px-4 py-16">
-          {!isAuthResolved ? null : isAuth ? (
+    <SiteShell>
+      <section className="sheet login-sheet" aria-labelledby="login-h">
+        <div className="cell c-4 label vio">
+          <span className="n">Admin</span>
+          <h1 id="login-h">{isAuth ? "Signed in" : "Sign in"}</h1>
+          <p>Admin sign-in for posting updates to the Now section.</p>
+        </div>
+        <div className="cell c-8">
+          {!isAuthResolved ? (
+            <p className="now-state" role="status">
+              <span className="bar" aria-hidden="true" />
+              Checking your session…
+            </p>
+          ) : isAuth ? (
             <MainLoginAuthenticatedCard
               isLoading={loading}
               onLogout={handleLogout}
@@ -101,8 +98,7 @@ export const MainLogin = () => {
             />
           )}
         </div>
-        <PageFooter>© {new Date().getFullYear()} RON BARRANTES</PageFooter>
-      </div>
-    </PageShell>
+      </section>
+    </SiteShell>
   );
 };

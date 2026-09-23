@@ -6,6 +6,7 @@ import { BlogShell } from "@/components/blog/BlogShell";
 import { isServerAuthenticated } from "@/lib/auth/server";
 import { renderSafeBlogMarkdown } from "@/lib/blog/markdown";
 import { getBlogPost, getBlogPosts } from "@/lib/blog/posts";
+import { formatShortDate } from "@/utils/time";
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -68,39 +69,47 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <BlogShell>
-      <article className="mx-auto max-w-4xl px-4 py-10 md:px-8">
-        <Link href="/blog" className="btn btn-alt mb-8 text-xs">
-          BACK TO BLOG
-        </Link>
-
-        <header className="mb-8 border-b-4 pb-8" style={{ borderColor: "var(--ink)" }}>
-          <div className="mb-4 flex flex-wrap items-center gap-2">
-            {post.date && <span className="tag">{post.date}</span>}
-            <span className="tag">{post.slug}</span>
-            {post.isDraft && <span className="tag">DRAFT</span>}
-            {post.tags.map((tag) => (
-              <Link
-                key={tag.slug}
-                href={`/blog/tags/${tag.slug}`}
-                className="tag"
-              >
-                #{tag.name}
-              </Link>
-            ))}
+      <article aria-labelledby="post-h">
+        <header className="sheet">
+          <div className="cell c-3 label lav">
+            <Link className="back" href="/blog">
+              ← All posts
+            </Link>
+            <div className="post-head">
+              <div className="meta">
+                {post.date && (
+                  <time dateTime={post.date}>{formatShortDate(post.date)}</time>
+                )}
+                {post.isDraft && <span className="chip">Draft</span>}
+              </div>
+              {post.tags.length > 0 && (
+                <nav aria-label="Post topics" className="tag-list">
+                  {post.tags.map((tag) => (
+                    <Link
+                      key={tag.slug}
+                      href={`/blog/tags/${tag.slug}`}
+                      className="chip"
+                    >
+                      {tag.name}
+                    </Link>
+                  ))}
+                </nav>
+              )}
+            </div>
           </div>
-          <h1 className="text-5xl md:text-7xl">{post.title}</h1>
-          {post.description && (
-            <p className="mt-5 max-w-3xl text-base font-bold leading-relaxed md:text-lg">
-              {post.description}
-            </p>
-          )}
+          <div className="cell c-9 post-head">
+            <h1 id="post-h">{post.title}</h1>
+            {post.description && <p className="desc">{post.description}</p>}
+          </div>
         </header>
-
-        <div className="blog-reader">
-          <div
-            className="blog-prose"
-            dangerouslySetInnerHTML={{ __html: html }}
-          />
+        <div className="sheet">
+          <div className="cell c-3 post-aside" aria-hidden="true" />
+          <div className="cell c-9 prose-cell">
+            <div
+              className="blog-prose"
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
+          </div>
         </div>
       </article>
     </BlogShell>

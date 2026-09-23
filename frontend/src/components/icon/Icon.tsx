@@ -5,6 +5,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { getIconLabel } from "./icon-labels";
 import { iconFileNames, type IconsLisType } from "./icons-list-files";
 
 type IconProps = {
@@ -31,7 +32,7 @@ export const Icon = ({
       <Tooltip>
         <TooltipTrigger asChild={asChild}>{comp}</TooltipTrigger>
         <TooltipContent>
-          <p>{name}</p>
+          <p>{getIconLabel(name)}</p>
         </TooltipContent>
       </Tooltip>
     );

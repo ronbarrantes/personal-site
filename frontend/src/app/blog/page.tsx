@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { BlogPagination } from "@/components/blog/BlogPagination";
+import { BlogPostList } from "@/components/blog/BlogPostList";
 import { BlogShell } from "@/components/blog/BlogShell";
+import { sections } from "@/data/text";
 import { BLOG_POSTS_PER_PAGE, paginateItems } from "@/lib/blog/pagination";
 import { getAllBlogTags, getBlogPosts } from "@/lib/blog/posts";
 
@@ -32,82 +34,47 @@ export default async function BlogIndexPage({
 
   return (
     <BlogShell>
-      <section className="mx-auto max-w-5xl px-4 py-10 md:px-8">
-        <div className="mb-4 flex gap-6">
-          <div>
-            <span className="tag">WRITING</span>
-            <div className="flex">
-              <h1 className="mt-4 text-6xl md:text-8xl">
-                BLOG<span style={{ color: "var(--accent)" }}>{"///"}</span>
-              </h1>
-            </div>
-          </div>
+      <section className="sheet" aria-labelledby="blog-h">
+        <div className="cell c-3 label">
+          <span className="n">Blog</span>
+          <h1 id="blog-h">{sections.writing.title}</h1>
+          <p>{sections.writing.sub}</p>
           {tags.length > 0 && (
-            <div className="mb-8">
-              <div className="mb-1 text-sm font-bold uppercase">Topics</div>
-              <div className="flex flex-wrap gap-2">
-                {tags.map((tag) => (
-                  <Link
-                    key={tag.slug}
-                    href={`/blog/tags/${tag.slug}`}
-                    className="tag"
-                  >
-                    #{tag.name} [{tag.count}]
-                  </Link>
-                ))}
-              </div>
-            </div>
+            <nav aria-label="Topics" className="tag-list">
+              {tags.map((tag) => (
+                <Link
+                  key={tag.slug}
+                  href={`/blog/tags/${tag.slug}`}
+                  className="chip"
+                >
+                  {tag.name}
+                  <span aria-hidden="true">· {tag.count}</span>
+                  <span className="sr-only">
+                    ({tag.count} post{tag.count === 1 ? "" : "s"})
+                  </span>
+                </Link>
+              ))}
+            </nav>
           )}
         </div>
-
-        {posts.length === 0 ? (
-          <div className="box p-6">
-            <p className="text-sm font-bold uppercase">
-              No posts found in content/blog.
-            </p>
-          </div>
-        ) : (
-          <>
-            <div className="space-y-5">
-              {paginatedPosts.pageItems.map((post) => (
-                <article key={post.slug} className="box p-5">
-                  <div className="mb-3 flex flex-wrap items-center gap-2">
-                    {post.date && <span className="tag">{post.date}</span>}
-                    <span className="tag">{post.slug}</span>
-                    {post.tags.map((tag) => (
-                      <Link
-                        key={tag.slug}
-                        href={`/blog/tags/${tag.slug}`}
-                        className="tag"
-                      >
-                        #{tag.name}
-                      </Link>
-                    ))}
-                  </div>
-                  <h2 className="mb-3 text-4xl">{post.title}</h2>
-                  {post.description && (
-                    <p className="mb-5 max-w-3xl text-sm leading-relaxed">
-                      {post.description}
-                    </p>
-                  )}
-                  <Link href={`/blog/${post.slug}`} className="btn text-xs">
-                    READ
-                  </Link>
-                </article>
-              ))}
-            </div>
-
-            {paginatedPosts.showPagination && (
-              <BlogPagination
-                currentPage={paginatedPosts.currentPage}
-                totalPages={paginatedPosts.totalPages}
-                makeHref={(nextPage) =>
-                  nextPage === 1 ? "/blog" : `/blog?page=${nextPage}`
-                }
-              />
-            )}
-          </>
-        )}
+        <div className="cell c-9">
+          {posts.length === 0 ? (
+            <p>No posts yet.</p>
+          ) : (
+            <>
+              <BlogPostList posts={paginatedPosts.pageItems} />
+              {paginatedPosts.showPagination && (
+                <BlogPagination
+                  currentPage={paginatedPosts.currentPage}
+                  totalPages={paginatedPosts.totalPages}
+                  makeHref={(nextPage) =>
+                    nextPage === 1 ? "/blog" : `/blog?page=${nextPage}`
+                  }
+                />
+              )}
+            </>
+          )}
+        </div>
       </section>
     </BlogShell>
   );

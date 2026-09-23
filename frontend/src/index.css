@@ -1,7 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap");
-
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./styles/site.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -18,18 +17,9 @@
 }
 
 body {
-  font-family: "Fira Mono", monospace;
-  @apply bg-radial-[at_80%_0%] from-slate-200 from-10% to-fuchsia-300/30 dark:from-slate-950 dark:to-fuchsia-800/30;
-
   margin: 0;
-}
-
-h1 {
-  @apply text-5xl;
-}
-
-h2 {
-  @apply text-3xl;
+  background: var(--rb-paper);
+  font-family: var(--font-mona), system-ui, sans-serif;
 }
 
 @keyframes slide-fade-in {

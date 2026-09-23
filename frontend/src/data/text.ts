@@ -1,9 +1,69 @@
 import {
   type About,
   type PortfolioItem,
+  type SectionCopy,
+  type Service,
   type SocialLink,
   type WorkExperience,
 } from "@/lib/types";
+
+export const contactEmail = "ronbarrantes@gmail.com";
+
+export const hero = {
+  status: "Open to roles, contracts & collaborations",
+  headlineLead: "I build",
+  headlineAccent: "calm, accessible",
+  headlineTail: "web products people enjoy using.",
+  pitch:
+    "Engineer with a designer's eye. Seven years shipping React and TypeScript at places like Microsoft and early-stage startups. Now building PaperKoi and open to jobs, contracts, and people who want to make something together.",
+  photoCaption: "Ron Barrantes · UI engineer",
+};
+
+export const sections: Record<
+  "now" | "services" | "work" | "projects" | "writing" | "contact",
+  SectionCopy
+> = {
+  now: { title: "Now", sub: "What I'm working on this month." },
+  services: {
+    title: "What I bring",
+    sub: "Whether you need another engineer on the team or someone to build your idea with.",
+  },
+  work: {
+    title: "Experience",
+    sub: "Where I've worked, from design studios to Microsoft.",
+  },
+  projects: {
+    title: "Projects",
+    sub: "Things I've built for work, for family, and for fun.",
+  },
+  writing: {
+    title: "Writing",
+    sub: "Notes from what I'm learning, written for me, shared for you.",
+  },
+  contact: {
+    title: "Let's work together",
+    sub: "Hiring, or have a project in mind? I'd like to hear about it.",
+  },
+};
+
+export const services: Service[] = [
+  {
+    title: "Frontend engineering",
+    body: "I join your team, full-time or on contract, and ship React, Next.js and TypeScript interfaces that are fast, tested, and easy for the next person to pick up.",
+  },
+  {
+    title: "Accessible by default",
+    body: "Keyboard, screen reader and contrast issues caught early and fixed properly. I did this work on Azure, across every language Microsoft supports.",
+  },
+  {
+    title: "From idea to launch",
+    body: "Got an idea? I'll take it to a working product with auth, data, payments and deploys, designed so it doesn't look like a template.",
+  },
+  {
+    title: "Design and code, one person",
+    body: "I was a designer for ten years before I wrote code. I go from Figma to pull request without losing anything in between.",
+  },
+];
 
 export const about: About = {
   title: "About me",
@@ -15,41 +75,6 @@ export const about: About = {
   ],
 };
 
-export const workHistoryText = {
-  title: "Work History",
-  description: `These are some of the places I've worked`,
-};
-
-export const marqueeItems = [
-  "SHIPS CODE",
-  "TECHNOLOGY SEEKER",
-  "HJKL PILOT",
-  "DANCES SALSA",
-  "FIXES THINGS LIVE",
-  "CHRONIC TAB OPENER",
-  "BUILDS INTERFACES",
-  "ESC ATHLETE",
-  "TRAVELS LIGHT",
-  "ARCH BTW",
-  "HOME BARISTA",
-  "TILES WITH INTENT",
-  "WORKSPACE TELEPORTER",
-  "DOTFILE ALCHEMIST",
-  "RICE MECHANIC",
-  "WINDOW YEETER",
-  "FLOATS RESPONSIBLY",
-  "GAPS APPRECIATOR",
-  "DRINKS COFFEE",
-  "PULLS GOOD SHOTS",
-  "DEPLOYS WITH PURPOSE",
-  "YY WITH INTENT",
-  "PACMAN WHISPERER",
-  "MAKES DIVS BEHAVE",
-  "SPEAKS HTTP",
-  "QUERY TUNER",
-  "TRACES THE BUGS",
-];
-
 export const experienceItems: WorkExperience[] = [
   {
     employer: "Virewirx",
@@ -57,6 +82,8 @@ export const experienceItems: WorkExperience[] = [
     startDate: "7/2023",
     endDate: "10/2024",
     jobTitle: "UI Engineer",
+    summary:
+      "Built the dashboard that coordinates VR headsets, servers and apps for multi-user VR, with real-time status for every device.",
     description: [
       `Designed and created a Dashboard that manages Virewirx’s internal tool. This tool is in charge of coordinating VR headsets, computer servers, and VR applications in order to provide a high quality VR experience for multiple users, while at the same time giving real time status on each individual device`,
       `Created a configuration server that will create specific configurations depending on what kind of VR headset or computer server may be using`,
@@ -79,6 +106,8 @@ export const experienceItems: WorkExperience[] = [
     startDate: "6/2022",
     endDate: "3/2023",
     jobTitle: "Staff Software Engineer",
+    summary:
+      "Helped create and launch a learning, tutoring and recruiting platform that takes students from beginner to hired.",
     description: [
       "Worked in the creation and initial launch of the VeroSkills platform, a new learning, tutoring, and recruiting tool where a student can be taken from a beginner to getting hired.",
       "Implementing frontend, backend, and full stack features utilizing Next.js.",
@@ -106,6 +135,8 @@ export const experienceItems: WorkExperience[] = [
     startDate: "3/2022",
     endDate: "6/2022",
     jobTitle: "Software Developer Engineer - (Contractor)",
+    summary:
+      "Migrated Azure's Search-as-a-Service from KnockoutJS to React with FluentUI, localized and accessible.",
     description: [
       `Working on the migration of Azure's Search as a Service from KnockoutJS to modern ReactJS, utilizing FluentUI as the UX framework.`,
       `Creating reusable components, classes, and utilities that will later be used throughout the SaaS blades.`,
@@ -130,6 +161,8 @@ export const experienceItems: WorkExperience[] = [
     startDate: "4/2020",
     endDate: "1/2021",
     jobTitle: "Software Developer Engineer - (Contractor)",
+    summary:
+      "Worked on Azure's first migration from KnockoutJS to React and on testing for Compute, Service Fabric and Containers.",
     description: [
       `Worked in Azure's initial migration from KnockoutJS framework to the more modern React Framework.`,
       "Worked on the testing of multiple services the Azure Compute, Service Fabric, and Containers during Azure IaaS migration from their own internal tooling to MochaJS and PortalFx as Azure transitions from KnockoutJS to ReactJS.",
@@ -153,6 +186,8 @@ export const experienceItems: WorkExperience[] = [
     startDate: "9/2018",
     endDate: "4/2019",
     jobTitle: "Software Developer Internship",
+    summary:
+      "Contributed to Quoted, a social app for families, built in React Native and Rails.",
     description: [
       "Contributed to the development of Quoted, a social media application for families.",
       "The app was an MVP by the Chicago based consultant firm and it utilized React Native and Redux as a frontend technology and Ruby on Rails for its backend",
@@ -175,6 +210,8 @@ export const experienceItems: WorkExperience[] = [
     startDate: "1/2009",
     endDate: "6/2017",
     jobTitle: "Web and Graphics Designer",
+    summary:
+      "Eight years of websites, WordPress themes, posters, business cards and merch for small businesses.",
     description: [
       "Work in a myriad of areas regarding visual design. On the web, I worked creating HTML/CSS and JavaScript websites. Setting up, theming, and managing Wordpress sites.",
       "In print, I worked creating anything from business cards to event posters, as well as merchandise such as T-Shirts and Leggings",
@@ -194,14 +231,13 @@ export const experienceItems: WorkExperience[] = [
   },
 ];
 
-export const portfolioText = {
-  title: "Portfolio",
-  description: `These are some of the projects I've worked on or am currently working on`,
-};
-
 export const portfolioItems: PortfolioItem[] = [
   {
     name: "PaperKoi",
+    category: "SaaS",
+    status: "In progress",
+    summary:
+      "A cleaner way for bookkeepers, tax pros and admin-heavy firms to request, collect and organize client documents, with no more chasing files across email.",
     link: {
       href: "https://paperkoi.com",
       label: "PaperKoi",
@@ -225,6 +261,10 @@ export const portfolioItems: PortfolioItem[] = [
   },
   {
     name: "Easy Civics",
+    category: "For family",
+    status: "Live",
+    summary:
+      "Practice for the U.S. citizenship exam: 10 of the 100 official questions, multiple choice, with review screens so it never feels like a giant study packet.",
     github: "https://github.com/ronbarrantes/easy-civics",
     link: {
       href: "https://civics.ronb.co/",
@@ -246,6 +286,10 @@ export const portfolioItems: PortfolioItem[] = [
   },
   {
     name: "Matching game",
+    category: "For my kid",
+    status: "Live",
+    summary:
+      "A simple matching game I made for my 4-year-old son. He really enjoys playing it.",
     github: "https://github.com/ronbarrantes/guessing-game",
     link: {
       href: "https://match.ronb.co/",
@@ -267,6 +311,10 @@ export const portfolioItems: PortfolioItem[] = [
   },
   {
     name: "Game of Life",
+    category: "Experiment",
+    status: "Live",
+    summary:
+      "An interpretation of Conway's classic Game of Life, built with good old React, TypeScript and Tailwind.",
     github: "https://github.com/ronbarrantes/guessing-game",
     link: {
       href: "https://game-of-life.ronb.co/",
@@ -278,11 +326,6 @@ export const portfolioItems: PortfolioItem[] = [
     tools: ["react", "typescript", "tailwind", "vercel", "github", "git"],
   },
 ];
-
-export const contactText = {
-  title: "Contact me",
-  description: `Do you want to get a hold of me? Just use the buttons below to go to my socials`,
-};
 
 export const mediaLinks: SocialLink[] = [
   {

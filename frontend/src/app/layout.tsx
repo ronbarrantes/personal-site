@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Mona_Sans } from "next/font/google";
 import { cookies } from "next/headers";
 
 import type { ReactNode } from "react";
@@ -9,6 +10,12 @@ import type { Theme } from "@/components/theme-provider/theme-provider-types";
 import "@/index.css";
 
 const THEME_STORAGE_KEY = "vite-ui-theme";
+
+const monaSans = Mona_Sans({
+  subsets: ["latin"],
+  axes: ["wdth"],
+  variable: "--font-mona",
+});
 
 const isResolvedTheme = (value: string | undefined): value is "dark" | "light" =>
   value === "dark" || value === "light";
@@ -32,7 +39,9 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={initialResolvedTheme}
+      className={[monaSans.variable, initialResolvedTheme]
+        .filter(Boolean)
+        .join(" ")}
       style={initialResolvedTheme ? { colorScheme: initialResolvedTheme } : undefined}
       suppressHydrationWarning
     >

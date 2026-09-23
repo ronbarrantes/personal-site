@@ -10,26 +10,22 @@ export const MainLoginAuthenticatedCard = ({
   onGoHome,
 }: MainLoginAuthenticatedCardProps) => {
   return (
-    <div className="box w-full max-w-sm p-8">
-      <div className="tag mb-4">STATUS // AUTHENTICATED</div>
-      <h1 className="smash mb-6 text-6xl">
-        WELCOME
-        <span style={{ color: "var(--accent)" }}>.</span>
-      </h1>
-      <p className="mb-8 text-sm leading-relaxed">
-        YOU HAVE ACCESS. ALL SYSTEMS GO.
+    <div className="login-form">
+      <p>
+        You&apos;re signed in. You can add, edit and delete Now updates from the
+        home page.
       </p>
-      <div className="flex gap-3">
+      <div className="ctas">
+        <button type="button" className="btn" onClick={onGoHome}>
+          ← Home
+        </button>
         <button
           type="button"
-          className="btn"
+          className="btn o"
           onClick={onLogout}
           disabled={isLoading}
         >
-          {isLoading ? "SIGNING OUT..." : "SIGN OUT"}
-        </button>
-        <button type="button" className="btn btn-alt" onClick={onGoHome}>
-          ← HOME
+          {isLoading ? "Signing out…" : "Sign out"}
         </button>
       </div>
     </div>

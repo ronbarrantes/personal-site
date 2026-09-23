@@ -1,67 +1,35 @@
 import { Icon } from "@/components/icon";
+import { TechList } from "@/components/tech/TechList";
 import type { PortfolioItem } from "@/lib/types";
 
 type MainPagePortfolioCardProps = {
   item: PortfolioItem;
-  index: number;
 };
 
-export const MainPagePortfolioCard = ({
-  item,
-  index,
-}: MainPagePortfolioCardProps) => {
+export const MainPagePortfolioCard = ({ item }: MainPagePortfolioCardProps) => {
   return (
-    <article className="box flex h-full flex-col p-5">
-      <div className="mb-3 flex items-center justify-between">
-        <span
-          className="text-5xl"
-          style={{ fontFamily: "Archivo Black", color: "var(--accent)" }}
-        >
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <div className="flex gap-2">
-          {item.github && (
-            <a
-              href={item.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn text-xs"
-            >
-              <Icon name="github" />
-              SRC
-            </a>
-          )}
-          {item.link && (
-            <a
-              href={item.link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-alt text-xs"
-            >
-              <Icon name="link" />
-              LIVE
-            </a>
-          )}
+    <article className="cell c-4 proj">
+      {(item.category || item.status) && (
+        <div className="top">
+          <span>{item.category}</span>
+          <span className="st">{item.status}</span>
         </div>
-      </div>
-      <h3 className="mb-3 text-3xl">{item.name}</h3>
-      <div className="mb-4 space-y-3">
-        {item.description.map((paragraph, index) => (
-          <p
-            key={`${item.name}-desc-${index}`}
-            className="text-sm leading-relaxed"
-          >
-            {paragraph}
-          </p>
-        ))}
-      </div>
-      <div
-        className="mt-auto flex flex-wrap gap-2 border-t-2 pt-3"
-        style={{ borderColor: "var(--ink)" }}
-      >
-        {item.tools.map((tool) => (
-          <Icon key={tool} tooltip name={tool} className="size-5" />
-        ))}
+      )}
+      <h3>{item.name}</h3>
+      <p>{item.summary ?? item.description[0]}</p>
+      <TechList tools={item.tools} />
+      <div className="links">
+        {item.link && (
+          <a href={item.link.href} target="_blank" rel="noopener noreferrer">
+            Visit<span className="sr-only"> {item.name}</span> ↗
+          </a>
+        )}
+        {item.github && (
+          <a href={item.github} target="_blank" rel="noopener noreferrer">
+            <Icon name="github" />
+            Source<span className="sr-only"> for {item.name}</span>
+          </a>
+        )}
       </div>
     </article>
   );
