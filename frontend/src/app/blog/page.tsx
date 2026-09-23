@@ -11,7 +11,7 @@ import { getAllBlogTags, getBlogPosts } from "@/lib/blog/posts";
 
 export const metadata: Metadata = {
   title: "Blog | RON/B.CO",
-  description: "Writing from Ron Barrantes.",
+  description: "Blog posts from Ron Barrantes.",
 };
 
 type BlogIndexPageProps = {
@@ -36,7 +36,6 @@ export default async function BlogIndexPage({
     <BlogShell>
       <section className="sheet" aria-labelledby="blog-h">
         <div className="cell c-3 label">
-          <span className="n">Blog</span>
           <h1 id="blog-h">{sections.writing.title}</h1>
           <p>{sections.writing.sub}</p>
           {tags.length > 0 && (

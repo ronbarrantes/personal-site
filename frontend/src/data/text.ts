@@ -37,7 +37,7 @@ export const sections: Record<
     sub: "Things I've built for work, for family, and for fun.",
   },
   writing: {
-    title: "Writing",
+    title: "Blog",
     sub: "Notes from what I'm learning, written for me, shared for you.",
   },
   contact: {

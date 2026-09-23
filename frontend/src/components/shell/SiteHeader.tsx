@@ -8,7 +8,7 @@ import { ThemeToggle } from "./ThemeToggle";
 const NAV_LINKS = [
   { href: "/#work", label: "Experience" },
   { href: "/#projects", label: "Projects" },
-  { href: "/blog", label: "Writing" },
+  { href: "/blog", label: "Blog" },
 ];
 
 export const SiteHeader = () => {
