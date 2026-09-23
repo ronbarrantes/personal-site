@@ -1,35 +1,217 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Design concepts — Ron Barrantes</title>
-  <link rel="stylesheet" href="gallery.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design Concepts — ronb.co</title>
+<style>
+  :root {
+    --bg: #121214; --panel: #1b1b1f; --panel-2: #26262c; --line: #34343c;
+    --text: #ececf1; --muted: #a2a2ad; --accent: #ffd166;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 14px/1.4 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  button, a, textarea { font: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .app { display: grid; grid-template-rows: auto 1fr; height: 100vh; }
+
+  .bar { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: var(--panel); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .bar h1 { font-size: 13px; font-weight: 700; margin: 0 6px 0 0; color: var(--muted); letter-spacing: .02em; white-space: nowrap; }
+  .group { display: flex; gap: 2px; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 3px; }
+  .group button, .group a {
+    border: 0; background: none; color: var(--muted); padding: 6px 10px; border-radius: 7px; cursor: pointer; text-decoration: none; white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 6px; min-height: 30px;
+  }
+  .group button:hover, .group a:hover { color: var(--text); background: var(--panel-2); }
+  .group [aria-pressed="true"] { background: var(--text); color: var(--bg); font-weight: 700; }
+  .group .n { font-weight: 800; opacity: .7; }
+  .rnd { font-size: 10px; font-weight: 800; color: var(--accent); margin-right: 2px; }
+  .verdict-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+  .spacer { flex: 1; }
+  kbd { font: 11px/1 ui-monospace, monospace; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 2px 5px; color: var(--muted); }
+  .hint { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  @media (max-width: 1100px) { .hint, .concepts .name { display: none; } }
+
+  .stage { display: grid; grid-template-columns: 1fr; min-height: 0; }
+  .stage.with-notes { grid-template-columns: 1fr 340px; }
+  .viewport { overflow: auto; display: flex; justify-content: center; background: #0b0b0d; min-height: 0; }
+  iframe { border: 0; background: #fff; width: 100%; height: 100%; display: block; transition: width .25s ease; }
+  .viewport[data-w="tablet"] iframe { width: 820px; border-inline: 1px solid var(--line); }
+  .viewport[data-w="phone"] iframe { width: 390px; border-inline: 1px solid var(--line); }
+
+  .notes { background: var(--panel); border-left: 1px solid var(--line); padding: 16px; overflow: auto; display: none; flex-direction: column; gap: 14px; }
+  .with-notes .notes { display: flex; }
+  .notes h2 { margin: 0; font-size: 18px; }
+  .notes .tag { color: var(--accent); font-weight: 700; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+  .notes p { margin: 0; color: var(--muted); }
+  .notes ul { margin: 0; padding-left: 18px; color: var(--muted); }
+  .notes li { margin-bottom: 4px; }
+  .notes h3 { margin: 4px 0 0; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  .verdict { display: flex; gap: 6px; }
+  .verdict button { flex: 1; background: var(--panel-2); border: 1px solid var(--line); color: var(--text); border-radius: 8px; padding: 8px; cursor: pointer; }
+  .verdict button[aria-pressed="true"][data-v="keep"] { background: #1f6f4a; border-color: #2e9a68; }
+  .verdict button[aria-pressed="true"][data-v="maybe"] { background: #7a5a12; border-color: #b8871c; }
+  .verdict button[aria-pressed="true"][data-v="kill"] { background: #7a2626; border-color: #b23c3c; }
+  textarea { width: 100%; min-height: 180px; resize: vertical; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 10px; }
+  .row { display: flex; gap: 8px; }
+  .btn { background: var(--accent); color: #1a1a1a; border: 0; border-radius: 8px; padding: 8px 12px; font-weight: 700; cursor: pointer; }
+  .btn.sec { background: var(--panel-2); color: var(--text); border: 1px solid var(--line); }
+  .toast { color: var(--accent); font-size: 12px; min-height: 1em; }
+</style>
 </head>
 <body>
-  <a class="skip" href="#concepts">Skip to concepts</a>
-  <header>
-    <p class="eyebrow">Ron Barrantes · visual explorations</p>
-    <h1>Three possible<br><i>directions.</i></h1>
-    <p class="intro">Click a preview to open the full standalone concept. Each one includes a homepage and a blog direction.</p>
+<div class="app">
+  <header class="bar">
+    <h1>ronb.co · concepts</h1>
+    <nav class="group concepts" aria-label="Concepts" id="concepts"></nav>
+    <div class="group" role="group" aria-label="Step">
+      <button type="button" id="prev" aria-label="Previous concept">←</button>
+      <button type="button" id="next" aria-label="Next concept">→</button>
+    </div>
+    <div class="group" role="group" aria-label="Viewport width" id="widths">
+      <button type="button" data-w="full" aria-pressed="true">Desktop</button>
+      <button type="button" data-w="tablet" aria-pressed="false">Tablet</button>
+      <button type="button" data-w="phone" aria-pressed="false">Phone</button>
+    </div>
+    <span class="spacer"></span>
+    <span class="hint"><kbd>1</kbd>–<kbd>2</kbd> <kbd>←</kbd><kbd>→</kbd> switch · <kbd>n</kbd> notes</span>
+    <div class="group">
+      <button type="button" id="toggleNotes" aria-pressed="true" aria-controls="notes">Notes</button>
+      <a id="open" href="#" target="_blank" rel="noopener">Open ↗</a>
+    </div>
   </header>
-  <main id="concepts" class="concept-grid">
-    <a class="concept concept-editorial" href="01-editorial/index.html">
-      <div class="preview"><iframe src="01-editorial/index.html" title="Preview of the Editorial design" loading="lazy"></iframe></div>
-      <div class="concept-meta"><span>01</span><h2>Editorial</h2><span class="open">Open concept ↗</span></div>
-      <p>Warm, thoughtful, and text-led. It treats the portfolio like a small independent magazine.</p>
-    </a>
-    <a class="concept concept-night" href="02-night-studio/index.html">
-      <div class="preview"><iframe src="02-night-studio/index.html" title="Preview of the Night studio design" loading="lazy"></iframe></div>
-      <div class="concept-meta"><span>02</span><h2>Night studio</h2><span class="open">Open concept ↗</span></div>
-      <p>Dark, spacious, and visual. It puts selected work in the foreground and lets the page breathe.</p>
-    </a>
-    <a class="concept concept-garden" href="03-signal-garden/index.html">
-      <div class="preview"><iframe src="03-signal-garden/index.html" title="Preview of the Signal garden design" loading="lazy"></iframe></div>
-      <div class="concept-meta"><span>03</span><h2>Signal garden</h2><span class="open">Open concept ↗</span></div>
-      <p>Bright, playful, and modular. It gives writing and project notes equal weight.</p>
-    </a>
-  </main>
-  <footer>Standalone HTML/CSS · No build step required</footer>
+
+  <div class="stage with-notes" id="stage">
+    <div class="viewport" id="viewport" data-w="full">
+      <iframe id="frame" title="Design concept preview"></iframe>
+    </div>
+    <aside class="notes" id="notes" aria-label="Concept notes">
+      <div>
+        <div class="tag" id="nTag"></div>
+        <h2 id="nTitle"></h2>
+      </div>
+      <p id="nPitch"></p>
+      <div><h3>Ideas worth stealing</h3><ul id="nIdeas"></ul></div>
+      <div><h3>Type &amp; color</h3><p id="nType"></p></div>
+      <div>
+        <h3 id="vLbl">Verdict</h3>
+        <div class="verdict" role="group" aria-labelledby="vLbl">
+          <button type="button" data-v="keep" aria-pressed="false">Keep</button>
+          <button type="button" data-v="maybe" aria-pressed="false">Maybe</button>
+          <button type="button" data-v="kill" aria-pressed="false">Kill</button>
+        </div>
+      </div>
+      <div>
+        <h3><label for="mine">Your notes (what to steal / what to drop)</label></h3>
+        <textarea id="mine" placeholder="Love the hero type. Hate the ribbon. Steal the tracklist for work history…"></textarea>
+      </div>
+      <div class="row">
+        <button class="btn" type="button" id="export">Copy all notes as markdown</button>
+      </div>
+      <p class="toast" id="toast" role="status"></p>
+    </aside>
+  </div>
+</div>
+
+<script>
+  const concepts = [
+    {
+      file: "final.html?theme=violet", name: "Light · Violet", tag: "Light mode",
+      pitch: "White, near-black ink, violet accent, lavender cells, black Experience, and Mono's black 'Let's work together' band with white choice boxes.",
+      ideas: ["Shown to visitors whose system is set to light", "Header sun/moon toggle switches modes and remembers the choice"],
+      type: "Paper #ffffff · ink #111015 · accent #5130d8 · soft #e2d9ff · closing #111015",
+    },
+    {
+      file: "final.html?theme=midnight", name: "Dark · Midnight", tag: "Dark mode",
+      pitch: "Same page inverted: near-black paper, light ink, lilac accent and lilac 'Let's work together' band (unchanged), Experience in true black.",
+      ideas: ["Shown to visitors whose system is set to dark"],
+      type: "Paper #0e0d13 · ink #f2eff8 · accent #b6a2ff · soft #1d1929 · closing #b6a2ff",
+    },
+  ];
+
+  const $ = s => document.querySelector(s);
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem("concepts:" + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem("concepts:" + k, JSON.stringify(v)); } catch {} },
+  };
+  const verdictColor = { keep: "#2e9a68", maybe: "#b8871c", kill: "#b23c3c" };
+  let idx = 0;
+
+  const nav = $("#concepts");
+  const drawNav = () => {
+    nav.innerHTML = concepts.map((c, i) => {
+      const v = store.get("verdict:" + c.file, null);
+      return `<button type="button" data-i="${i}" aria-pressed="${i === idx}"><span class="n">${i + 1}</span><span class="name">${c.name}</span>${v ? `<span class="verdict-dot" style="background:${verdictColor[v]}" title="${v}"></span><span class="sr-only" style="position:absolute;left:-9999px">(${v})</span>` : ""}</button>`;
+    }).join("");
+  };
+  nav.addEventListener("click", e => { const b = e.target.closest("button"); if (b) show(+b.dataset.i); });
+
+  const show = i => {
+    idx = (i + concepts.length) % concepts.length;
+    const c = concepts[idx];
+    $("#frame").src = c.file;
+    $("#frame").title = `Concept ${idx + 1}: ${c.name}`;
+    $("#open").href = c.file;
+    history.replaceState(null, "", "#" + (idx + 1));
+    $("#nTag").textContent = `Concept ${idx + 1} · ${c.tag}`;
+    $("#nTitle").textContent = c.name;
+    $("#nPitch").textContent = c.pitch;
+    $("#nIdeas").innerHTML = c.ideas.map(x => `<li>${x}</li>`).join("");
+    $("#nType").textContent = c.type;
+    $("#mine").value = store.get("notes:" + c.file, "");
+    const v = store.get("verdict:" + c.file, null);
+    document.querySelectorAll(".verdict button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === v));
+    drawNav();
+  };
+
+  $("#prev").onclick = () => show(idx - 1);
+  $("#next").onclick = () => show(idx + 1);
+
+  const setW = w => {
+    $("#viewport").dataset.w = w;
+    document.querySelectorAll("#widths button").forEach(b => b.setAttribute("aria-pressed", b.dataset.w === w));
+    store.set("width", w);
+  };
+  $("#widths").addEventListener("click", e => { const b = e.target.closest("button"); if (b) setW(b.dataset.w); });
+
+  const setNotes = on => {
+    $("#stage").classList.toggle("with-notes", on);
+    $("#toggleNotes").setAttribute("aria-pressed", on);
+    store.set("notesOpen", on);
+  };
+  $("#toggleNotes").onclick = () => setNotes(!$("#stage").classList.contains("with-notes"));
+
+  document.querySelector(".verdict").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    const file = concepts[idx].file, cur = store.get("verdict:" + file, null);
+    const v = cur === b.dataset.v ? null : b.dataset.v;
+    store.set("verdict:" + file, v);
+    document.querySelectorAll(".verdict button").forEach(x => x.setAttribute("aria-pressed", x.dataset.v === v));
+    drawNav();
+  });
+  $("#mine").addEventListener("input", e => store.set("notes:" + concepts[idx].file, e.target.value));
+
+  $("#export").onclick = async () => {
+    const md = "# Design concept review\n\n" + concepts.map((c, i) => {
+      const v = store.get("verdict:" + c.file, null), n = store.get("notes:" + c.file, "").trim();
+      return `## ${i + 1}. ${c.name}\n- Verdict: ${v ?? "—"}\n- Notes:${n ? "\n\n" + n : " —"}`;
+    }).join("\n\n");
+    try { await navigator.clipboard.writeText(md); $("#toast").textContent = "Copied — paste it back to Claude."; }
+    catch { $("#mine").value = md; $("#toast").textContent = "Clipboard blocked; markdown placed in the box above."; }
+    setTimeout(() => $("#toast").textContent = "", 4000);
+  };
+
+  addEventListener("keydown", e => {
+    if (e.target.closest("textarea, input") || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (/^[1-9]$/.test(e.key) && +e.key <= concepts.length) show(+e.key - 1);
+    else if (e.key === "ArrowRight" || e.key === "]") show(idx + 1);
+    else if (e.key === "ArrowLeft" || e.key === "[") show(idx - 1);
+    else if (e.key === "n") $("#toggleNotes").click();
+  });
+
+  setW(store.get("width", "full"));
+  setNotes(store.get("notesOpen", true));
+  show(Math.max(0, Math.min(concepts.length - 1, (parseInt(location.hash.slice(1), 10) || 1) - 1)));
+</script>
 </body>
 </html>

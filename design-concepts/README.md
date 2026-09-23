@@ -1,9 +1,15 @@
 # Design concepts
 
-These are standalone HTML/CSS explorations. Open any `index.html` directly in a browser. Each concept includes a homepage and a blog preview so the visual system can be judged beyond a single hero section.
+Throwaway HTML/CSS explorations for the ronb.co redesign. Nothing here ships.
 
-- `01-editorial/` — warm, text-led editorial portfolio
-- `02-night-studio/` — dark, spacious studio index with project cards
-- `03-signal-garden/` — bright, modular personal site with a playful grid
+```sh
+cd design-concepts && bunx serve .   # or: python3 -m http.server
+```
 
-They use system fonts and local content only. No build step or JavaScript is required.
+The chosen layout is `final.html`; `?theme=violet|midnight` forces light/dark (otherwise it follows the system setting or the header toggle) (all colors are role tokens at the top of its `<style>`).
+
+Open `index.html` — switch concepts with `1`–`2` / `←` `→`, toggle viewport width, leave a verdict + notes per concept, then "Copy all notes as markdown".
+
+- `assets/content.js` — shared copy (lifted from `frontend/src/data/text.ts`, DRAFT lines are new positioning copy)
+- `assets/icons.js` — tech icons as inline SVG (simple-icons + custom Convex), with labels and brand hex
+- `assets/base.css` — shared a11y baseline (skip link, sr-only, reduced motion)

@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ron Barrantes — Final</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/base.css">
+<script>
+  /* light = violet, dark = midnight. Order: ?theme= (switcher) > saved toggle > system setting. */
+  (() => {
+    const q = new URLSearchParams(location.search).get("theme");
+    let saved = null;
+    try { saved = localStorage.getItem("ronb-theme"); } catch {}
+    const t = ["violet", "midnight"].includes(q) ? q
+      : ["violet", "midnight"].includes(saved) ? saved
+      : matchMedia("(prefers-color-scheme: dark)").matches ? "midnight" : "violet";
+    document.documentElement.dataset.theme = t;
+  })();
+</script>
+<style>
+  /*
+   * Final: Grid's continuous square layout + its desktop hero, Bands' phone photo,
+   * black Experience, no scroller. Hairlines come from the grid gap.
+   * Mobile-first: 1 column → 2 at 720px → 12 at 1080px.
+   */
+  /* ---------- color roles (every theme below only sets these) ---------- */
+  :root, [data-theme="violet"] {
+    --paper: #ffffff;       /* page + cells */
+    --ink: #111015;         /* text, buttons */
+    --ink-2: #5a5764;       /* muted text */
+    --on-ink: #ffffff;      /* text on ink buttons */
+    --hair: #111015;        /* grid lines */
+    --rule: #e3e0e8;        /* soft row separators */
+    --accent: #5130d8;      /* headline words, label cell, links, photo tint */
+    --on-accent: #ffffff;
+    --on-accent-2: #e7e1ff; /* muted text on accent */
+    --soft: #e2d9ff;        /* tinted cells */
+    --on-soft: #111015;
+    --cta: #111015;         /* "Let's work together" band (black, from Mono) */
+    --on-cta: #ffffff;
+    --on-cta-2: #b8b3c4;
+    --dark: #111015;        /* Experience + choice boxes */
+    --on-dark: #ffffff;
+    --dark-2: #b3aec0;      /* muted text on dark */
+    --dark-3: #cfcad9;
+    --dark-line: #3a3744;
+    --dark-chip: #1c1a23;
+    --dark-accent: #c4b3ff; /* years, links on dark */
+    --ok: #1a9a58;
+    --choice: #ffffff; --on-choice: #111015; --choice-2: #5a5764;   /* white boxes on the black band */
+  }
+  /* dark mode */
+  [data-theme="midnight"] {
+    --paper: #0e0d13; --ink: #f2eff8; --ink-2: #aaa4b9; --on-ink: #0e0d13;
+    --hair: #2e2b3a; --rule: #262330;
+    --accent: #b6a2ff; --on-accent: #0e0d13; --on-accent-2: #2b2244;
+    --soft: #1d1929; --on-soft: #f2eff8;
+    --cta: #b6a2ff; --on-cta: #0e0d13; --on-cta-2: #2b2244;
+    --dark: #060509; --on-dark: #f2eff8; --dark-2: #aaa4b9; --dark-3: #cdc8d8; --dark-line: #2e2b3a; --dark-chip: #14121b; --dark-accent: #b6a2ff;
+    --ok: #3fd88a;
+    --choice: #0e0d13; --on-choice: #f2eff8; --choice-2: #aaa4b9;
+  }
+  :root {
+    --violet: var(--accent); --lav: var(--soft); --lav-2: var(--dark-accent);
+    --tip-bg: var(--ink); --tip-fg: var(--on-ink); --tip-radius: 0;
+    --skip-bg: var(--accent); --skip-fg: var(--on-accent);
+    --font: "Mona Sans", system-ui, sans-serif;
+    --s1: 4px; --s2: 8px; --s3: 16px; --s4: 24px; --s5: 32px; --s6: 48px;
+    --pad: clamp(20px, 3vw, 36px);
+  }
+  html { background: var(--paper); color: var(--ink); scroll-behavior: smooth; }
+  body { font: 400 1rem/1.6 var(--font); font-variation-settings: "wdth" 100; }
+  a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+  a:hover { color: var(--violet); }
+  :focus-visible { outline: 3px solid var(--violet); outline-offset: 2px; }
+  .vio :focus-visible { outline-color: var(--on-accent); } .inv :focus-visible { outline-color: var(--dark-accent); }
+  h1, h2, h3 { font-variation-settings: "wdth" 112; letter-spacing: -.02em; }
+
+  .grid { display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--hair); border-block: 1px solid var(--hair); }
+  .cell { background: var(--paper); padding: var(--pad); min-width: 0; }
+  .vio { background: var(--accent); color: var(--on-accent); }
+  .lav { background: var(--soft); color: var(--on-soft); }
+  .inv { background: var(--dark); color: var(--on-dark); }
+  @media (min-width: 720px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .full, .c-5, .c-7, .c-8, .c-9, .c-12 { grid-column: 1 / -1; }
+  }
+  @media (min-width: 720px) and (max-width: 1079px) {
+    .label, .ask, .now:last-child { grid-column: 1 / -1; }
+  }
+  @media (min-width: 1080px) {
+    .grid { grid-template-columns: repeat(12, 1fr); }
+    .c-3 { grid-column: span 3; } .c-4 { grid-column: span 4; } .c-5 { grid-column: span 5; }
+    .c-7 { grid-column: span 7; } .c-8 { grid-column: span 8; } .c-9 { grid-column: span 9; }
+    .full { grid-column: 1 / -1; }
+    .tall { grid-row: span 2; }
+  }
+
+  /* header (outside the grid, sticky) */
+  header { position: sticky; top: 0; z-index: 20; background: var(--paper); border-bottom: 1px solid var(--hair); }
+  .bar { display: grid; grid-template-columns: 1fr auto; gap: var(--s2) var(--s4); align-items: center; padding: var(--s3) var(--pad); }
+  .brand { font-weight: 800; font-variation-settings: "wdth" 118; text-decoration: none; display: inline-flex; gap: var(--s2); align-items: center; }
+  .brand i { width: 12px; height: 12px; background: var(--violet); }
+  .bar nav { grid-column: 1 / -1; }
+  .bar nav ul { display: flex; gap: var(--s4); }
+  .bar nav a { text-decoration: none; color: var(--ink-2); font-weight: 600; font-size: .95rem; display: block; padding-block: var(--s1); }
+  .bar nav a:hover { color: var(--ink); }
+  .bar > .acts { grid-row: 1; grid-column: 2; display: flex; gap: var(--s2); align-items: center; }
+  .mode { width: 40px; height: 40px; display: grid; place-items: center; background: transparent; color: var(--ink); border: 1px solid var(--ink); cursor: pointer; }
+  .mode:hover { background: var(--soft); }
+  .mode svg { width: 18px; height: 18px; }
+  .mode .sun, [data-theme="midnight"] .mode .moon { display: none; }
+  [data-theme="midnight"] .mode .sun { display: block; }
+  @media (min-width: 760px) { .bar { grid-template-columns: auto 1fr auto; } .bar nav { grid-column: 2; justify-self: center; } .bar > .acts { grid-column: 3; } }
+  @media (max-width: 759px) { header { position: static; } }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--s3); min-height: 48px; padding: 0 var(--s4); font: 700 .95rem/1 var(--font); text-decoration: none; background: var(--ink); color: var(--on-ink); border: 1px solid var(--ink); transition: background .2s, color .2s, border-color .2s; }
+  .btn:hover { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .btn.o { background: transparent; color: var(--ink); }
+  .btn.o:hover { background: var(--soft); color: var(--on-soft); border-color: var(--ink); }
+  .btn.sm { min-height: 40px; padding: 0 var(--s3); }
+
+  /* hero: phone = headline, contained 4:3 photo, pitch (Bands); desktop = text left, photo fills the right (Grid) */
+  .hero { display: grid; background: var(--paper); }
+  .h-top { padding: var(--s6) var(--pad) var(--s4); display: grid; gap: var(--s4); }
+  .h-bottom { padding: var(--s4) var(--pad) var(--s6); display: grid; gap: var(--s4); }
+  .tag { display: inline-flex; align-items: center; gap: var(--s2); font-weight: 700; font-size: .9rem; }
+  .tag::before { content: ""; width: 10px; height: 10px; background: var(--ok); }
+  .hero h1 { margin: 0; font-size: clamp(2.3rem, 6vw, 5.2rem); line-height: .96; font-weight: 850; letter-spacing: -.035em; font-variation-settings: "wdth" 100; text-wrap: balance; }
+  .hero h1 span { color: var(--violet); }
+  .hero .pitch { margin: 0; color: var(--ink-2); max-width: 50ch; font-size: 1.1rem; }
+  .ctas { display: grid; gap: var(--s2); }
+  @media (min-width: 480px) { .ctas { display: flex; flex-wrap: wrap; gap: var(--s3); } }
+  .pic { margin: 0 var(--pad); position: relative; background: var(--violet); aspect-ratio: 4 / 3; overflow: hidden; }
+  .pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; filter: grayscale(1) contrast(1.05); mix-blend-mode: luminosity; }
+  .pic figcaption { position: absolute; left: 0; bottom: 0; background: var(--paper); padding: var(--s2) var(--s3); font-size: .9rem; font-weight: 600; }
+  @media (min-width: 720px) and (max-width: 1079px) { .pic { aspect-ratio: 16 / 10; } }
+  @media (min-width: 1080px) {
+    .hero { grid-template-columns: 7fr 5fr; }
+    .h-top { grid-column: 1; grid-row: 1; align-self: end; padding-top: var(--s6); }
+    .h-bottom { grid-column: 1; grid-row: 2; }
+    .pic { grid-column: 2; grid-row: 1 / 3; margin: 0; aspect-ratio: auto; min-height: 560px; border-left: 1px solid var(--hair); }
+  }
+
+  /* label cells */
+  .label .n { font-size: .8rem; font-weight: 700; color: var(--violet); font-variant-numeric: tabular-nums; }
+  .vio.label .n { color: var(--on-accent-2); } .inv.label .n { color: var(--dark-accent); }
+  .label h2 { margin: var(--s2) 0; font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1; font-weight: 800; }
+  .label p { margin: 0; color: var(--ink-2); max-width: 34ch; }
+  .vio.label p { color: var(--on-accent-2); } .inv.label p { color: var(--dark-2); }
+  .lav.label p, .lav .note { color: var(--on-soft); opacity: .8; }
+  .label .note { margin-top: var(--s3); font-size: .85rem; }
+
+  /* now */
+  .now time { font-size: .85rem; font-weight: 700; color: var(--violet); }
+  .now h3 { margin: var(--s2) 0; font-size: 1.2rem; line-height: 1.2; font-weight: 700; }
+  .now p { margin: 0; color: var(--ink-2); }
+
+  /* what I bring: violet label + 4 cells + ask cell (the asymmetry you liked) */
+  .svc .n { font-size: 2.6rem; line-height: 1; font-weight: 200; font-variation-settings: "wdth" 75; color: var(--violet); }
+  .svc h3 { margin: var(--s3) 0 var(--s2); font-size: 1.3rem; line-height: 1.15; font-weight: 700; }
+  .svc p { margin: 0; color: var(--ink-2); }
+  .ask { display: flex; flex-direction: column; justify-content: space-between; gap: var(--s4); text-decoration: none; transition: background .2s, color .2s; }
+  .ask:hover { background: var(--accent); color: var(--on-accent); }
+  .ask b { font-size: clamp(1.4rem, 2.4vw, 1.9rem); line-height: 1.1; font-weight: 800; font-variation-settings: "wdth" 112; }
+  .ask span { font-size: 2rem; }
+
+  /* experience rows */
+  .rows > * + * { border-top: 1px solid var(--rule); }
+  .job { display: grid; gap: var(--s2) var(--s4); padding-block: var(--s4); }
+  .job:first-child { padding-top: 0; } .job:last-child { padding-bottom: 0; }
+  @media (min-width: 900px) { .job { grid-template-columns: 8rem 1fr 15rem; } }
+  .job .yr { margin: 0; font-size: 2.2rem; line-height: 1; font-weight: 250; font-variation-settings: "wdth" 80; color: var(--lav-2); }
+  .job .yr small { display: block; font-size: .85rem; line-height: 1.4; font-weight: 400; font-variation-settings: "wdth" 100; color: var(--dark-2); margin-top: var(--s1); }
+  .job h3 { margin: 0; font-size: 1.25rem; line-height: 1.2; font-weight: 700; }
+  .job .co { color: var(--ink-2); font-weight: 500; }
+  .job p { margin: var(--s2) 0 0; }
+  .job details { margin-top: var(--s2); }
+  .job summary { cursor: pointer; color: var(--violet); font-weight: 700; font-size: .9rem; width: max-content; padding-block: var(--s1); }
+  .job details ul { margin: var(--s2) 0 0; padding-left: 1.1em; color: var(--ink-2); }
+  .job details li + li { margin-top: var(--s1); }
+
+  /* experience sits on black */
+  .inv.rows > * + * { border-top-color: var(--dark-line); }
+  /* the grid's hairline is ink-on-ink here, so draw it in grey: top when stacked, left when side by side */
+  .inv.rows { box-shadow: inset 0 1px 0 var(--dark-line); }
+  @media (min-width: 1080px) { .inv.rows { box-shadow: inset 1px 0 0 var(--dark-line); } }
+  .inv .job .co { color: var(--dark-2); }
+  .inv a:hover { color: var(--lav-2); }
+  .inv .job summary { color: var(--lav-2); }
+  .inv .job details ul { color: var(--dark-3); }
+  .inv .tech { background: var(--dark-chip); color: var(--on-dark); border-color: var(--dark-line); }
+  .inv .tech:hover { background: var(--dark-accent); color: var(--dark); border-color: var(--dark-accent); }
+
+  .tech-list { display: flex; flex-wrap: wrap; gap: 6px; align-content: start; }
+  .tech { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); transition: background .15s, color .15s; }
+  .tech svg { width: 16px; height: 16px; }
+  .tech:hover { background: var(--ink); color: var(--on-ink); }
+
+  /* projects */
+  .proj { display: flex; flex-direction: column; gap: var(--s3); transition: background .2s; }
+  @media (min-width: 1080px) { .proj { min-height: 340px; } }
+  .proj:hover { background: var(--soft); color: var(--on-soft); }
+  .proj .top2 { display: flex; justify-content: space-between; gap: var(--s3); font-size: .85rem; font-weight: 700; }
+  .proj .top2 .st { color: var(--ink-2); font-weight: 500; }
+  .proj h3 { margin: auto 0 0; font-size: clamp(2rem, 3.4vw, 2.8rem); line-height: .95; font-weight: 800; font-variation-settings: "wdth" 118; }
+  .proj p { margin: 0; color: var(--ink-2); }
+  .links { display: flex; flex-wrap: wrap; gap: var(--s4); font-weight: 700; }
+  .links a { display: inline-flex; gap: var(--s2); align-items: center; padding-block: var(--s1); }
+  .links svg { width: 15px; height: 15px; }
+
+  /* toolbox, compact: a single row of icon squares, names on hover + for screen readers */
+  .tools-cell { display: grid; gap: var(--s3); align-items: center; padding-block: var(--s4); }
+  @media (min-width: 900px) { .tools-cell { grid-template-columns: 10rem 1fr; } }
+  .tools-cell h2 { margin: 0; font-size: 1rem; font-weight: 800; }
+  .tools-cell h2 small { display: block; font-weight: 500; color: var(--ink-2); font-size: .85rem; }
+
+  /* writing: compact rows */
+  .posts a { display: grid; gap: var(--s1) var(--s4); padding-block: var(--s3); text-decoration: none; }
+  .posts li:first-child a { padding-top: 0; }
+  @media (min-width: 900px) { .posts a { grid-template-columns: 8rem 1fr 11rem; align-items: baseline; } }
+  .posts time, .posts .m { font-size: .9rem; color: var(--ink-2); }
+  .posts h3 { margin: 0; font-size: 1.15rem; line-height: 1.25; font-weight: 700; }
+  .posts p { margin: var(--s1) 0 0; color: var(--ink-2); font-size: .95rem; }
+  .posts a:hover h3 { color: var(--violet); text-decoration: underline; }
+  .all { display: inline-block; margin-top: var(--s3); font-weight: 700; padding-block: var(--s1); }
+
+  /* let's work together (Night's version) */
+  .cta { background: var(--cta); color: var(--on-cta); padding-block: clamp(48px, 7vw, 88px); }
+  .cta :focus-visible { outline-color: var(--on-cta); }
+  .cta h2 { margin: 0 0 var(--s3); font-size: clamp(2.6rem, 8vw, 6.6rem); line-height: .88; font-weight: 900; font-variation-settings: "wdth" 125; text-transform: uppercase; letter-spacing: -.03em; }
+  .cta h2 span { display: block; font-weight: 300; font-variation-settings: "wdth" 75; }
+  .cta .sub { margin: 0 0 var(--s5); max-width: 48ch; color: var(--on-cta-2); }
+  .choices { display: grid; gap: var(--s2); }
+  @media (min-width: 820px) { .choices { grid-template-columns: 1fr 1fr; } }
+  .choices a { display: flex; justify-content: space-between; align-items: center; gap: var(--s4); padding: var(--s5) var(--s4); background: var(--choice); color: var(--on-choice); text-decoration: none; transition: background .2s, color .2s; }
+  .choices a:hover { background: var(--accent); color: var(--on-accent); }
+  .choices small { display: block; color: var(--choice-2); font-size: .9rem; margin-bottom: var(--s1); }
+  .choices a:hover small { color: var(--on-accent-2); }
+  .choices b { font-size: clamp(1.25rem, 2.4vw, 1.7rem); line-height: 1.1; font-weight: 800; font-variation-settings: "wdth" 108; }
+  .choices .a { font-size: 1.6rem; }
+  .cta .links { margin-top: var(--s5); gap: var(--s2) var(--s5); font-weight: 600; }
+  .cta .links a { text-decoration-color: currentColor; }
+  .cta .links a:hover { color: var(--on-cta-2); text-decoration-thickness: 2px; }
+  .cta .links svg { width: 18px; height: 18px; }
+
+  footer { display: flex; justify-content: space-between; gap: var(--s3); flex-wrap: wrap; padding: var(--s3) var(--pad); font-size: .85rem; color: var(--ink-2); }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header>
+  <div class="bar">
+    <a class="brand" href="#main"><i aria-hidden="true"></i>Ron Barrantes</a>
+    <nav aria-label="Primary"><ul>
+      <li><a href="#work">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#writing">Writing</a></li>
+    </ul></nav>
+    <div class="acts">
+      <button class="mode" type="button" id="mode" aria-pressed="false" aria-label="Dark mode">
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a class="btn sm" href="#contact">Contact</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="h-top">
+      <span class="tag">Open to roles, contracts &amp; collaborations</span>
+      <h1 id="hero-h">I build <span>calm, accessible</span> web products people enjoy using.</h1>
+    </div>
+    <figure class="pic"><img src="assets/ron.webp" alt="Portrait of Ron Barrantes smiling"><figcaption>Ron Barrantes · UI engineer</figcaption></figure>
+    <div class="h-bottom">
+      <p class="pitch" data-pitch></p>
+      <div class="ctas">
+        <a class="btn" data-mail="Job opportunity: ">Hire me →</a>
+        <a class="btn o" data-mail="Project: ">Start a project →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <!-- now -->
+    <div class="cell c-3 label lav"><span class="n">01</span><h2 id="now-h" data-t="now"></h2><p data-s="now"></p><p class="note">Live from my API; first load can take ~30s.</p></div>
+    <div data-now style="display:contents"></div>
+
+    <!-- what I bring -->
+    <div class="cell c-4 label vio"><span class="n">02</span><h2 data-t="services"></h2><p data-s="services"></p></div>
+    <div data-services style="display:contents"></div>
+    <a class="cell c-4 ask lav" data-mail="Project: "><b>Need one of these? Tell me about it.</b><span aria-hidden="true">→</span></a>
+
+    <!-- experience -->
+    <div class="cell c-3 label inv" id="work"><span class="n">03</span><h2 id="work-h" data-t="work"></h2><p data-s="work"></p></div>
+    <div class="cell c-9 rows inv" role="region" aria-labelledby="work-h" data-work></div>
+
+    <!-- projects -->
+    <div class="cell c-4 tall label lav" id="projects"><span class="n">04</span><h2 data-t="projects"></h2><p data-s="projects"></p></div>
+    <div data-projects style="display:contents"></div>
+
+    <!-- toolbox (compact) -->
+    <div class="cell full tools-cell">
+      <h2 id="tools-h">Toolbox<small>Hover an icon for its name</small></h2>
+      <ul class="tech-list" data-tools aria-labelledby="tools-h"></ul>
+    </div>
+
+    <!-- writing -->
+    <div class="cell c-3 label" id="writing"><span class="n">05</span><h2 id="w-h" data-t="writing"></h2><p data-s="writing"></p></div>
+    <div class="cell c-9" role="region" aria-labelledby="w-h"><ul class="posts rows" data-posts></ul><a class="all" href="#">All posts →</a></div>
+  </div>
+
+  <!-- let's work together (Night) -->
+  <section class="cta" id="contact" aria-labelledby="c-h">
+    <div style="padding-inline: var(--pad); max-width: 1440px; margin: 0 auto;">
+      <h2 id="c-h">Let's work<span>together</span></h2>
+      <p class="sub" data-s="contact"></p>
+      <div class="choices">
+        <a data-mail="Job opportunity: "><span><small>Have a role to fill?</small><b>Bring me onto your team</b></span><span class="a" aria-hidden="true">→</span></a>
+        <a data-mail="Project: "><span><small>Have a project or idea?</small><b>Let's build it together</b></span><span class="a" aria-hidden="true">→</span></a>
+      </div>
+      <div class="links"><a data-mail="" data-email-text></a><span data-socials style="display:contents"></span></div>
+    </div>
+  </section>
+</main>
+
+<footer><span>© <span data-year></span> Ron Barrantes</span><span>ronb.co</span></footer>
+
+<script src="assets/icons.js"></script>
+<script src="assets/content.js"></script>
+<script>
+  const R = window.RON, e = R.esc;
+  document.querySelector("[data-year]").textContent = new Date().getFullYear();
+  R.render("[data-pitch]", e(R.pitch));
+  document.querySelectorAll("[data-t]").forEach(el => el.textContent = R.sections[el.dataset.t].title);
+  document.querySelectorAll("[data-s]").forEach(el => el.textContent = R.sections[el.dataset.s].sub);
+  document.querySelectorAll("[data-mail]").forEach(a => a.href = R.mailto(a.dataset.mail));
+  document.querySelectorAll("[data-email-text]").forEach(a => a.textContent = R.email);
+  R.render("[data-socials]", R.links.map(l => `<a href="${l.href}" rel="me noopener">${R.svg(l.icon)}${l.label}</a>`).join(""));
+
+  R.render("[data-now]", R.now.map(n => `<article class="cell c-3 now"><time datetime="${n.date}">${R.fmtDate(n.date)}</time><h3>${e(n.title)}</h3><p>${e(n.desc)}</p></article>`).join(""));
+  R.render("[data-services]", R.services.map((s, i) => `<article class="cell c-4 svc"><span class="n" aria-hidden="true">0${i + 1}</span><h3>${e(s.title)}</h3><p>${e(s.body)}</p></article>`).join(""));
+
+  R.render("[data-work]", R.work.map(w => `
+    <article class="job">
+      <p class="yr">${R.year(w.start)}<small><time datetime="${R.isoMonth(w.start)}">${R.monthYear(w.start)}</time> – <time datetime="${R.isoMonth(w.end)}">${R.monthYear(w.end)}</time></small></p>
+      <div>
+        <h3>${e(w.title)} <span class="co">· ${w.url ? `<a href="${w.url}">${e(w.employer)}</a>` : e(w.employer)}</span></h3>
+        <p>${e(w.summary)}</p>
+        <details><summary>Details</summary><ul>${w.points.map(p => `<li>${e(p)}</li>`).join("")}</ul></details>
+      </div>
+      ${R.techList(w.tools)}
+    </article>`).join(""));
+
+  R.render("[data-projects]", R.projects.map(p => `
+    <article class="cell c-4 proj">
+      <div class="top2"><span>${e(p.tag)}</span><span class="st">${e(p.status)}</span></div>
+      <h3>${e(p.name)}</h3>
+      <p>${e(p.blurb)}</p>
+      ${R.techList(p.tools)}
+      <div class="links"><a href="${p.href}">Visit<span class="sr-only"> ${e(p.name)}</span> ↗</a>${p.github ? `<a href="${p.github}">${R.svg("github")}Source<span class="sr-only"> for ${e(p.name)}</span></a>` : ""}</div>
+    </article>`).join(""));
+
+  /* light/dark toggle (remembered per visitor when storage is available) */
+  const mode = document.getElementById("mode"), root = document.documentElement;
+  const syncMode = () => { const dark = root.dataset.theme === "midnight"; mode.setAttribute("aria-pressed", dark); };
+  mode.addEventListener("click", () => {
+    root.dataset.theme = root.dataset.theme === "midnight" ? "violet" : "midnight";
+    try { localStorage.setItem("ronb-theme", root.dataset.theme); } catch {}
+    syncMode();
+  });
+  syncMode();
+
+  const count = {};
+  [...R.work, ...R.projects].forEach(x => x.tools.forEach(t => count[t] = (count[t] || 0) + 1));
+  R.render("[data-tools]", Object.keys(count).sort((a, b) => count[b] - count[a]).map(k => R.tech(k)).join(""));
+
+  R.render("[data-posts]", R.posts.map(p => `
+    <li><a href="#"><time datetime="${p.date}">${R.fmtDate(p.date)}</time><div><h3>${e(p.title)}</h3><p>${e(p.desc)}</p></div><span class="m">${p.tags.map(e).join(", ")} · ${p.mins} min</span></a></li>`).join(""));
+</script>
+</body>
+</html>
