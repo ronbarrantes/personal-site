@@ -15,7 +15,7 @@ export const hero = {
   headlineAccent: "calm, accessible",
   headlineTail: "web products people enjoy using.",
   pitch:
-    "I'm a frontend engineer with a designer's eye. I've spent seven years shipping React and TypeScript at Microsoft and at early-stage startups. Right now I'm building PaperKoi, and I'm open to a full-time role, contract work, or starting something with the right people.",
+    "I'm an engineer who cares a lot about UX and accessibility. I've spent seven years shipping React and TypeScript at Microsoft and at early-stage startups. Right now I'm building PaperKoi, and I'm open to a full-time role, contract work, or starting something with the right people.",
   photoCaption: "Ron Barrantes · UI engineer",
 };
 
