@@ -2,7 +2,9 @@ import type { IconsLisType } from "./icons-list-files";
 
 // Human-readable names for icons that don't read well as their key.
 const iconLabels: Partial<Record<IconsLisType, string>> = {
+  arduino: "Arduino",
   azure: "Azure",
+  c: "C",
   clerk: "Clerk",
   convex: "Convex",
   copilot: "Copilot",

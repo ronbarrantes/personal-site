@@ -32,6 +32,8 @@ import {
 } from "react-icons/md";
 import { RiCopilotFill, RiNextjsFill, RiSupabaseLine } from "react-icons/ri";
 import {
+  SiArduino,
+  SiC,
   SiClerk,
   SiAdobeillustrator,
   SiAdobeindesign,
@@ -104,7 +106,9 @@ export const iconFileNames = {
   warning: { icon: AiOutlineWarning },
 
   // ICONS FOR TECHNOLOGIES
+  arduino: { icon: SiArduino },
   azure: { icon: TbBrandAzure },
+  c: { icon: SiC },
   clerk: { icon: SiClerk },
   convex: { icon: ConvexIcon },
   css: { icon: SiCss3 },

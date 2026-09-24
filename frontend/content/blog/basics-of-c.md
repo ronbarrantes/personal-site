@@ -10,29 +10,27 @@ tags:
 
 ## Why this exists
 
-This post is for developers who already know how to program and want a fast, practical entry point into C.
+These are my notes from learning C, for developers who already program in another language.
 
-It is not a complete textbook. It is a compact guide to the concepts that matter early: compilation, memory, pointers, structs, and the parts of the language that shape how C code actually behaves.
-
-For a deeper or more formal treatment, the original article and the language documentation are better sources. This post is meant to be the useful first pass.
+They cover what matters early: compiling, memory, pointers, structs, and the preprocessor. They are not a complete reference. For that, [cppreference's C section](https://en.cppreference.com/w/c) goes much deeper.
 
 ## What is C?
 
-C is a general-purpose programming language that is extremely popular, simple, and flexible.
+C is a small, general-purpose language from the early 1970s. It still runs operating systems, embedded devices, and anything that needs tight control over memory.
 
-At a practical level, C is worth learning because it exposes the mechanics that higher-level languages often hide. Data layout, memory lifetime, compilation, and undefined behavior are all much more visible here.
+It is worth learning because it shows the mechanics that higher-level languages hide: data layout, memory lifetime, compilation, and undefined behavior.
 
 ## Why C?
 
-For developers coming from JavaScript, Python, or Go, C is useful partly because it forces a stricter mental model. The language does not offer much protection from bad assumptions, which makes it a strong place to learn what values, pointers, arrays, and memory are really doing.
+Coming from JavaScript, Python, or Go, C forces a stricter mental model. It does not protect you from bad assumptions, so you learn what values, pointers, arrays, and memory are actually doing.
 
-The video [How I program C](https://www.youtube.com/watch?v=443UNeGrFoM) by [_Eskil Steenberg_](https://www.youtube.com/@eskilsteenberg) is a strong companion piece for anyone trying to learn the language with more intention.
+The video [How I program C](https://www.youtube.com/watch?v=443UNeGrFoM) by [_Eskil Steenberg_](https://www.youtube.com/@eskilsteenberg) is a good companion to these notes.
 
 _With that out of the way, here we go!_
 
 ## What matters most
 
-A useful foundation in C is not just syntax. The real goal is the mental model:
+The syntax is the easy part. The mental model is what takes time:
 
 - how a `.c` file becomes a program
 - what the compiler checks and what it does not check
@@ -58,7 +56,7 @@ int main(void)
 }
 ```
 
-Every C program starts with `#include <stdio.h>`, which includes the standard input/output library.
+`#include <stdio.h>` pulls in the standard input/output library, which provides `printf`.
 Every C program has a main function, which is `int main(void)`.
 The `main()` function is the entry point for a C program.
 Sometimes a C program returns `0` at the end, but it is not necessary in this tiny example.
@@ -85,7 +83,7 @@ gcc -Wall -Wextra -pedantic hello.c -o hello
 - `-Wextra` turns on more warnings
 - `-pedantic` asks the compiler to complain about non-standard C
 
-Warnings are not decoration in C. Treat them like bugs until you know exactly why they are safe.
+Treat warnings like bugs until you know exactly why they are safe.
 
 ## The build pipeline
 
@@ -216,10 +214,6 @@ There are two types of conditionals in c:
 - `if`: if statement
 - `switch`: switch statement
 
-## Ternary operator
-
-- `?:`: ternary, example `a > b ? a : b`
-
 ```c
 #include <stdio.h>
 
@@ -255,6 +249,14 @@ int main(void)
   }
 }
 
+```
+
+## Ternary operator
+
+`?:` is a compact `if`/`else` that produces a value:
+
+```c
+int max = a > b ? a : b; // 20
 ```
 
 ## Loops
@@ -489,7 +491,7 @@ Examples:
 - returning a pointer to a local variable
 - overflowing a signed integer
 
-Undefined behavior is not just "maybe wrong output." The compiler is allowed to assume it never happens, which can make bugs extremely weird.
+Undefined behavior can do more than print wrong output. The compiler is allowed to assume it never happens, which can make bugs extremely weird.
 
 ## Functions
 
@@ -518,7 +520,7 @@ int main(void)
 ```
 
 Functions have a return type and may or may not take parameters.
-Functions can be declared anywhere in the program but must be defined before they are called.
+Functions must be declared before they are called. The definition (the body) can come later in the file or in another file.
 Parameters can be pointers.
 
 ```c
@@ -613,21 +615,21 @@ int main(void)
 
 ## Enumerated Types
 
-This is how to create a named enum type. For actual booleans, `stdbool.h` is usually the better choice.
+This is how to create a named enum type. For actual booleans, use `stdbool.h` (in C23, `true` and `false` are keywords).
 
 ```c
 #include <stdio.h>
 
 typedef enum
 {
-  false,
-  true
-} BOOLEAN;
+  OFF,
+  ON
+} SWITCH_STATE;
 
 int main(void)
 {
-  BOOLEAN isTrue = true;
-  printf("isTrue: %d\n", isTrue); // 1
+  SWITCH_STATE light = ON;
+  printf("light: %d\n", light); // 1
 }
 ```
 
@@ -645,8 +647,8 @@ struct Person
   int age; // integer
 };
 
-// *name is a pointer because strings are arrays of characters and an array is a
-// pointer to the first element of the array
+// name is a pointer because a string literal like "John" is an array of characters,
+// and an array converts to a pointer to its first element
 
 int main(void)
 {
@@ -768,7 +770,7 @@ The difference between a union and a structure is that a union can only hold one
 
 ## Bit Fields
 
-Bit fields are used to store multiple values in a single byte.
+Bit fields pack several small values into fewer bytes.
 
 ```c
 #include <stdio.h>
@@ -784,7 +786,7 @@ int main(void)
 {
   struct Date today = {26, 4, 2020};
 
-  printf("size of today: %zu\n", sizeof(today)); // 4
+  printf("size of today: %zu\n", sizeof(today)); // usually 8: day and month share 4 bytes, year takes 4 more
   printf("day: %d\n", today.day); // 26
   printf("month: %d\n", today.month); // 4
   printf("year: %d\n", today.year); // 2020
@@ -922,7 +924,7 @@ int main(void)
 
 ## If defined
 
-The `#if defined` directive checks if a macro is defined.
+`#ifdef NAME` (or the longer `#if defined(NAME)`) checks whether a macro is defined.
 
 ```c
 
@@ -960,7 +962,7 @@ int main(void) {
 
 ## What to practice next
 
-This note covers a lot of surface area, but reading is not enough. The fastest way to get solid at C is to write small programs that force contact with memory, files, and error handling.
+This covers a lot, but reading is not enough. The fastest way to get solid at C is to write small programs that force contact with memory, files, and error handling.
 
 Good practice projects:
 

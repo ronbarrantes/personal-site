@@ -118,6 +118,33 @@ html.dark {
 }
 .site main {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * When a page is shorter than the screen, whatever comes last in <main> grows
+ * down to the footer, so the grid never stops halfway. Same rule for every page.
+ * Grid rows stretch into the extra height by default (the ink background only
+ * shows in the 1px gaps). For a post, the <article> passes the space on to its
+ * last grid.
+ */
+.site main > :last-child,
+.site main > article:last-child > :last-child {
+  flex: 1;
+}
+.site main > article:last-child {
+  display: flex;
+  flex-direction: column;
+}
+/*
+ * Stacked layouts (phone/tablet) with a heading cell followed by one content
+ * cell: give the extra height to the content, not the heading.
+ */
+@media (max-width: 1079px) {
+  .site main > .sheet:last-child:has(> .label:first-child + :last-child) {
+    grid-template-rows: auto 1fr;
+  }
 }
 .site a {
   color: inherit;
@@ -751,14 +778,12 @@ html.dark {
 .inv.rows > * + * {
   border-top-color: var(--rb-dark-line);
 }
-/* the grid hairline is ink-on-ink next to the dark cell, so draw it in grey */
-.inv.rows {
-  box-shadow: inset 0 1px 0 var(--rb-dark-line);
-}
-@media (min-width: 1080px) {
-  .inv.rows {
-    box-shadow: inset 1px 0 0 var(--rb-dark-line);
-  }
+/*
+ * Ink gaps disappear between dark cells, so a grid holding dark cells draws its
+ * gaps in the dark-line grey instead. Still one 1px line, same as everywhere.
+ */
+.sheet:has(> .inv) {
+  background: var(--rb-dark-line);
 }
 .site .inv a:hover {
   color: var(--rb-dark-accent);
@@ -803,9 +828,45 @@ html.dark {
 }
 
 /* ---------- projects ---------- */
+/*
+ * Cards live in their own grid beside the label. Phone: one column. Tablet: two
+ * per row, a leftover odd card spans the row. Desktop: two rows of --cols cards
+ * each (set per row), so 5 → 2 + 3 and 7 → 3 + 4 with no empty slots.
+ */
+.proj-grid {
+  padding: 0;
+  display: grid;
+  gap: 1px;
+  background: var(--rb-hair);
+}
+.proj-row {
+  display: contents;
+}
+@media (min-width: 720px) {
+  .proj-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .proj-wide {
+    grid-column: 1 / -1;
+  }
+}
 @media (min-width: 1080px) {
-  .projects-label {
-    grid-row: span var(--project-rows, 1);
+  .proj-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .proj-row {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 2), 1fr);
+    gap: 1px;
+    flex: 1;
+  }
+  .proj-wide {
+    grid-column: auto;
+  }
+  /* three or four across: smaller names so they fit */
+  .site .proj-row:is([data-cols="3"], [data-cols="4"]) .proj h3 {
+    font-size: clamp(1.6rem, 2.1vw, 2.2rem);
   }
 }
 .proj {
@@ -1184,15 +1245,6 @@ html.dark .blog-prose pre code span {
 }
 
 /* ---------- login ---------- */
-.login-sheet {
-  flex: 1;
-  align-content: start;
-}
-@media (min-width: 1080px) {
-  .login-sheet {
-    align-content: stretch;
-  }
-}
 .login-form {
   display: grid;
   gap: var(--rb-s4);

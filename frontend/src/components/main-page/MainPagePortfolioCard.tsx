@@ -4,11 +4,15 @@ import type { PortfolioItem } from "@/lib/types";
 
 type MainPagePortfolioCardProps = {
   item: PortfolioItem;
+  isWide?: boolean;
 };
 
-export const MainPagePortfolioCard = ({ item }: MainPagePortfolioCardProps) => {
+export const MainPagePortfolioCard = ({
+  item,
+  isWide = false,
+}: MainPagePortfolioCardProps) => {
   return (
-    <article className="cell c-4 proj">
+    <article className={isWide ? "cell proj proj-wide" : "cell proj"}>
       {(item.category || item.status) && (
         <div className="top">
           <span>{item.category}</span>

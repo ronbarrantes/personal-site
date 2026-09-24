@@ -69,7 +69,7 @@ export const MainLogin = () => {
 
   return (
     <SiteShell>
-      <section className="sheet login-sheet" aria-labelledby="login-h">
+      <section className="sheet" aria-labelledby="login-h">
         <div className="cell c-4 label vio">
           <span className="n">Admin</span>
           <h1 id="login-h">{isAuth ? "Signed in" : "Sign in"}</h1>

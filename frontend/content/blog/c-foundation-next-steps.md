@@ -1,6 +1,6 @@
 ---
 title: C Foundation Next Steps
-description: "The missing second pass for learning C: files, errors, safer strings, headers, Makefiles, debugging, and practice."
+description: "C notes, part two: input, files, errors, safer strings, headers, Makefiles, and debugging."
 date: 2026-05-15T10:30:10.000Z
 tags:
   - C
@@ -9,9 +9,9 @@ tags:
 
 ## Why this exists
 
-The first C post is a broad sweep through the basics: types, pointers, structs, memory, and the preprocessor.
+[Basics of C](/blog/basics-of-c) covers the basics: types, pointers, structs, memory, and the preprocessor.
 
-This one is the second pass. It covers the stuff that makes C usable in real programs:
+This one is the second pass. It covers what comes next:
 
 - reading input without hurting myself
 - working with files
@@ -22,7 +22,7 @@ This one is the second pass. It covers the stuff that makes C usable in real pro
 - debugging memory bugs
 - building small practice projects
 
-If the first post is "what are the pieces?", this one is "how are those pieces used in real programs?"
+If the first post is "what are the pieces?", this one is "how do they fit together?"
 
 ## Input from the terminal
 
@@ -147,9 +147,7 @@ Common patterns:
 - functions return `0` for success in some APIs
 - functions return nonzero for failure in other APIs
 
-Annoying? Yes. Important? Also yes.
-
-The move is to read the function docs and check the return value every time.
+Read the docs for each function to know which convention it uses, and check the return value every time.
 
 ## Safer strings
 
@@ -183,7 +181,7 @@ int main(void)
 
 `snprintf` knows the size of the destination buffer. The output may be truncated, but it should not overflow the buffer.
 
-That is the C lesson: safer does not mean automatic. The programmer still has to think.
+`snprintf` still depends on getting the size right. Pass the wrong size and it can overflow too.
 
 ## `const` and pointers
 
@@ -238,7 +236,7 @@ Useful types:
 - `uint8_t`, `uint16_t`, `uint32_t`, `uint64_t`
 - `size_t` for sizes and indexes
 
-These do not need to be used everywhere just to look fancy. Use them when the exact size actually matters.
+Use them when the exact size matters, like file formats, network protocols, or bit flags. Plain `int` is fine for everyday counters.
 
 ## Header guards
 
@@ -264,7 +262,7 @@ Some projects use `#pragma once`, but include guards are standard C and always s
 
 ## Multiple files
 
-Real C programs usually split declarations and implementation.
+Larger C programs split declarations (`.h`) from implementation (`.c`).
 
 ```c
 // math_helpers.h
@@ -328,8 +326,6 @@ Important detail: the indentation under `main` and `clean` must be a tab, not sp
 
 ## Debugging tools
 
-A good C workflow needs tools.
-
 Compile with debug symbols:
 
 ```bash
@@ -381,11 +377,9 @@ For every project:
 - write `free` for every `malloc`
 - keep `.h` and `.c` files organized
 
-## What this is really teaching
+## What C teaches
 
-C is not just "JavaScript but lower level."
-
-C teaches:
+Beyond the syntax, C teaches:
 
 - data representation
 - memory lifetime
@@ -395,5 +389,3 @@ C teaches:
 - interfaces
 - careful error handling
 - respect for undefined behavior
-
-That is the foundation that makes later C code easier to reason about.
