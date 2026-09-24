@@ -68,10 +68,10 @@ export const services: Service[] = [
 export const about: About = {
   title: "About me",
   description: [
-    "I am an Engineer with a strong eye for design, an insatiable curiosity, and a passion for learning and personal growth.",
-    "I have 6 years of development experience, 8 years working with JavaScript and Node, 5 year working with TypeScript, and over 10 years working in various aspects of tech.",
+    "I'm an engineer who cares a lot about UX and accessibility, with an insatiable curiosity and a passion for learning. Lately I love building tools that improve how people work.",
+    "I have 7 years of development experience, 8 years working with JavaScript and Node, 5 years working with TypeScript, and over 10 years working in various aspects of tech.",
     "I love how the industry is constantly evolving. In the nonstop pace of innovation, I want to build products that have an impact for good, that will advance the industry forward, and that bring people together.",
-    "In my personal life, I am a coffee drinking, tech nerd who loves cooking and traveling. In 2024, me and my family lived in Costa Rica trying out the nomad live. In a former live I was a Salsa and Bachata dance instructor.",
+    "In my personal life, I am a coffee drinking, tech nerd who loves cooking and traveling. In 2024, me and my family lived in Costa Rica trying out the nomad life. In a former life I was a Salsa and Bachata dance instructor.",
   ],
 };
 
