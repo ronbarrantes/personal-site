@@ -386,6 +386,8 @@ if err := server.ListenAndServe(); err != nil {
 }
 ```
 
+Timeouts are part of making a server real. In a graceful-shutdown setup, also account for `http.ErrServerClosed` as shown below.
+
 ## Graceful shutdown
 
 Graceful shutdown lets in-flight requests finish before the process exits.
