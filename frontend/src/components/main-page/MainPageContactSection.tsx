@@ -1,31 +1,49 @@
-import { SocialLinkButton } from "@/components/shell/SocialLinkButton";
-import { contactText, mediaLinks } from "@/data/text";
+import { Icon } from "@/components/icon";
+import { getIconLabel } from "@/components/icon/icon-labels";
+import { contactEmail, mediaLinks, sections } from "@/data/text";
+import { mailto } from "@/utils/mailto";
+
+const CHOICES = [
+  {
+    subject: "Job opportunity: ",
+    lead: "Have a role to fill?",
+    action: "Bring me onto your team",
+  },
+  {
+    subject: "Project: ",
+    lead: "Have a project or idea?",
+    action: "Let's build it together",
+  },
+];
 
 export const MainPageContactSection = () => {
   return (
-    <section
-      className="border-t-4 py-14"
-      style={{
-        borderColor: "var(--ink)",
-        background: "var(--accent)",
-        color: "var(--alt)",
-      }}
-    >
-      <div className="mx-auto max-w-7xl px-4 text-center md:px-8">
-        <h2 className="mb-4 text-6xl md:text-[12vw]">
-          SAY
-          <br />
-          HELLO.
+    <section className="cta" id="contact" aria-labelledby="contact-h">
+      <div className="cta-inner">
+        <h2 id="contact-h">
+          Let&apos;s work<span>together</span>
         </h2>
-        <p className="mx-auto mb-8 max-w-xl text-sm">{contactText.description}</p>
-        <div className="flex flex-wrap justify-center gap-4">
+        <p className="sub">{sections.contact.sub}</p>
+        <div className="choices">
+          {CHOICES.map((choice) => (
+            <a key={choice.subject} href={mailto(choice.subject)}>
+              <span>
+                <small>{choice.lead}</small>
+                <b>{choice.action}</b>
+              </span>
+              <span className="a" aria-hidden="true">
+                →
+              </span>
+            </a>
+          ))}
+        </div>
+        <div className="links">
+          <a href={mailto()}>{contactEmail}</a>
           {mediaLinks.map((link) => (
-            <SocialLinkButton
-              key={link.label}
-              link={link}
-              className="btn btn-alt"
-              iconClassName="size-5"
-            />
+            <a key={link.label} href={link.href} rel="me noopener noreferrer">
+              <Icon name={link.label} />
+              {getIconLabel(link.label)}
+            </a>
           ))}
         </div>
       </div>

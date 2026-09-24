@@ -1,90 +1,61 @@
-import { Icon } from "@/components/icon";
+import { TechList } from "@/components/tech/TechList";
 import type { WorkExperience } from "@/lib/types";
-
-const toMonthDateTime = (value: string) => {
-  const [month, year] = value.split("/");
-
-  if (!month || !year) {
-    return undefined;
-  }
-
-  return `${year}-${month.padStart(2, "0")}`;
-};
+import { formatMonthYear, toMonthDateTime } from "@/utils/time";
 
 type MainPageWorkCardProps = {
   item: WorkExperience;
-  index: number;
 };
 
-export const MainPageWorkCard = ({
-  item,
-  index,
-}: MainPageWorkCardProps) => {
-  const startDateTime = toMonthDateTime(item.startDate);
-  const endDateTime = item.endDate ? toMonthDateTime(item.endDate) : undefined;
+export const MainPageWorkCard = ({ item }: MainPageWorkCardProps) => {
+  const [summary, ...details] = item.summary
+    ? [item.summary, ...item.description]
+    : item.description;
 
   return (
-    <article className="box grid items-start gap-4 p-5 md:grid-cols-12">
-      <div className="md:col-span-2">
-        <div
-          className="text-3xl"
-          style={{ fontFamily: "Archivo Black", color: "var(--accent)" }}
-        >
-          {String(index + 1).padStart(2, "0")}
-        </div>
-        <div
-          className="text-xs"
-          aria-label={`From ${item.startDate} to ${item.endDate ?? "now"}`}
-        >
-          <time dateTime={startDateTime}>{item.startDate}</time> →{" "}
+    <article className="job">
+      <p className="yr">
+        {item.startDate.split("/")[1]}
+        <small>
+          <time dateTime={toMonthDateTime(item.startDate)}>
+            {formatMonthYear(item.startDate)}
+          </time>{" "}
+          –{" "}
           {item.endDate ? (
-            <time dateTime={endDateTime}>{item.endDate}</time>
+            <time dateTime={toMonthDateTime(item.endDate)}>
+              {formatMonthYear(item.endDate)}
+            </time>
           ) : (
-            <time>NOW</time>
+            "Now"
           )}
-        </div>
+        </small>
+      </p>
+      <div>
+        <h3>
+          {item.jobTitle}{" "}
+          <span className="co">
+            ·{" "}
+            {item.url ? (
+              <a href={item.url} target="_blank" rel="noopener noreferrer">
+                {item.employer}
+              </a>
+            ) : (
+              item.employer
+            )}
+          </span>
+        </h3>
+        <p>{summary}</p>
+        {details.length > 0 && (
+          <details>
+            <summary>Details</summary>
+            <ul>
+              {details.map((detail) => (
+                <li key={detail}>{detail}</li>
+              ))}
+            </ul>
+          </details>
+        )}
       </div>
-      <div className="md:col-span-7">
-        <h3 className="mb-1 text-2xl md:text-3xl">{item.jobTitle}</h3>
-        <div className="mb-3 text-sm">
-          @{" "}
-          {item.url ? (
-            <a
-              href={item.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline decoration-[var(--accent)] decoration-4 underline-offset-2"
-            >
-              {item.employer}
-            </a>
-          ) : (
-            item.employer
-          )}
-        </div>
-        <div className="space-y-3">
-          {item.description.map((paragraph, descriptionIndex) => (
-            <p
-              key={`${item.employer}-desc-${descriptionIndex}`}
-              className="text-sm leading-relaxed"
-            >
-              {paragraph}
-            </p>
-          ))}
-        </div>
-      </div>
-      <div className="md:col-span-3">
-        <div className="tag mb-2">STACK</div>
-        <div className="flex flex-wrap gap-2">
-          {item.tools.map((tool) => (
-            <Icon
-              key={tool}
-              tooltip
-              name={tool}
-              className="size-5 border-2 border-[var(--ink)] bg-[var(--bg)] p-1"
-            />
-          ))}
-        </div>
-      </div>
+      <TechList tools={item.tools} />
     </article>
   );
 };

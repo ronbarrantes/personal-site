@@ -1,0 +1,1304 @@
+/*
+ * Site design (ported from design-concepts/final.html).
+ * One continuous square grid: cells sit on an ink background and the 1px gap
+ * shows through as hairlines. Mobile-first: 1 column → 2 at 720px → 12 at 1080px.
+ * Light = "violet", dark = "midnight". Dark applies with html.dark, or with the
+ * system setting when the visitor hasn't picked (html:not(.light)).
+ */
+
+/* ---------- color roles ---------- */
+:root {
+  --rb-paper: #ffffff;
+  --rb-ink: #111015;
+  --rb-ink-2: #5a5764;
+  --rb-on-ink: #ffffff;
+  --rb-hair: #111015;
+  --rb-rule: #e3e0e8;
+  --rb-accent: #5130d8;
+  --rb-on-accent: #ffffff;
+  --rb-on-accent-2: #e7e1ff;
+  --rb-soft: #e2d9ff;
+  --rb-on-soft: #111015;
+  --rb-cta: #111015;
+  --rb-on-cta: #ffffff;
+  --rb-on-cta-2: #b8b3c4;
+  --rb-dark: #111015;
+  --rb-on-dark: #ffffff;
+  --rb-dark-2: #b3aec0;
+  --rb-dark-3: #cfcad9;
+  --rb-dark-line: #3a3744;
+  --rb-dark-chip: #1c1a23;
+  --rb-dark-accent: #c4b3ff;
+  --rb-ok: #1a9a58;
+  --rb-choice: #ffffff;
+  --rb-on-choice: #111015;
+  --rb-choice-2: #5a5764;
+  --rb-code-bg: #f6f5f9;
+
+  --rb-s1: 4px;
+  --rb-s2: 8px;
+  --rb-s3: 16px;
+  --rb-s4: 24px;
+  --rb-s5: 32px;
+  --rb-s6: 48px;
+  --rb-pad: clamp(20px, 3vw, 36px);
+}
+
+html.dark {
+  --rb-paper: #0e0d13;
+  --rb-ink: #f2eff8;
+  --rb-ink-2: #aaa4b9;
+  --rb-on-ink: #0e0d13;
+  --rb-hair: #2e2b3a;
+  --rb-rule: #262330;
+  --rb-accent: #b6a2ff;
+  --rb-on-accent: #0e0d13;
+  --rb-on-accent-2: #2b2244;
+  --rb-soft: #1d1929;
+  --rb-on-soft: #f2eff8;
+  --rb-cta: #b6a2ff;
+  --rb-on-cta: #0e0d13;
+  --rb-on-cta-2: #2b2244;
+  --rb-dark: #060509;
+  --rb-on-dark: #f2eff8;
+  --rb-dark-2: #aaa4b9;
+  --rb-dark-3: #cdc8d8;
+  --rb-dark-line: #2e2b3a;
+  --rb-dark-chip: #14121b;
+  --rb-dark-accent: #b6a2ff;
+  --rb-ok: #3fd88a;
+  --rb-choice: #0e0d13;
+  --rb-on-choice: #f2eff8;
+  --rb-choice-2: #aaa4b9;
+  --rb-code-bg: #0b0a10;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light) {
+    --rb-paper: #0e0d13;
+    --rb-ink: #f2eff8;
+    --rb-ink-2: #aaa4b9;
+    --rb-on-ink: #0e0d13;
+    --rb-hair: #2e2b3a;
+    --rb-rule: #262330;
+    --rb-accent: #b6a2ff;
+    --rb-on-accent: #0e0d13;
+    --rb-on-accent-2: #2b2244;
+    --rb-soft: #1d1929;
+    --rb-on-soft: #f2eff8;
+    --rb-cta: #b6a2ff;
+    --rb-on-cta: #0e0d13;
+    --rb-on-cta-2: #2b2244;
+    --rb-dark: #060509;
+    --rb-on-dark: #f2eff8;
+    --rb-dark-2: #aaa4b9;
+    --rb-dark-3: #cdc8d8;
+    --rb-dark-line: #2e2b3a;
+    --rb-dark-chip: #14121b;
+    --rb-dark-accent: #b6a2ff;
+    --rb-ok: #3fd88a;
+    --rb-choice: #0e0d13;
+    --rb-on-choice: #f2eff8;
+    --rb-choice-2: #aaa4b9;
+    --rb-code-bg: #0b0a10;
+  }
+}
+
+/* ---------- base ---------- */
+.site {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--rb-paper);
+  color: var(--rb-ink);
+  font-family: var(--font-mona), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-variation-settings: "wdth" 100;
+}
+.site main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * When a page is shorter than the screen, whatever comes last in <main> grows
+ * down to the footer, so the grid never stops halfway. Same rule for every page.
+ * Grid rows stretch into the extra height by default (the ink background only
+ * shows in the 1px gaps). For a post, the <article> passes the space on to its
+ * last grid.
+ */
+.site main > :last-child,
+.site main > article:last-child > :last-child {
+  flex: 1;
+}
+.site main > article:last-child {
+  display: flex;
+  flex-direction: column;
+}
+/*
+ * Stacked layouts (phone/tablet) with a heading cell followed by one content
+ * cell: give the extra height to the content, not the heading.
+ */
+@media (max-width: 1079px) {
+  .site main > .sheet:last-child:has(> .label:first-child + :last-child) {
+    grid-template-rows: auto 1fr;
+  }
+}
+.site a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+.site a:hover {
+  color: var(--rb-accent);
+}
+.site :focus-visible {
+  outline: 3px solid var(--rb-accent);
+  outline-offset: 2px;
+}
+.site h1,
+.site h2,
+.site h3 {
+  font-variation-settings: "wdth" 112;
+  letter-spacing: -0.02em;
+}
+.site ul,
+.site ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.site p {
+  margin: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 1000;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  background: var(--rb-accent);
+  color: var(--rb-on-accent) !important;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ---------- grid ---------- */
+.sheet {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--rb-hair);
+  /* sections stack as separate sheets; one line between each */
+  border-bottom: 1px solid var(--rb-hair);
+}
+.cell {
+  background: var(--rb-paper);
+  padding: var(--rb-pad);
+  min-width: 0;
+}
+.vio {
+  background: var(--rb-accent);
+  color: var(--rb-on-accent);
+}
+.lav {
+  background: var(--rb-soft);
+  color: var(--rb-on-soft);
+}
+.inv {
+  background: var(--rb-dark);
+  color: var(--rb-on-dark);
+}
+.site .vio :focus-visible {
+  outline-color: var(--rb-on-accent);
+}
+.site .inv :focus-visible {
+  outline-color: var(--rb-dark-accent);
+}
+@media (min-width: 720px) {
+  .sheet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .full,
+  .c-8,
+  .c-9,
+  .c-12 {
+    grid-column: 1 / -1;
+  }
+}
+@media (min-width: 720px) and (max-width: 1079px) {
+  .label,
+  .ask,
+  .now-item:nth-of-type(odd):last-of-type {
+    grid-column: 1 / -1;
+  }
+}
+@media (min-width: 1080px) {
+  .sheet {
+    grid-template-columns: repeat(12, 1fr);
+  }
+  .c-3 {
+    grid-column: span 3;
+  }
+  .c-4 {
+    grid-column: span 4;
+  }
+  .c-8 {
+    grid-column: span 8;
+  }
+  .c-9 {
+    grid-column: span 9;
+  }
+  .full {
+    grid-column: 1 / -1;
+  }
+  .tall {
+    grid-row: span 2;
+  }
+}
+
+/* ---------- header / footer ---------- */
+.site-header {
+  position: static;
+  z-index: 20;
+  background: var(--rb-paper);
+  border-bottom: 1px solid var(--rb-hair);
+}
+@media (min-width: 760px) {
+  .site-header {
+    position: sticky;
+    top: 0;
+  }
+}
+.site-bar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--rb-s2) var(--rb-s4);
+  align-items: center;
+  padding: var(--rb-s3) var(--rb-pad);
+}
+.site .brand {
+  font-weight: 800;
+  font-variation-settings: "wdth" 118;
+  text-decoration: none;
+  display: inline-flex;
+  gap: var(--rb-s2);
+  align-items: center;
+}
+.brand i {
+  width: 12px;
+  height: 12px;
+  background: var(--rb-accent);
+}
+.site-bar nav {
+  grid-column: 1 / -1;
+}
+.site-bar nav ul {
+  display: flex;
+  gap: var(--rb-s4);
+}
+.site .site-bar nav a {
+  text-decoration: none;
+  color: var(--rb-ink-2);
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: block;
+  padding-block: var(--rb-s1);
+}
+.site .site-bar nav a:hover,
+.site .site-bar nav a[aria-current="page"] {
+  color: var(--rb-ink);
+}
+.site-acts {
+  grid-row: 1;
+  grid-column: 2;
+  display: flex;
+  gap: var(--rb-s2);
+  align-items: center;
+}
+@media (min-width: 760px) {
+  .site-bar {
+    grid-template-columns: auto 1fr auto;
+  }
+  .site-bar nav {
+    grid-column: 2;
+    justify-self: center;
+  }
+  .site-acts {
+    grid-column: 3;
+  }
+}
+.mode {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: var(--rb-ink);
+  border: 1px solid var(--rb-ink);
+  cursor: pointer;
+}
+.mode:hover {
+  background: var(--rb-soft);
+}
+.mode svg {
+  width: 18px;
+  height: 18px;
+}
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--rb-s3);
+  flex-wrap: wrap;
+  padding: var(--rb-s3) var(--rb-pad);
+  font-size: 0.85rem;
+  color: var(--rb-ink-2);
+}
+
+/* ---------- buttons, tags, inputs ---------- */
+.site .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rb-s3);
+  min-height: 48px;
+  padding: 0 var(--rb-s4);
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+  text-decoration: none;
+  background: var(--rb-ink);
+  color: var(--rb-on-ink);
+  border: 1px solid var(--rb-ink);
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+.site .btn:hover {
+  background: var(--rb-accent);
+  border-color: var(--rb-accent);
+  color: var(--rb-on-accent);
+}
+.site .btn.o {
+  background: transparent;
+  color: var(--rb-ink);
+}
+.site .btn.o:hover {
+  background: var(--rb-soft);
+  color: var(--rb-on-soft);
+  border-color: var(--rb-ink);
+}
+.site .btn.sm {
+  min-height: 40px;
+  padding: 0 var(--rb-s3);
+}
+.site .btn:disabled,
+.site .btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.site .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rb-s1);
+  padding: 4px 10px;
+  border: 1px solid var(--rb-ink);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: var(--rb-paper);
+  color: var(--rb-ink);
+}
+.site a.chip:hover,
+.site .chip[aria-current="page"] {
+  background: var(--rb-ink);
+  color: var(--rb-on-ink);
+}
+.site .field {
+  display: grid;
+  gap: var(--rb-s2);
+}
+.site .field label {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.site input,
+.site textarea {
+  width: 100%;
+  font: inherit;
+  padding: 12px 14px;
+  background: var(--rb-paper);
+  color: var(--rb-ink);
+  border: 1px solid var(--rb-ink);
+  border-radius: 0;
+  resize: vertical;
+}
+.site input:focus-visible,
+.site textarea:focus-visible {
+  outline: 3px solid var(--rb-accent);
+  outline-offset: 0;
+}
+.ctas {
+  display: grid;
+  gap: var(--rb-s2);
+}
+@media (min-width: 480px) {
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--rb-s3);
+  }
+}
+
+/* ---------- hero ---------- */
+.hero {
+  display: grid;
+  background: var(--rb-paper);
+  border-bottom: 1px solid var(--rb-hair);
+}
+.h-top {
+  padding: var(--rb-s6) var(--rb-pad) var(--rb-s4);
+  display: grid;
+  gap: var(--rb-s4);
+}
+.h-bottom {
+  padding: var(--rb-s4) var(--rb-pad) var(--rb-s6);
+  display: grid;
+  gap: var(--rb-s4);
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rb-s2);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.status::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: var(--rb-ok);
+}
+.site .hero h1 {
+  margin: 0;
+  font-size: clamp(2.3rem, 6vw, 5.2rem);
+  line-height: 0.96;
+  font-weight: 850;
+  letter-spacing: -0.035em;
+  font-variation-settings: "wdth" 100;
+  text-wrap: balance;
+}
+.hero h1 span {
+  color: var(--rb-accent);
+}
+.hero .pitch {
+  color: var(--rb-ink-2);
+  max-width: 50ch;
+  font-size: 1.1rem;
+}
+.pic {
+  margin: 0 var(--rb-pad);
+  position: relative;
+  background: var(--rb-accent);
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+.pic img {
+  object-fit: cover;
+  object-position: 50% 22%;
+  filter: grayscale(1) contrast(1.05);
+  mix-blend-mode: luminosity;
+}
+.pic figcaption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: var(--rb-paper);
+  padding: var(--rb-s2) var(--rb-s3);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+@media (min-width: 720px) and (max-width: 1079px) {
+  .pic {
+    aspect-ratio: 16 / 10;
+  }
+}
+@media (min-width: 1080px) {
+  .hero {
+    grid-template-columns: 7fr 5fr;
+  }
+  .h-top {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+  }
+  .h-bottom {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .pic {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    margin: 0;
+    aspect-ratio: auto;
+    min-height: 560px;
+    border-left: 1px solid var(--rb-hair);
+  }
+}
+
+/* ---------- label cells ---------- */
+.label .n {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--rb-accent);
+  font-variant-numeric: tabular-nums;
+}
+.vio.label .n {
+  color: var(--rb-on-accent-2);
+}
+.inv.label .n {
+  color: var(--rb-dark-accent);
+}
+.site .label h1,
+.site .label h2 {
+  margin: var(--rb-s2) 0;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  line-height: 1;
+  font-weight: 800;
+}
+.label p {
+  color: var(--rb-ink-2);
+  max-width: 34ch;
+}
+.vio.label p {
+  color: var(--rb-on-accent-2);
+}
+.inv.label p {
+  color: var(--rb-dark-2);
+}
+.lav.label p {
+  color: var(--rb-on-soft);
+  opacity: 0.8;
+}
+.label .note {
+  margin-top: var(--rb-s3);
+  font-size: 0.85rem;
+}
+.label .label-actions {
+  margin-top: var(--rb-s4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rb-s2);
+}
+
+/* ---------- now ---------- */
+.now-filler {
+  display: none;
+}
+@media (min-width: 1080px) {
+  .now-label {
+    grid-row: span var(--now-rows, 1);
+  }
+  .now-filler {
+    display: block;
+  }
+}
+.now-item {
+  position: relative;
+}
+.now-item time {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--rb-accent);
+}
+.site .now-item h3 {
+  margin: var(--rb-s2) 0;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+.now-item p {
+  color: var(--rb-ink-2);
+}
+.now-item .item-actions {
+  display: flex;
+  gap: var(--rb-s2);
+  margin-top: var(--rb-s3);
+}
+.now-state {
+  color: var(--rb-ink-2);
+  display: flex;
+  align-items: center;
+  gap: var(--rb-s3);
+}
+.now-state .bar {
+  width: 64px;
+  height: 6px;
+  background: var(--rb-rule);
+  position: relative;
+  overflow: hidden;
+  flex: none;
+}
+.now-state .bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: var(--rb-accent);
+  animation: rb-load 1.4s ease-in-out infinite;
+}
+@keyframes rb-load {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+
+/* ---------- what I bring ---------- */
+.svc .n {
+  font-size: 2.6rem;
+  line-height: 1;
+  font-weight: 200;
+  font-variation-settings: "wdth" 75;
+  color: var(--rb-accent);
+}
+.site .svc h3 {
+  margin: var(--rb-s3) 0 var(--rb-s2);
+  font-size: 1.3rem;
+  line-height: 1.15;
+  font-weight: 700;
+}
+.svc p {
+  color: var(--rb-ink-2);
+}
+.site .ask {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--rb-s4);
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.site .ask:hover {
+  background: var(--rb-accent);
+  color: var(--rb-on-accent);
+}
+.ask b {
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  line-height: 1.1;
+  font-weight: 800;
+  font-variation-settings: "wdth" 112;
+}
+.ask span {
+  font-size: 2rem;
+}
+
+/* ---------- experience ---------- */
+.rows > * + * {
+  border-top: 1px solid var(--rb-rule);
+}
+.job {
+  display: grid;
+  gap: var(--rb-s2) var(--rb-s4);
+  padding-block: var(--rb-s4);
+}
+.job:first-child {
+  padding-top: 0;
+}
+.job:last-child {
+  padding-bottom: 0;
+}
+@media (min-width: 900px) {
+  .job {
+    grid-template-columns: 8rem 1fr 15rem;
+  }
+}
+.job .yr {
+  font-size: 2.2rem;
+  line-height: 1;
+  font-weight: 250;
+  font-variation-settings: "wdth" 80;
+  color: var(--rb-dark-accent);
+}
+.job .yr small {
+  display: block;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  font-weight: 400;
+  font-variation-settings: "wdth" 100;
+  color: var(--rb-dark-2);
+  margin-top: var(--rb-s1);
+}
+.site .job h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+.job .co {
+  color: var(--rb-dark-2);
+  font-weight: 500;
+}
+.job > div > p {
+  margin-top: var(--rb-s2);
+}
+.job details {
+  margin-top: var(--rb-s2);
+}
+.job summary {
+  cursor: pointer;
+  color: var(--rb-dark-accent);
+  font-weight: 700;
+  font-size: 0.9rem;
+  width: max-content;
+  padding-block: var(--rb-s1);
+}
+.site .job details ul {
+  margin-top: var(--rb-s2);
+  padding-left: 1.1em;
+  list-style: disc;
+  color: var(--rb-dark-3);
+}
+.job details li + li {
+  margin-top: var(--rb-s1);
+}
+.inv.rows > * + * {
+  border-top-color: var(--rb-dark-line);
+}
+/*
+ * Ink gaps disappear between dark cells, so a grid holding dark cells draws its
+ * gaps in the dark-line grey instead. Still one 1px line, same as everywhere.
+ */
+.sheet:has(> .inv) {
+  background: var(--rb-dark-line);
+}
+.site .inv a:hover {
+  color: var(--rb-dark-accent);
+}
+
+/* ---------- tech icons ---------- */
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-content: start;
+}
+.tech {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--rb-ink);
+  background: var(--rb-paper);
+  color: var(--rb-ink);
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.tech svg {
+  width: 16px;
+  height: 16px;
+}
+.tech:hover {
+  background: var(--rb-ink);
+  color: var(--rb-on-ink);
+}
+.inv .tech {
+  background: var(--rb-dark-chip);
+  color: var(--rb-on-dark);
+  border-color: var(--rb-dark-line);
+}
+.inv .tech:hover {
+  background: var(--rb-dark-accent);
+  color: var(--rb-dark);
+  border-color: var(--rb-dark-accent);
+}
+
+/* ---------- projects ---------- */
+/*
+ * Cards live in their own grid beside the label. Phone: one column. Tablet: two
+ * per row, a leftover odd card spans the row. Desktop: two rows of --cols cards
+ * each (set per row), so 5 → 2 + 3 and 7 → 3 + 4 with no empty slots.
+ */
+.proj-grid {
+  padding: 0;
+  display: grid;
+  gap: 1px;
+  background: var(--rb-hair);
+}
+.proj-row {
+  display: contents;
+}
+@media (min-width: 720px) {
+  .proj-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .proj-wide {
+    grid-column: 1 / -1;
+  }
+}
+@media (min-width: 1080px) {
+  .proj-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .proj-row {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 2), 1fr);
+    gap: 1px;
+    flex: 1;
+  }
+  .proj-wide {
+    grid-column: auto;
+  }
+  /* three or four across: smaller names so they fit */
+  .site .proj-row:is([data-cols="3"], [data-cols="4"]) .proj h3 {
+    font-size: clamp(1.6rem, 2.1vw, 2.2rem);
+  }
+}
+.proj {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rb-s3);
+  transition: background 0.2s;
+}
+@media (min-width: 1080px) {
+  .proj {
+    min-height: 340px;
+  }
+}
+.proj:hover {
+  background: var(--rb-soft);
+  color: var(--rb-on-soft);
+}
+.proj .top {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--rb-s3);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.proj .top .st {
+  color: var(--rb-ink-2);
+  font-weight: 500;
+}
+.site .proj h3 {
+  margin: auto 0 0;
+  font-size: clamp(2rem, 3.4vw, 2.8rem);
+  line-height: 0.95;
+  font-weight: 800;
+  font-variation-settings: "wdth" 118;
+}
+.proj p {
+  color: var(--rb-ink-2);
+}
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rb-s4);
+  font-weight: 700;
+}
+.site .links a {
+  display: inline-flex;
+  gap: var(--rb-s2);
+  align-items: center;
+  padding-block: var(--rb-s1);
+}
+.links svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* ---------- toolbox ---------- */
+.tools-cell {
+  display: grid;
+  gap: var(--rb-s3);
+  align-items: center;
+  padding-block: var(--rb-s4);
+}
+@media (min-width: 900px) {
+  .tools-cell {
+    grid-template-columns: 10rem 1fr;
+  }
+}
+.site .tools-cell h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+}
+.tools-cell h2 small {
+  display: block;
+  font-weight: 500;
+  color: var(--rb-ink-2);
+  font-size: 0.85rem;
+}
+
+/* ---------- writing rows (home + blog lists) ---------- */
+.site .posts a {
+  display: grid;
+  gap: var(--rb-s1) var(--rb-s4);
+  padding-block: var(--rb-s3);
+  text-decoration: none;
+}
+.posts li:first-child a {
+  padding-top: 0;
+}
+.posts li:last-child a {
+  padding-bottom: 0;
+}
+@media (min-width: 900px) {
+  .site .posts a {
+    grid-template-columns: 8rem 1fr 11rem;
+    align-items: baseline;
+  }
+}
+.posts time,
+.posts .m {
+  font-size: 0.9rem;
+  color: var(--rb-ink-2);
+}
+.site .posts h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  font-weight: 700;
+}
+.posts p {
+  margin-top: var(--rb-s1);
+  color: var(--rb-ink-2);
+  font-size: 0.95rem;
+}
+.site .posts a:hover {
+  color: inherit;
+}
+.site .posts a:hover h3 {
+  color: var(--rb-accent);
+  text-decoration: underline;
+}
+.site .all {
+  display: inline-block;
+  margin-top: var(--rb-s3);
+  font-weight: 700;
+  padding-block: var(--rb-s1);
+}
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rb-s2);
+  margin-top: var(--rb-s4);
+}
+
+/* ---------- let's work together ---------- */
+.cta {
+  background: var(--rb-cta);
+  color: var(--rb-on-cta);
+  padding-block: clamp(48px, 7vw, 88px);
+}
+.cta-inner {
+  padding-inline: var(--rb-pad);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.site .cta :focus-visible {
+  outline-color: var(--rb-on-cta);
+}
+.site .cta h2 {
+  margin: 0 0 var(--rb-s3);
+  font-size: clamp(2.6rem, 8vw, 6.6rem);
+  line-height: 0.88;
+  font-weight: 900;
+  font-variation-settings: "wdth" 125;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+}
+.cta h2 span {
+  display: block;
+  font-weight: 300;
+  font-variation-settings: "wdth" 75;
+}
+.cta .sub {
+  margin: 0 0 var(--rb-s5);
+  max-width: 48ch;
+  color: var(--rb-on-cta-2);
+}
+.choices {
+  display: grid;
+  gap: var(--rb-s2);
+}
+@media (min-width: 820px) {
+  .choices {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.site .choices a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--rb-s4);
+  padding: var(--rb-s5) var(--rb-s4);
+  background: var(--rb-choice);
+  color: var(--rb-on-choice);
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.site .choices a:hover {
+  background: var(--rb-accent);
+  color: var(--rb-on-accent);
+}
+.choices small {
+  display: block;
+  color: var(--rb-choice-2);
+  font-size: 0.9rem;
+  margin-bottom: var(--rb-s1);
+}
+.choices a:hover small {
+  color: var(--rb-on-accent-2);
+}
+.choices b {
+  font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+  line-height: 1.1;
+  font-weight: 800;
+  font-variation-settings: "wdth" 108;
+}
+.choices .a {
+  font-size: 1.6rem;
+}
+.cta .links {
+  margin-top: var(--rb-s5);
+  gap: var(--rb-s2) var(--rb-s5);
+  font-weight: 600;
+}
+.site .cta .links a:hover {
+  color: var(--rb-on-cta-2);
+  text-decoration-thickness: 2px;
+}
+.cta .links svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---------- blog post ---------- */
+.post-aside {
+  display: none;
+}
+@media (min-width: 1080px) {
+  .post-aside {
+    display: block;
+  }
+}
+.site .back {
+  display: block;
+  width: max-content;
+  font-weight: 700;
+  padding-block: var(--rb-s1);
+  margin-bottom: var(--rb-s4);
+}
+.post-head .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rb-s2);
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--rb-ink-2);
+}
+.site .post-head h1 {
+  margin: var(--rb-s4) 0 var(--rb-s3);
+  font-size: clamp(2.2rem, 5.4vw, 4.4rem);
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: -0.03em;
+  font-variation-settings: "wdth" 100;
+  text-wrap: balance;
+  max-width: 20ch;
+}
+.post-head .desc {
+  color: var(--rb-ink-2);
+  font-size: 1.15rem;
+  max-width: 60ch;
+}
+.prose-cell {
+  padding-block: var(--rb-s6);
+}
+.blog-prose {
+  max-width: 72ch;
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+/* ".site p { margin: 0 }" is more specific than a plain ".blog-prose" rule, so match it */
+.site .blog-prose > * + * {
+  margin-top: 1.25rem;
+}
+.site .blog-prose > :is(h2, h3) + * {
+  margin-top: 0.75rem;
+}
+.site .blog-prose h2 {
+  margin-top: 2.5rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.1;
+  font-weight: 800;
+}
+.site .blog-prose h3 {
+  margin-top: 2rem;
+  font-size: 1.35rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+.site .blog-prose a {
+  color: var(--rb-accent);
+  font-weight: 600;
+}
+.site .blog-prose ul,
+.site .blog-prose ol {
+  padding-left: 1.5rem;
+}
+.site .blog-prose ul {
+  list-style: square;
+}
+.site .blog-prose ol {
+  list-style: decimal;
+}
+.blog-prose li + li {
+  margin-top: 0.35rem;
+}
+.blog-prose blockquote {
+  margin: 0;
+  border-left: 4px solid var(--rb-accent);
+  background: var(--rb-soft);
+  color: var(--rb-on-soft);
+  padding: var(--rb-s3) var(--rb-s4);
+}
+.blog-prose pre {
+  overflow-x: auto;
+  border: 1px solid var(--rb-hair);
+  background: var(--rb-code-bg);
+  padding: var(--rb-s3);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.blog-prose code {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+.blog-prose :not(pre) > code {
+  background: var(--rb-soft);
+  color: var(--rb-on-soft);
+  padding: 0.1rem 0.35rem;
+}
+.blog-prose pre code,
+.blog-prose pre code span {
+  color: var(--shiki-light);
+}
+html.dark .blog-prose pre code,
+html.dark .blog-prose pre code span {
+  color: var(--shiki-dark);
+}
+@media (prefers-color-scheme: dark) {
+  html:not(.light) .blog-prose pre code,
+  html:not(.light) .blog-prose pre code span {
+    color: var(--shiki-dark);
+  }
+}
+.blog-prose table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.blog-prose th,
+.blog-prose td {
+  border: 1px solid var(--rb-rule);
+  padding: var(--rb-s2) var(--rb-s3);
+  text-align: left;
+}
+.blog-prose hr {
+  border: 0;
+  border-top: 1px solid var(--rb-hair);
+}
+
+/* ---------- pagination ---------- */
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rb-s2);
+  align-items: center;
+}
+.pager-nav {
+  margin-top: var(--rb-s5);
+}
+.pager .count {
+  margin-right: var(--rb-s3);
+  color: var(--rb-ink-2);
+  font-size: 0.9rem;
+}
+
+/* ---------- login ---------- */
+.login-form {
+  display: grid;
+  gap: var(--rb-s4);
+  max-width: 420px;
+}
+.login-form > .btn {
+  width: 100%;
+}
+
+/* ---------- now editor (side drawer) ---------- */
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+}
+.drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 0.5);
+  border: 0;
+  cursor: pointer;
+}
+.drawer-panel {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  height: 100%;
+  overflow-y: auto;
+  background: var(--rb-paper);
+  color: var(--rb-ink);
+  border-left: 1px solid var(--rb-hair);
+  display: grid;
+  align-content: start;
+}
+.drawer-panel .cell + .cell {
+  border-top: 1px solid var(--rb-hair);
+}
+.drawer-form {
+  display: grid;
+  gap: var(--rb-s4);
+}
+.drawer-form .ctas {
+  display: flex;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site *,
+  .site *::before,
+  .site *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

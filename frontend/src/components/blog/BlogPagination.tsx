@@ -1,11 +1,5 @@
 import Link from "next/link";
 
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-} from "@/components/ui/pagination";
 import { getVisiblePages } from "@/lib/blog/pagination";
 
 type BlogPaginationProps = {
@@ -24,71 +18,46 @@ export function BlogPagination({
   const visiblePages = getVisiblePages(currentPage, totalPages);
 
   return (
-    <div className="mt-8 p-5">
-      <div className="mb-3 text-sm font-bold uppercase">
+    <nav aria-label="Blog pages" className="pager pager-nav">
+      <span className="count">
         Page {currentPage} of {totalPages}
-      </div>
+      </span>
+      {currentPage > 1 ? (
+        <Link className="btn o sm" href={makeHref(currentPage - 1)}>
+          ← Previous
+        </Link>
+      ) : (
+        <span className="btn o sm" aria-disabled="true">
+          ← Previous
+        </span>
+      )}
+      {visiblePages.map((page, index) => {
+        const previousPage = visiblePages[index - 1];
+        const showEllipsis = previousPage && page - previousPage > 1;
 
-      <Pagination>
-        <PaginationContent className="flex flex-wrap justify-center gap-2">
-          <PaginationItem>
-            {currentPage > 1 ? (
-              <Link
-                href={makeHref(currentPage - 1)}
-                aria-label="Go to previous page"
-                className="btn btn-alt min-w-28 justify-center px-4 py-3 text-xs"
-              >
-                Previous
-              </Link>
-            ) : (
-              <span className="btn btn-alt min-w-28 cursor-not-allowed justify-center px-4 py-3 text-xs opacity-50">
-                Previous
-              </span>
-            )}
-          </PaginationItem>
-
-          {visiblePages.map((page, index) => {
-            const previousPage = visiblePages[index - 1];
-            const showEllipsis = previousPage && page - previousPage > 1;
-
-            return (
-              <PaginationItem key={page}>
-                {showEllipsis && (
-                  <PaginationEllipsis className="tag size-auto px-3 py-3" />
-                )}
-
-                <Link
-                  href={makeHref(page)}
-                  className={
-                    page === currentPage
-                      ? "btn min-w-14 justify-center px-4 py-3 text-xs"
-                      : "btn btn-alt min-w-14 justify-center px-4 py-3 text-xs"
-                  }
-                  aria-current={page === currentPage ? "page" : undefined}
-                >
-                  {page}
-                </Link>
-              </PaginationItem>
-            );
-          })}
-
-          <PaginationItem>
-            {currentPage < totalPages ? (
-              <Link
-                href={makeHref(currentPage + 1)}
-                aria-label="Go to next page"
-                className="btn btn-alt min-w-28 justify-center px-4 py-3 text-xs"
-              >
-                Next
-              </Link>
-            ) : (
-              <span className="btn btn-alt min-w-28 cursor-not-allowed justify-center px-4 py-3 text-xs opacity-50">
-                Next
-              </span>
-            )}
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
-    </div>
+        return (
+          <span key={page} className="pager">
+            {showEllipsis && <span aria-hidden="true">…</span>}
+            <Link
+              className={page === currentPage ? "btn sm" : "btn o sm"}
+              href={makeHref(page)}
+              aria-current={page === currentPage ? "page" : undefined}
+            >
+              <span className="sr-only">Page </span>
+              {page}
+            </Link>
+          </span>
+        );
+      })}
+      {currentPage < totalPages ? (
+        <Link className="btn o sm" href={makeHref(currentPage + 1)}>
+          Next →
+        </Link>
+      ) : (
+        <span className="btn o sm" aria-disabled="true">
+          Next →
+        </span>
+      )}
+    </nav>
   );
 }

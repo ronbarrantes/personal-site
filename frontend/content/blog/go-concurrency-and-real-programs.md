@@ -1,6 +1,6 @@
 ---
 title: Go Concurrency and Real Programs
-description: "A practical Go follow-up: goroutines, channels, context, HTTP handlers, graceful shutdown, and real backend habits."
+description: "Go notes, part two: goroutines, channels, context, HTTP handlers, timeouts, and graceful shutdown."
 date: 2026-06-02T11:30:00.000Z
 tags:
   - Go
@@ -10,9 +10,9 @@ tags:
 
 ## Why this exists
 
-The basics of Go are pretty small, but real Go starts to get interesting when programs do more than one thing at a time.
+The [basics of Go](/blog/basics-of-go) are pretty small. Things get interesting when a program does more than one thing at a time.
 
-This note is about the practical side:
+This note covers:
 
 - goroutines
 - channels
@@ -22,9 +22,9 @@ This note is about the practical side:
 - timeouts
 - graceful shutdown
 - worker pools
-- real backend habits
+- habits for backend services
 
-Concurrency is much easier to use well when the mental model stays clear.
+The mental model at the end ties it all together.
 
 ## Goroutines
 
@@ -181,7 +181,7 @@ This is how Go handles "wait for this, but give up if it takes too long."
 
 `context.Context` carries cancellation and deadlines across function calls and goroutines.
 
-This matters a lot in servers. If a request is canceled, the work for that request should stop too.
+This is how servers stop work early: if a request is canceled, the work for that request should stop too.
 
 ```go
 package main
@@ -302,7 +302,7 @@ For shared state, use one of these:
 - `sync.RWMutex`
 - `sync/atomic`
 
-Do not guess. Run the race detector.
+Races often do not show up in normal runs, so run the race detector instead of guessing.
 
 ## HTTP handlers
 
@@ -370,7 +370,7 @@ That lets downstream work stop instead of wasting resources.
 
 ## Server timeouts
 
-Do not run a public HTTP server with default zero-value timeouts.
+Do not run a public HTTP server with default zero-value timeouts. Zero means no timeout, so a slow or stuck client can hold a connection open forever.
 
 ```go
 server := &http.Server{
@@ -378,7 +378,7 @@ server := &http.Server{
 	Handler:      mux,
 	ReadTimeout:  5 * time.Second,
 	WriteTimeout: 10 * time.Second,
-	IdleTimeout:  2 * time.Second,
+	IdleTimeout:  120 * time.Second,
 }
 
 if err := server.ListenAndServe(); err != nil {
@@ -390,7 +390,7 @@ Timeouts are part of making a server real. In a graceful-shutdown setup, also ac
 
 ## Graceful shutdown
 
-Real servers should shut down cleanly.
+Graceful shutdown lets in-flight requests finish before the process exits.
 
 ```go
 package main
@@ -487,7 +487,7 @@ func main() {
 }
 ```
 
-For real services, structured logs are easier to search than random strings.
+Structured logs are easier to search and filter than plain strings.
 
 ## Configuration
 
@@ -500,11 +500,11 @@ if port == "" {
 }
 ```
 
-Keep config boring until it needs to be fancy.
+Add a config file or library only when environment variables stop being enough.
 
-## Real-program checklist
+## Service checklist
 
-Before calling a Go program real, these should be in place:
+Before running a Go service in production:
 
 - tests for business logic
 - `go test ./...` passing
@@ -540,9 +540,7 @@ For every concurrency project:
 
 ## The mental model
 
-Go concurrency is not "make everything async."
-
-The better model:
+Each concurrency tool has one job:
 
 - goroutines do work
 - channels communicate ownership or results
@@ -550,5 +548,3 @@ The better model:
 - wait groups wait for work
 - mutexes protect shared state
 - tests and race detection catch problems early
-
-That is the foundation needed before building bigger Go services.

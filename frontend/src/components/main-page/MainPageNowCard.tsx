@@ -1,6 +1,5 @@
-import { Icon } from "@/components/icon";
 import type { NowData } from "@/hooks/use-api";
-import { formatDate } from "@/utils/time";
+import { formatShortDate } from "@/utils/time";
 
 type MainPageNowCardProps = {
   item: NowData;
@@ -16,41 +15,30 @@ export const MainPageNowCard = ({
   onDelete,
 }: MainPageNowCardProps) => {
   return (
-    <div className="box p-4">
-      <div
-        className="tag mb-2"
-        style={{ background: "var(--accent)", color: "var(--alt)" }}
-      >
-        {"///"}
-      </div>
+    <article className="cell c-3 now-item">
+      <time dateTime={item.created_at}>{formatShortDate(item.created_at)}</time>
+      <h3>{item.title}</h3>
+      <p>{item.desc}</p>
       {isAuth && (
-        <div className="absolute top-2 right-2 flex items-center gap-2">
+        <div className="item-actions">
           <button
             type="button"
+            className="btn o sm"
             aria-label={`Edit ${item.title}`}
-            className="tag cursor-pointer"
-            style={{ background: "var(--accent)", color: "var(--alt)" }}
             onClick={() => onEdit(item)}
           >
-            EDIT
+            Edit
           </button>
           <button
             type="button"
+            className="btn o sm"
             aria-label={`Delete ${item.title}`}
-            className="tag cursor-pointer"
-            style={{ background: "var(--ink)", color: "var(--bg)" }}
             onClick={() => onDelete(item)}
           >
-            ×
+            Delete
           </button>
         </div>
       )}
-      <h3 className="mb-2 text-2xl">{item.title}</h3>
-      <p className="mb-3 text-sm">{item.desc}</p>
-      <div className="text-[10px] uppercase opacity-70">
-        <Icon name="clock" className="mr-1 inline size-3" />
-        {formatDate(item.created_at)}
-      </div>
-    </div>
+    </article>
   );
 };

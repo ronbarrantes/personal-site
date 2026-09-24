@@ -41,7 +41,7 @@ export const useNowEditor = () => {
     const trimmedDescription = description.trim();
 
     if (!trimmedTitle || !trimmedDescription) {
-      toast.error("TITLE AND DESCRIPTION ARE REQUIRED");
+      toast.error("Add a title and a description.");
       return;
     }
 
@@ -53,7 +53,7 @@ export const useNowEditor = () => {
         },
         {
           onSuccess: resetNowForm,
-          onError: () => toast.error("FAILED TO SAVE"),
+          onError: () => toast.error("Couldn't save the update."),
         }
       );
       return;
@@ -63,7 +63,7 @@ export const useNowEditor = () => {
       { body: { title: trimmedTitle, desc: trimmedDescription } },
       {
         onSuccess: resetNowForm,
-        onError: () => toast.error("FAILED TO POST"),
+        onError: () => toast.error("Couldn't post the update."),
       }
     );
   };
@@ -79,7 +79,7 @@ export const useNowEditor = () => {
     if (!window.confirm(`Delete "${item.title}"?`)) return;
 
     api.now.delete.mutate(item.id, {
-      onError: () => toast.error("FAILED TO DELETE"),
+      onError: () => toast.error("Couldn't delete the update."),
     });
   };
 

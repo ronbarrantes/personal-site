@@ -35,3 +35,41 @@ export function formatDate(isoDate: string): string {
 
   return `${date.getFullYear()}/${pad(date.getMonth() + 1)}/${pad(date.getDate())}`;
 }
+
+/**
+ * Formats a date as "Jun 2, 2026". Accepts "YYYY-MM-DD" or a full ISO string.
+ * Uses UTC so server and client render the same text.
+ */
+export function formatShortDate(value: string): string {
+  const date = /^\d{4}-\d{2}-\d{2}$/.test(value)
+    ? new Date(`${value}T12:00:00Z`)
+    : new Date(value);
+
+  if (Number.isNaN(date.getTime())) return value;
+
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
+/** "7/2023" → "Jul 2023" */
+export function formatMonthYear(monthYear: string): string {
+  const [month, year] = monthYear.split("/");
+  if (!month || !year) return monthYear;
+
+  return new Date(Date.UTC(Number(year), Number(month) - 1, 1)).toLocaleDateString(
+    "en-US",
+    { month: "short", year: "numeric", timeZone: "UTC" }
+  );
+}
+
+/** "7/2023" → "2023-07" (for <time dateTime>) */
+export function toMonthDateTime(monthYear: string): string | undefined {
+  const [month, year] = monthYear.split("/");
+  if (!month || !year) return undefined;
+
+  return `${year}-${month.padStart(2, "0")}`;
+}

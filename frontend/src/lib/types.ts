@@ -30,6 +30,12 @@ export interface About extends SectionText {
 
 export interface PortfolioItem {
   name: string;
+  /** One-line summary shown on the project card. */
+  summary?: string;
+  /** Short label, e.g. "SaaS" or "For family". */
+  category?: string;
+  /** e.g. "Live" or "In progress". */
+  status?: string;
   description: string[];
   dateAdded?: string;
   github?: string;
@@ -57,9 +63,21 @@ export interface Skill {
 export interface WorkExperience {
   employer: string;
   jobTitle: string;
+  /** One-line summary shown above the details list. */
+  summary?: string;
   startDate: string;
   endDate?: string;
   description: string[];
   url?: string;
   tools: IconsLisType[];
+}
+
+export interface Service {
+  title: string;
+  body: string;
+}
+
+export interface SectionCopy {
+  title: string;
+  sub: string;
 }
