@@ -262,19 +262,7 @@ export const portfolioItems: PortfolioItem[] = [
       "git",
     ],
   },
-  {
-    name: "Pattern Game",
-    category: "Hardware",
-    status: "In progress",
-    summary:
-      "A Simon-says style memory game I'm building on an ATtiny85 microcontroller in C. It's how I'm learning electronics and embedded C, one part at a time: buttons, LEDs, sound, and timers.",
-    github: "https://github.com/ronbarrantes/pattern-game",
-    description: [
-      "A battery-powered pattern game built on an ATtiny85, written in C and flashed through an Arduino.",
-      "I'm building it to learn embedded C and electronics well enough to explain and debug each part myself.",
-    ],
-    tools: ["c", "arduino", "github", "git"],
-  },
+  
   {
     name: "QA Workflow Extensions",
     category: "Internal tools",
@@ -313,31 +301,46 @@ export const portfolioItems: PortfolioItem[] = [
       "git",
     ],
   },
-  {
-    name: "Matching game",
-    category: "For my kid",
-    status: "Live",
+
+{
+    name: "Pattern Game",
+    category: "Hardware",
+    status: "In progress",
     summary:
-      "A simple matching game I made for my 4-year-old son. He really enjoys playing it.",
-    github: "https://github.com/ronbarrantes/guessing-game",
-    link: {
-      href: "https://match.ronb.co/",
-      label: "Matching game",
-    },
+      "A Simon-says style memory game I'm building on an ATtiny85 microcontroller in C. It's how I'm learning electronics and embedded C, one part at a time: buttons, LEDs, sound, and timers.",
+    github: "https://github.com/ronbarrantes/pattern-game",
     description: [
-      "This is a simple matching game that I made for my 4 year old son. He really enjoys playing it",
-      "It is built with Vite's React, TypeScript, and TailwindCSS. It is hosted on Vercel.",
+      "A battery-powered pattern game built on an ATtiny85, written in C and flashed through an Arduino.",
+      "I'm building it to learn embedded C and electronics well enough to explain and debug each part myself.",
     ],
-    tools: [
-      "react",
-      "typescript",
-      "tailwind",
-      "vite",
-      "vercel",
-      "github",
-      "git",
-    ],
+    tools: ["c", "arduino", "github", "git"],
   },
+
+  // {
+  //   name: "Matching game",
+  //   category: "For my kid",
+  //   status: "Live",
+  //   summary:
+  //     "A simple matching game I made for my 4-year-old son. He really enjoys playing it.",
+  //   github: "https://github.com/ronbarrantes/guessing-game",
+  //   link: {
+  //     href: "https://match.ronb.co/",
+  //     label: "Matching game",
+  //   },
+  //   description: [
+  //     "This is a simple matching game that I made for my 4 year old son. He really enjoys playing it",
+  //     "It is built with Vite's React, TypeScript, and TailwindCSS. It is hosted on Vercel.",
+  //   ],
+  //   tools: [
+  //     "react",
+  //     "typescript",
+  //     "tailwind",
+  //     "vite",
+  //     "vercel",
+  //     "github",
+  //     "git",
+  //   ],
+  // },
 ];
 
 export const mediaLinks: SocialLink[] = [
