@@ -22,7 +22,6 @@ export const MainPagePortfolioSection = () => {
   return (
     <section className="sheet" id="projects" aria-labelledby="projects-h">
       <div className="cell c-4 label lav">
-        <span className="n">04</span>
         <h2 id="projects-h">{sections.projects.title}</h2>
         <p>{sections.projects.sub}</p>
       </div>

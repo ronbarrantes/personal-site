@@ -5,7 +5,6 @@ export const MainPageWorkSection = () => {
   return (
     <section className="sheet" id="work" aria-labelledby="work-h">
       <div className="cell c-3 label inv">
-        <span className="n">03</span>
         <h2 id="work-h">{sections.work.title}</h2>
         <p>{sections.work.sub}</p>
       </div>

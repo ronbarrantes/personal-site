@@ -55,7 +55,6 @@ export const MainPageNowSection = ({
         className="cell c-3 label lav now-label"
         style={{ "--now-rows": rows } as CSSProperties}
       >
-        <span className="n">01</span>
         <h2 id="now-h">{sections.now.title}</h2>
         <p>{sections.now.sub}</p>
         {isAuth && (
