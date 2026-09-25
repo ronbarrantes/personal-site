@@ -43,6 +43,7 @@ export default async function RootLayout({
         .filter(Boolean)
         .join(" ")}
       style={initialResolvedTheme ? { colorScheme: initialResolvedTheme } : undefined}
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <body>
