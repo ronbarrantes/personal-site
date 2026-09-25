@@ -16,7 +16,6 @@ export const MainPageWritingSection = ({
   return (
     <section className="sheet" id="writing" aria-labelledby="writing-h">
       <div className="cell c-3 label">
-        <span className="n">05</span>
         <h2 id="writing-h">{sections.writing.title}</h2>
         <p>{sections.writing.sub}</p>
       </div>
